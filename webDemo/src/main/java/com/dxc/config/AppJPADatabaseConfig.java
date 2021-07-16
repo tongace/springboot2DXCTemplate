@@ -65,12 +65,12 @@ public class AppJPADatabaseConfig {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(getJPADataSource());
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setShowSql(Boolean.valueOf(jpaShowSql).booleanValue());
+		vendorAdapter.setShowSql(Boolean.parseBoolean(jpaShowSql));
 		vendorAdapter.setDatabase(Database.valueOf(jpaDatabase));
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
 		em.setPersistenceUnitName("st3main");
-		em.setPackagesToScan(new String[] { "com.dxc.application.model", "th.co.toyota.st3.api.model" });
+		em.setPackagesToScan("com.dxc.application.model", "th.co.toyota.st3.api.model");
 		return em;
 	}
 

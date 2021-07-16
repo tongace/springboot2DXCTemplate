@@ -61,12 +61,12 @@ public class BFWJPADatabaseConfig {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(getBFWJPADataSource());
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setShowSql(Boolean.valueOf(jpaShowSql).booleanValue());
+		vendorAdapter.setShowSql(Boolean.parseBoolean(jpaShowSql));
 		vendorAdapter.setDatabase(Database.valueOf(jpaDatabase));
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
 		em.setPersistenceUnitName("st3main_bfw");
-		em.setPackagesToScan(new String[] {"th.co.toyota.st3.api.model" });
+		em.setPackagesToScan("th.co.toyota.st3.api.model");
 		return em;
 	}
 

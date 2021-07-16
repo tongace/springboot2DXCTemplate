@@ -43,7 +43,7 @@ public final class MessageUtil {
 				if (text[0].equals("ORA-04063")) {
 					return messageSource.getMessage(MessagesConstants.DATABASE_ERROR, new String[] { error }, RequestContextUtils.getLocale(request));
 				} else if (text[0].equals("ORA-00001")) {
-					return messageSource.getMessage(MessagesConstants.DATA_DUPPLICATED, new String[] {}, RequestContextUtils.getLocale(request));
+					return messageSource.getMessage(MessagesConstants.DATA_DUPLICATED, new String[] {}, RequestContextUtils.getLocale(request));
 				} else if (text[0].equals("IO Error") || text[0].indexOf("Could not get Connection") > -1) {
 					return messageSource.getMessage(MessagesConstants.DATABASE_NOT_CONNECT, new String[] {}, RequestContextUtils.getLocale(request));
 				}

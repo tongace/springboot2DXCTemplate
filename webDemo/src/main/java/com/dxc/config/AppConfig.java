@@ -25,10 +25,9 @@ public class AppConfig {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasenames(new String[] { 
-				"classpath:MessageResources", // For application messages
+		messageSource.setBasenames("classpath:MessageResources", // For application messages
 				"classpath:LabelResources" // For screen labels
-				});
+		);
 		messageSource.setDefaultEncoding("UTF-8");
 
 		return messageSource;
