@@ -23,10 +23,14 @@ import java.util.List;
 @RequestMapping("/gimmaster")
 public class GIMMasterController {
 
+	private GimMasterService gimService;
+	private MessageSource messageSource;
+
 	@Autowired
-	GimMasterService gimService;
-	@Autowired
-	MessageSource messageSource;
+	public GIMMasterController(GimMasterService gimService,MessageSource messageSource){
+		this.gimService=gimService;
+		this.messageSource=messageSource;
+	}
 
 	@GetMapping()
 	public String initialHTML(Model model) {
@@ -84,7 +88,7 @@ public class GIMMasterController {
 	
 	@DeleteMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody RestJsonData<String> deleteGimDetail(@RequestBody GimDetail[] input, HttpServletRequest request) {
-		RestJsonData<String> returnData = new RestJsonData<String>();
+		RestJsonData<String> returnData = new RestJsonData<>();
 		int deleteRowCount = gimService.deleteGimDetail(input);
 		returnData.setRowCount(new BigDecimal(deleteRowCount));
 		return returnData;

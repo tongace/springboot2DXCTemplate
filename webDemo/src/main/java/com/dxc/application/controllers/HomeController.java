@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-	
-	@Autowired
-	GimMasterService homeService;
 
 	@GetMapping("/home")
 	public String home(HttpServletRequest request) {

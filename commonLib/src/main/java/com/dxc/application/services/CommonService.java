@@ -11,9 +11,13 @@ import java.util.Date;
 import java.util.List;
 @Service
 public class CommonService {
-	
+
+	private CommonMapper commonMapper;
+
 	@Autowired
-	CommonMapper commonMapper;
+	public CommonService(CommonMapper commonMapper){
+		this.commonMapper=commonMapper;
+	}
 
 	@Transactional(value="mybastistx",readOnly = true)
 	public Date getDBServerTime(){

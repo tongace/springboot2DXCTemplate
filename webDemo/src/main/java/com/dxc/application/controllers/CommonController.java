@@ -17,8 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/common")
 public class CommonController {
+	private CommonService commonService;
+
 	@Autowired
-	CommonService commonService;
+	public CommonController(CommonService commonService){
+		this.commonService=commonService;
+	}
 	
 	@GetMapping("/dbservertime")
 	@ResponseBody

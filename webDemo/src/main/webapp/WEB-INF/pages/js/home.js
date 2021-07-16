@@ -1,5 +1,5 @@
 //<![CDATA[
 $(document).ready(function() {
-	var a = '[[#{welcome.message}]]';
+	let a = '[[#{welcome.message}]]';
 });
 //]]>

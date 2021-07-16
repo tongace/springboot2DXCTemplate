@@ -1,5 +1,5 @@
 //<![CDATA[
-var WDXC0001 = (function ($) {
+let WDXC0001 = (function ($) {
     return {
         getGimTypeCombo: function () {
             return $.ajax({
@@ -32,7 +32,7 @@ var WDXC0001 = (function ($) {
                     });
                     // set save message
                     if (responseData.rowCount > 0) {
-                        var modal = DXCUtils.alertModal('[[#{MSTD0101AINF}]]', null);
+                        let modal = DXCUtils.alertModal('[[#{MSTD0101AINF}]]', null);
                         modal.modal({
                             selector: {
                                 close: '#modalButtonOK'
@@ -40,7 +40,7 @@ var WDXC0001 = (function ($) {
                         });
                         modal.modal('show');
                     } else {
-                        var modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                        let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
                         modal.modal({
                             selector: {
                                 close: '#modalButtonOK'
@@ -48,7 +48,7 @@ var WDXC0001 = (function ($) {
                         });
                         modal.modal('show');
                     }
-                    var formData = $('#gimHeaderForm').form('get values');
+                    let formData = $('#gimHeaderForm').form('get values');
                     WDXC0001.populateGIMHeaderDatatable(formData);
                     // reload gim type
                     $.ajax({
@@ -57,7 +57,7 @@ var WDXC0001 = (function ($) {
                         "method": "GET",
                         "cache": false
                     }).done(function (responseData, textStatus, jqXHR) {
-                        var formData = $('#gimHeaderForm').form('get values');
+                        let formData = $('#gimHeaderForm').form('get values');
                         DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), responseData, null);
                         $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
                             forceSelection: false
@@ -65,7 +65,7 @@ var WDXC0001 = (function ($) {
                         $('#gimHeaderForm [name="searchGimTypes"]').dropdown('set exactly', formData.searchGimTypes);
                     });
                 } else {
-                    var modal = DXCUtils.alertModal(responseData.message, null);
+                    let modal = DXCUtils.alertModal(responseData.message, null);
                     modal.modal({
                         selector: {
                             close: '#modalButtonOK'
@@ -86,13 +86,13 @@ var WDXC0001 = (function ($) {
                 "cache": false
             }).done(function (responseData, textStatus, jqXHR) {
                 console.log(responseData);
-                if ($.isEmptyObject(responseData.datas) == false) {
+                if ($.isEmptyObject(responseData.data) == false) {
                     $("#WDXC0001Edit").show();
                 } else {
                     $("#WDXC0001Edit").hide();
                 }
                 if (S(responseData.message).isEmpty() == false) {
-                    var modal = DXCUtils.alertModal(responseData.message, null);
+                    let modal = DXCUtils.alertModal(responseData.message, null);
                     modal.modal({
                         selector: {
                             close: '#modalButtonOK'
@@ -104,8 +104,8 @@ var WDXC0001 = (function ($) {
                     $('#searchResultSection').show();
                 }
                 // datatable
-                var gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
-                    "data": responseData.datas,
+                let gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
+                    "data": responseData.data,
                     "destroy": true,
                     "deferRender": true,
                     "responsive": true,
@@ -182,7 +182,7 @@ var WDXC0001 = (function ($) {
         gimTypeSelect: function (obj) {
             // set select class
             $(obj).addClass("selected");
-            var gimHeaderDataTable = $('#tableGimTypeHeaderResult').DataTable();
+            let gimHeaderDataTable = $('#tableGimTypeHeaderResult').DataTable();
             $.each(gimHeaderDataTable.rows().nodes(), function (indexInArray, valueOfElement) {
                 if ($(valueOfElement).find("a").hasClass("selected")) {
                     $('#selectedGimHeaderDiv').text(JSON.stringify(gimHeaderDataTable.row(valueOfElement).data()));
@@ -192,7 +192,7 @@ var WDXC0001 = (function ($) {
             $('#gimHeaderSearchSection').fadeOut(600, function () {
                 $('#gimDetailSection').fadeIn(600);
             });
-            var gimDetailTable = $("#tableGimDetailResult").DataTable();
+            let gimDetailTable = $("#tableGimDetailResult").DataTable();
             gimDetailTable.state.clear();
             gimDetailTable.destroy();
             WDXC0001.searchGimDetail();
@@ -200,7 +200,7 @@ var WDXC0001 = (function ($) {
             return false;
         },
         setGimDetailFormLabel: function () {
-            var selectedGimHeader = JSON.parse($('#selectedGimHeaderDiv').text());
+            let selectedGimHeader = JSON.parse($('#selectedGimHeaderDiv').text());
             // assign Gim Code,Field1,2,3 label
             $('#detailGimCodeLabel').text('[[#{BX0.WDXC0001.Label.Code}]]' + ' (' + selectedGimHeader.cdLength + ')');
             $('#detailField1Label').text(selectedGimHeader.field1Label);
@@ -241,8 +241,8 @@ var WDXC0001 = (function ($) {
         },
         populateGIMDetailDatatable: function (saveMessage) {
             DXCUtils.showLoading();
-            var gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
-            var dataForSubmit = {};
+            let gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
+            let dataForSubmit = {};
             dataForSubmit.gimType = gimHeaderObj.gimType;
             $.ajax({
                 "async": true,
@@ -252,7 +252,7 @@ var WDXC0001 = (function ($) {
                 "data": JSON.stringify(dataForSubmit),
                 "cache": false
             }).done(function (responseData, textStatus, jqXHR) {
-                if ($.isEmptyObject(responseData.datas) == false) {
+                if ($.isEmptyObject(responseData.data) == false) {
                     $('#WDXC0001EditDetail').show();
                     $('#WDXC0001DeleteDetail').show();
                 } else {
@@ -260,8 +260,8 @@ var WDXC0001 = (function ($) {
                     $('#WDXC0001DeleteDetail').hide();
                 }
                 // datatable
-                var gimDetailTable = $("#tableGimDetailResult").DataTable({
-                    "data": responseData.datas,
+                let gimDetailTable = $("#tableGimDetailResult").DataTable({
+                    "data": responseData.data,
                     "destroy": true,
                     "deferRender": true,
                     "responsive": true,
@@ -333,7 +333,7 @@ var WDXC0001 = (function ($) {
                             "className": "dt-body-center"
                         },
                         {
-                            "data": "displayModifiedBy",
+                            "data": "modifiedBy",
                             "orderable": true
                         },
                         {
@@ -364,7 +364,7 @@ var WDXC0001 = (function ($) {
                     });
                     // set save message
                     if (responseData.rowCount > 0) {
-                        var modal = DXCUtils.alertModal('[[#{MSTD0101AINF}]]', null);
+                        let modal = DXCUtils.alertModal('[[#{MSTD0101AINF}]]', null);
                         modal.modal({
                             selector: {
                                 close: '#modalButtonOK'
@@ -372,7 +372,7 @@ var WDXC0001 = (function ($) {
                         });
                         modal.modal('show');
                     } else {
-                        var modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                        let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
                         modal.modal({
                             selector: {
                                 close: '#modalButtonOK'
@@ -382,7 +382,7 @@ var WDXC0001 = (function ($) {
                     }
                     WDXC0001.populateGIMDetailDatatable(true);
                 } else {
-                    var modal = DXCUtils.alertModal(responseData.message, null);
+                    let modal = DXCUtils.alertModal(responseData.message, null);
                     modal.modal({
                         selector: {
                             close: '#modalButtonOK'
@@ -393,11 +393,11 @@ var WDXC0001 = (function ($) {
             });
         },
         clearHeaderCheckBox: function () {
-            var gimHeaderTable = $("#tableGimTypeHeaderResult").DataTable();
+            let gimHeaderTable = $("#tableGimTypeHeaderResult").DataTable();
             gimHeaderTable.$('[name="chkGimHeader"]').prop('checked', false);
         },
         clearDetailCheckBox: function () {
-            var gimHeaderTable = $("#tableGimDetailResult").DataTable();
+            let gimHeaderTable = $("#tableGimDetailResult").DataTable();
             gimHeaderTable.$('[name="chkGimDetail"]').prop('checked', false);
         },
     }
@@ -430,22 +430,22 @@ $(document).ready(function () {
         });
     // end combo
     // button
-    var WDXC0001SearchClick;
+    let WDXC0001SearchClick;
     $('#WDXC0001Search').on('click', _.debounce(function (event) {
-        var gimheaderTable = $("#tableGimTypeHeaderResult").DataTable();
+        let gimheaderTable = $("#tableGimTypeHeaderResult").DataTable();
         gimheaderTable.state.clear();
         gimheaderTable.destroy();
         if ($('#gimHeaderForm').form('is valid')) {
-            var formData = $('#gimHeaderForm').form('get values');
+            let formData = $('#gimHeaderForm').form('get values');
             WDXC0001.populateGIMHeaderDatatable(formData);
         }
 
         return false;
     }, 300, true));
-    var WDXC0001SaveClick;
+    let WDXC0001SaveClick;
     $('#WDXC0001Save').on('click', _.debounce(function (event) {
         event.preventDefault();
-        var modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null);
+        let modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null);
         modal.modal({
             closable: false,
             onDeny: function () {
@@ -453,17 +453,17 @@ $(document).ready(function () {
             },
             onApprove: function () {
                 if ($('#editGimHeaderForm').form('is valid')) {
-                    var formData = $('#editGimHeaderForm').form('get values');
+                    let formData = $('#editGimHeaderForm').form('get values');
                     WDXC0001.saveGimHeaderData(formData);
                 }
             }
         }).modal('show');
 
     }, 300, true));
-    var WDXC0001CancelClick;
+    let WDXC0001CancelClick;
     $('#WDXC0001Cancel').on('click', _.debounce(function (event) {
         event.preventDefault();
-        var modal = DXCUtils.comfirmModal('[[#{MBX0000MACFM}]]', null);
+        let modal = DXCUtils.comfirmModal('[[#{MBX0000MACFM}]]', null);
         modal.modal({
             closable: false,
             onDeny: function () {
@@ -477,7 +477,7 @@ $(document).ready(function () {
             }
         }).modal('show');
     }, 300, true));
-    var WDXC0001AddClick;
+    let WDXC0001AddClick;
     $('#WDXC0001Add').on('click', _.debounce(function (event) {
         event.preventDefault();
         $('#gimHeaderSearchSection').fadeOut(600, function () {
@@ -496,15 +496,15 @@ $(document).ready(function () {
 
         return false;
     }, 300, true));
-    var WDXC0001EditClick;
+    let WDXC0001EditClick;
     $('#WDXC0001Edit').on('click', _.debounce(function (event) {
         event.preventDefault();
         // check only one GIM Header data row to be edited
-        var gimHeaderTable = $('#tableGimTypeHeaderResult').DataTable();
-        var countChecked = gimHeaderTable.rows().nodes().to$().find(':checked[name="chkGimHeader"]').length;
+        let gimHeaderTable = $('#tableGimTypeHeaderResult').DataTable();
+        let countChecked = gimHeaderTable.rows().nodes().to$().find(':checked[name="chkGimHeader"]').length;
 
         if (countChecked != 1) {
-            var modal = DXCUtils.alertModal('[[#{MSTD1017AERR}]]', null);
+            let modal = DXCUtils.alertModal('[[#{MSTD1017AERR}]]', null);
             modal.modal({
                 selector: {
                     close: '#modalButtonOK'
@@ -512,7 +512,7 @@ $(document).ready(function () {
             });
             modal.modal('show');
         } else {
-            var editHeaderDataSelection = {};
+            let editHeaderDataSelection = {};
             $.each(gimHeaderTable.rows().nodes(), function (index, value) {
                 if ($(value).find('[name="chkGimHeader"]').prop('checked') == true) {
                     editHeaderDataSelection = gimHeaderTable.row(value).data();
@@ -531,11 +531,11 @@ $(document).ready(function () {
 
         return false;
     }, 300, true));
-    var WDXC0001ClearClick;
+    let WDXC0001ClearClick;
     $('#WDXC0001Clear').on('click', _.debounce(function (event) {
         event.preventDefault();
         $('#gimHeaderForm').form('reset');
-        var datatable = $("#tableGimTypeHeaderResult").DataTable();
+        let datatable = $("#tableGimTypeHeaderResult").DataTable();
         datatable.clear().draw();
         $("#WDXC0001Edit").hide();
         $("#searchResultSection").hide();
@@ -655,20 +655,20 @@ $(document).ready(function () {
 
     //////////// ##################### Detail #################################
     // ############## Button #########################
-    var WDXC0001BackClick;
+    let WDXC0001BackClick;
     $('#WDXC0001Back').on('click', _.debounce(function (event) {
         event.preventDefault();
         $('#gimDetailSection').fadeOut(600, function () {
             $('#gimHeaderSearchSection').fadeIn(600);
-            var formData = $('#gimHeaderForm').form('get values');
+            let formData = $('#gimHeaderForm').form('get values');
             WDXC0001.populateGIMHeaderDatatable(formData);
 
         });
     }, 300, true));
-    var WDXC0001AddDetailClick;
+    let WDXC0001AddDetailClick;
     $('#WDXC0001AddDetail').on('click', _.debounce(function (event) {
         event.preventDefault();
-        var selectedGimHeader = JSON.parse($('#selectedGimHeaderDiv').text());
+        let selectedGimHeader = JSON.parse($('#selectedGimHeaderDiv').text());
         WDXC0001.setGimDetailFormLabel();
         // reset
         $('#editGimDetailForm').form('reset');
@@ -683,14 +683,14 @@ $(document).ready(function () {
             $('#gimDetailEditSection').fadeIn(600);
         });
     }, 300, true));
-    var WDXC0001EditDetailClick;
+    let WDXC0001EditDetailClick;
     $('#WDXC0001EditDetail').on('click', _.debounce(function (event) {
         event.preventDefault();
-        var gimDetailDatatable = $('#tableGimDetailResult').DataTable();
-        var countChecked = gimDetailDatatable.rows().nodes().to$().find(':checked[name="chkGimDetail"]').length;
+        let gimDetailDatatable = $('#tableGimDetailResult').DataTable();
+        let countChecked = gimDetailDatatable.rows().nodes().to$().find(':checked[name="chkGimDetail"]').length;
 
         if (countChecked != 1) {
-            var modal = DXCUtils.alertModal('[[#{MSTD1017AERR}]]', null);
+            let modal = DXCUtils.alertModal('[[#{MSTD1017AERR}]]', null);
             modal.modal({
                 selector: {
                     close: '#modalButtonOK'
@@ -699,7 +699,7 @@ $(document).ready(function () {
             modal.modal('show');
         } else {
             WDXC0001.setGimDetailFormLabel();
-            var editGimDetailObj = {};
+            let editGimDetailObj = {};
             $.each(gimDetailDatatable.rows().nodes(), function (index, node) {
                 if ($(node).find('[name="chkGimDetail"]').prop('checked') == true) {
                     editGimDetailObj = gimDetailDatatable.row(node).data();
@@ -720,13 +720,13 @@ $(document).ready(function () {
 
         return false;
     }, 300, true));
-    var WDXC0001DeleteDetailClick;
+    let WDXC0001DeleteDetailClick;
     $('#WDXC0001DeleteDetail').on('click', _.debounce(function (event) {
         event.preventDefault();
-        var gimDetailDatatable = $('#tableGimDetailResult').DataTable();
-        var countChecked = gimDetailDatatable.rows().nodes().to$().find(':checked[name="chkGimDetail"]').length;
+        let gimDetailDatatable = $('#tableGimDetailResult').DataTable();
+        let countChecked = gimDetailDatatable.rows().nodes().to$().find(':checked[name="chkGimDetail"]').length;
         if (countChecked == 0) {
-            var modal = DXCUtils.alertModal('[[#{MBX00006AERR}]]', null);
+            let modal = DXCUtils.alertModal('[[#{MBX00006AERR}]]', null);
             modal.modal({
                 selector: {
                     close: '#modalButtonOK'
@@ -734,14 +734,14 @@ $(document).ready(function () {
             });
             modal.modal('show');
         } else {
-            var modal = DXCUtils.comfirmModal('[[#{MBX00001ACFM}]]', null);
+            let modal = DXCUtils.comfirmModal('[[#{MBX00001ACFM}]]', null);
             modal.modal({
                 closable: false,
                 onDeny: function () {
                     return true;
                 },
                 onApprove: function () {
-                    var deleteGimDetailArr = [];
+                    let deleteGimDetailArr = [];
                     $.each(gimDetailDatatable.rows().nodes(), function (index, node) {
                         if ($(node).find('[name="chkGimDetail"]').prop('checked') == true) {
                             deleteGimDetailArr.push(gimDetailDatatable.row(node).data());
@@ -759,7 +759,7 @@ $(document).ready(function () {
                         if (responseData.message == null || responseData.message == '') {
                             // set delete message
                             if (responseData.rowCount > 0) {
-                                var modal = DXCUtils.alertModal('[[#{MSTD0090AINF}]]', null);
+                                let modal = DXCUtils.alertModal('[[#{MSTD0090AINF}]]', null);
                                 modal.modal({
                                     selector: {
                                         close: '#modalButtonOK'
@@ -767,7 +767,7 @@ $(document).ready(function () {
                                 });
                                 modal.modal('show');
                             } else {
-                                var modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                                let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
                                 modal.modal({
                                     selector: {
                                         close: '#modalButtonOK'
@@ -777,7 +777,7 @@ $(document).ready(function () {
                             }
                             WDXC0001.populateGIMDetailDatatable(true);
                         } else {
-                            var modal = DXCUtils.alertModal(responseData.message, null);
+                            let modal = DXCUtils.alertModal(responseData.message, null);
                             modal.modal({
                                 selector: {
                                     close: '#modalButtonOK'
@@ -792,10 +792,10 @@ $(document).ready(function () {
 
         return false;
     }, 300, true));
-    var WDXC0001DetailSaveClick;
+    let WDXC0001DetailSaveClick;
     $('#WDXC0001DetailSave').on('click', _.debounce(function (event) {
         event.preventDefault();
-        var modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null);
+        let modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null);
         modal.modal({
             closable: false,
             onDeny: function () {
@@ -803,17 +803,17 @@ $(document).ready(function () {
             },
             onApprove: function () {
                 if ($('#editGimDetailForm').form('is valid')) {
-                    var formData = $('#editGimDetailForm').form('get values');
+                    let formData = $('#editGimDetailForm').form('get values');
                     WDXC0001.saveGimDetail(formData);
 
                 }
             }
         }).modal('show');
     }, 300, true));
-    var WDXC0001DetailCancelClick;
+    let WDXC0001DetailCancelClick;
     $('#WDXC0001DetailCancel').on('click', _.debounce(function (event) {
         event.preventDefault();
-        var modal = DXCUtils.comfirmModal('[[#{MBX0000MACFM}]]', null);
+        let modal = DXCUtils.comfirmModal('[[#{MBX0000MACFM}]]', null);
         modal.modal({
             closable: false,
             onDeny: function () {
@@ -830,19 +830,19 @@ $(document).ready(function () {
     // ############## End Button #########################
     // Detail validation
     $.fn.form.settings.rules.validationGimCodeLenth = function (value) {
-        var gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
+        let gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
         return value.length <= gimHeaderObj.cdLength;
     };
     $.fn.form.settings.rules.validationField1 = function (value) {
-        var gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
+        let gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
         return (gimHeaderObj.field1Label == 'Not Used' || (gimHeaderObj.field1Label != 'Not Used' && value != ''));
     };
     $.fn.form.settings.rules.validationField2 = function (value) {
-        var gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
+        let gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
         return (gimHeaderObj.field2Label == 'Not Used' || (gimHeaderObj.field2Label != 'Not Used' && value != ''));
     };
     $.fn.form.settings.rules.validationField3 = function (value) {
-        var gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
+        let gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
         return (gimHeaderObj.field3Label == 'Not Used' || (gimHeaderObj.field3Label != 'Not Used' && value != ''));
     };
     $('#editGimDetailForm').form({

@@ -14,9 +14,12 @@ import com.dxc.application.model.Combo;
 @RestController
 @RequestMapping("/combo")
 public class ComboController {
+	private CommonService commonService;
+
 	@Autowired
-	CommonService commonService;
-	
+	public ComboController(CommonService commonService){
+		this.commonService=commonService;
+	}
 	@GetMapping(value="/gimtypecombo",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<Combo> getGimTypeCombo() {
 		return commonService.getGimTypeCombo();
