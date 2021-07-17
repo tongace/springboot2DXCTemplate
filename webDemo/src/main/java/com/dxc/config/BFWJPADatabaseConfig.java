@@ -1,10 +1,6 @@
 package com.dxc.config;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +13,9 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan
@@ -72,7 +71,7 @@ public class BFWJPADatabaseConfig {
 
 	@Bean
 	@Qualifier("bfw")
-	public PlatformTransactionManager transactionManager() {
+	public PlatformTransactionManager bfwTransactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(getBFWEntityManagerFactory().getObject());
 		return transactionManager;

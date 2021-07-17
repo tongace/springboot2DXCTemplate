@@ -9,16 +9,16 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.dxc.application.controllers")
-public class ThymeleafConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+public class ThymeleafConfig implements ApplicationContextAware, WebMvcConfigurer {
 	private static final String UTF8 = "UTF-8";
 
 	@Autowired
@@ -90,7 +90,6 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
 		registry.addResourceHandler("/scripts/**").addResourceLocations("/WEB-INF/resources/scripts/");
 		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
-		super.addResourceHandlers(registry);
 	}
 	
 }
