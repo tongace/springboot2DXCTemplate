@@ -42,7 +42,7 @@ public class GIMMasterController {
 		return "js/gimmaster.js";
 	}
 
-	@PostMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody RestJsonData<List<GimHeader>> getGimHeader(@RequestBody GimHeader input, HttpServletRequest request) {
 		RestJsonData<List<GimHeader>> returnData = new RestJsonData<>();
 		List<GimHeader> gimList = gimService.getGimHeader(input);
@@ -53,7 +53,7 @@ public class GIMMasterController {
 		return returnData;
 	}
 
-	@PutMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PutMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody RestJsonData<String> saveGimHeader(@RequestBody GimHeader input, HttpServletRequest request) {
 		RestJsonData<String> returnData = new RestJsonData<>();
 		input.setCreatedBy("csamphao");
@@ -63,7 +63,7 @@ public class GIMMasterController {
 		return returnData;
 	}
 
-	@PostMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody RestJsonData<List<GimDetail>> getGimDetail(@RequestBody GimDetail input, HttpServletRequest request) {
 		RestJsonData<List<GimDetail>> returnData = new RestJsonData<>();
 		List<GimDetail> gimDetailList = gimService.getGimDetail(input);
@@ -75,7 +75,7 @@ public class GIMMasterController {
 	}
 
 	
-	@PutMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PutMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody RestJsonData<String> saveGimDetail(@RequestBody GimDetail input, HttpServletRequest request) {
 		RestJsonData<String> returnData = new RestJsonData<>();
 		input.setCreatedBy("csamphao");
@@ -86,7 +86,7 @@ public class GIMMasterController {
 	}
 
 	
-	@DeleteMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@DeleteMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody RestJsonData<String> deleteGimDetail(@RequestBody GimDetail[] input, HttpServletRequest request) {
 		RestJsonData<String> returnData = new RestJsonData<>();
 		int deleteRowCount = gimService.deleteGimDetail(input);
