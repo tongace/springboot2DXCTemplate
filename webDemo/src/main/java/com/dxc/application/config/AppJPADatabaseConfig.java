@@ -1,9 +1,13 @@
 package com.dxc.application.config;
 
+import com.dxc.application.properties.AppDataSourceProperties;
+import com.dxc.application.properties.JpaProperties;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -16,40 +20,32 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan
 @EnableTransactionManagement
-@PropertySource(value = { "classpath:data-access.properties" })
 public class AppJPADatabaseConfig {
-	@Value("${jdbc.driverClassName}")
-	private String jdbcDriverClassName;
-	@Value("${jdbc.url}")
-	private String jdbcURL;
-	@Value("${jdbc.username}")
-	private String jdbcUserName;
-	@Value("${jdbc.password}")
-	private String jdbcPassword;
-	@Value("${jpa.database}")
-	private String jpaDatabase;
-	@Value("${jpa.showSql}")
-	private String jpaShowSql;
-	@Value("${hibernate.dialect}")
-	private String hibernateDialect;
+	private AppDataSourceProperties appDataSourceProperties;
+	private JpaProperties jpaProperties;
+
+	@Autowired
+	public AppJPADatabaseConfig(AppDataSourceProperties appDataSourceProperties,JpaProperties jpaProperties){
+		this.appDataSourceProperties=appDataSourceProperties;
+		this.jpaProperties=jpaProperties;
+	}
 
 	@Bean
 	@Qualifier("jpaDataSource")
 	public DataSource getJPADataSource() {
 		BasicDataSource ds = new BasicDataSource();
-		ds.setDriverClassName(jdbcDriverClassName);
-		ds.setUrl(jdbcURL);
-		ds.setUsername(jdbcUserName);
-		ds.setPassword(jdbcPassword);
+		ds.setDriverClassName(appDataSourceProperties.getDriverClassName());
+		ds.setUrl(appDataSourceProperties.getUrl());
+		ds.setUsername(appDataSourceProperties.getUsername());
+		ds.setPassword(appDataSourceProperties.getPassword());
 		return ds;
 	}
 
 	private Properties additionalProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.dialect", hibernateDialect);
-		properties.setProperty("hibernate.show_sql", jpaShowSql);
+		properties.setProperty("hibernate.dialect", jpaProperties.getHibernateDialect());
+		properties.setProperty("hibernate.show_sql", jpaProperties.getShowSql());
 		return properties;
 	}
 	
@@ -60,8 +56,8 @@ public class AppJPADatabaseConfig {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(getJPADataSource());
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setShowSql(Boolean.parseBoolean(jpaShowSql));
-		vendorAdapter.setDatabase(Database.valueOf(jpaDatabase));
+		vendorAdapter.setShowSql(Boolean.parseBoolean(jpaProperties.getShowSql()));
+		vendorAdapter.setDatabase(Database.valueOf(jpaProperties.getDatabase()));
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
 		em.setPersistenceUnitName("st3main");

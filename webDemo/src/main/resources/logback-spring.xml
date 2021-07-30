@@ -20,12 +20,12 @@
                 <levelValue>[ignore]</levelValue>
             </fieldNames>
         </encoder>
-        <springProfile name="OFFLINE">
-            <encoder>
-                <pattern>%date | %5p | %logger.%M [%file:%line] | %msg%n</pattern>
-                <charset>utf8</charset>
-            </encoder>
-        </springProfile>
+<!--        <springProfile name="OFFLINE">-->
+<!--            <encoder>-->
+<!--                <pattern>%date | %5p | %logger.%M [%file:%line] | %msg%n</pattern>-->
+<!--                <charset>utf8</charset>-->
+<!--            </encoder>-->
+<!--        </springProfile>-->
     </appender>
     <appender name="APP" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
@@ -36,12 +36,12 @@
                 <levelValue>[ignore]</levelValue>
             </fieldNames>
         </encoder>
-        <springProfile name="OFFLINE">
-            <encoder>
-                <pattern>%date | %5p | %logger.%M [%file:%line] | %msg%n</pattern>
-                <charset>utf8</charset>
-            </encoder>
-        </springProfile>
+<!--        <springProfile name="OFFLINE">-->
+<!--            <encoder>-->
+<!--                <pattern>%date | %5p | %logger.%M [%file:%line] | %msg%n</pattern>-->
+<!--                <charset>utf8</charset>-->
+<!--            </encoder>-->
+<!--        </springProfile>-->
     </appender>
     <logger name="com.dxc.application" level="@log.level@" additivity="false">
         <appender-ref ref="APP"/>
