@@ -9,29 +9,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+
 @Service
 public class CommonService {
 
-	private CommonMapper commonMapper;
+    private CommonMapper commonMapper;
 
-	@Autowired
-	public CommonService(CommonMapper commonMapper){
-		this.commonMapper=commonMapper;
-	}
+    @Autowired
+    public CommonService(CommonMapper commonMapper) {
+        this.commonMapper = commonMapper;
+    }
 
-	@Transactional(value="mybastistx",readOnly = true)
-	public Date getDBServerTime(){
-		return commonMapper.getDBDateTime();
-	}
+    @Transactional(value = "mybastistx", readOnly = true)
+    public Date getDBServerTime() {
+        return commonMapper.getDBDateTime();
+    }
 
-	@Transactional(value="mybastistx",readOnly = true)
-	public List<Combo> getGimTypeCombo(){
-		return commonMapper.getGimTypeCombo();
-	}
+    @Transactional(value = "mybastistx", readOnly = true)
+    public List<Combo> getGimTypeCombo() {
+        return commonMapper.getGimTypeCombo();
+    }
 
-	@Transactional(value="mybastistx",readOnly = true)
-	public List<Combo> getActiveFlagCombo(){
-		return commonMapper.getActiveFlagCombo(AppConstants.ACTIVE_FLAG_ACTIVE);
-	}
+    @Transactional(value = "mybastistx", readOnly = true)
+    public List<Combo> getActiveFlagCombo() {
+        return commonMapper.getActiveFlagCombo(AppConstants.ACTIVE_FLAG_ACTIVE);
+    }
 
 }

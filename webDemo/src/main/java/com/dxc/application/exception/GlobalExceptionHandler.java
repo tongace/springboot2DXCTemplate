@@ -8,32 +8,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler {
+public final class GlobalExceptionHandler {
+    private MessageSource messageSource;
+
     @Autowired
-    MessageSource messageSource;
+    public GlobalExceptionHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @ExceptionHandler({ApplicationException.class})
-    public final RestJsonData<String> applicationExceptionHandler(HttpServletRequest request, ApplicationException ae){
-        log.warn(ae.getMessageCode(),ae);
+    @ResponseBody
+    public RestJsonData<String> applicationExceptionHandler(HttpServletRequest request, ApplicationException ae) {
+        log.warn("Well known Error with message code {}", ae.getMessageCode());
         RestJsonData<String> restJsonData = new RestJsonData<>();
         restJsonData.setMessage(MessageUtil.getErrorMessage(messageSource, ae, request));
         return restJsonData;
     }
+
     @ExceptionHandler({Exception.class})
-    public final  RestJsonData<String> exceptionHandler(HttpServletRequest request,Exception ex){
-        if(ex instanceof ApplicationException){
-            ApplicationException ae = (ApplicationException)ex;
-            log.warn(ae.getMessageCode(),ae);
+    @ResponseBody
+    public RestJsonData<String> exceptionHandler(HttpServletRequest request, Exception ex) {
+        if (ex instanceof ApplicationException) {
+            ApplicationException ae = (ApplicationException) ex;
+            log.warn("Well known Error with message code {}", ae.getMessageCode());
             RestJsonData<String> restJsonData = new RestJsonData<>();
             restJsonData.setMessage(MessageUtil.getErrorMessage(messageSource, ae, request));
             return restJsonData;
-        }else{
-            log.error(ex.getMessage(),ex);
+        } else {
+            log.error(ex.getMessage(), ex);
             RestJsonData<String> restJsonData = new RestJsonData<>();
             restJsonData.setMessage(MessageUtil.getErrorMessage(messageSource, ex, request));
             return restJsonData;

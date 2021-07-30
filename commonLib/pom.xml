@@ -4,18 +4,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.dxc.application</groupId>
+	<parent>
+		<artifactId>springboot2DXCTemplate</artifactId>
+		<groupId>com.dxc.application</groupId>
+		<version>1.0.0</version>
+	</parent>
+
 	<artifactId>commonLib</artifactId>
 	<version>1.0.0</version>
 
-	<name>commonLib</name>
-	<description>commonLib</description>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<spring.framework.version>5.3.9</spring.framework.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>

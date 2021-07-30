@@ -1,11 +1,11 @@
-package com.dxc.config;
+package com.dxc.application;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class WebConfig extends SpringBootServletInitializer {
+public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

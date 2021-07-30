@@ -1,4 +1,4 @@
-package com.dxc.config;
+package com.dxc.application.config;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
-
 import th.co.toyota.st3.api.download.CST30090ExcelGenerator;
 import th.co.toyota.st3.api.download.CST30091Downloader;
 import th.co.toyota.st3.api.report.CST30170JasperReportConnector;
@@ -19,8 +18,12 @@ import th.co.toyota.st3.api.util.CST32010DocNoGenerator;
 @Configuration
 @PropertySource({"classpath:demo-application.properties"})
 public class ToyotaStandardConfig {
-	@Autowired
+
     private ApplicationContext applicationContext;
+    @Autowired
+	public ToyotaStandardConfig(ApplicationContext applicationContext){
+        this.applicationContext=applicationContext;
+    }
 
     @Bean
     public CamelContext camelContext() {

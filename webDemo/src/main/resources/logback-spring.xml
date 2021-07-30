@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false">
+    <contextName>webDemo</contextName>
+    <!--   <appender name="APPLOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <!--        <prudent>true</prudent>-->
+    <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+    <!--            <fileNamePattern>-->
+    <!--                @log.path@/${CONTEXT_NAME}-%d{yyyy-MM-dd}.log-->
+    <!--            </fileNamePattern>-->
+    <!--            <maxHistory>10</maxHistory>-->
+    <!--        </rollingPolicy>-->
+    <!--       <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>-->
+    <!--    </appender>-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app-name":"springboot2DXCDemo", "category":"framework"}</customFields>
+            <fieldNames>
+                <timestamp>time</timestamp>
+                <version>[ignore]</version>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+        </encoder>
+        <springProfile name="OFFLINE">
+            <encoder>
+                <pattern>%date | %5p | %logger.%M [%file:%line] | %msg%n</pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </springProfile>
+    </appender>
+    <appender name="APP" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app-name":"springboot2DXCDemo", "category":"application"}</customFields>
+            <fieldNames>
+                <timestamp>time</timestamp>
+                <version>[ignore]</version>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+        </encoder>
+        <springProfile name="OFFLINE">
+            <encoder>
+                <pattern>%date | %5p | %logger.%M [%file:%line] | %msg%n</pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </springProfile>
+    </appender>
+    <logger name="com.dxc.application" level="@log.level@" additivity="false">
+        <appender-ref ref="APP"/>
+    </logger>
+    <logger name="com.dxc.application.mybatis" level="@log.mybatis.level@" additivity="false">
+        <appender-ref ref="APP"/>
+    </logger>
+
+    <root level="@root.log.level@">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

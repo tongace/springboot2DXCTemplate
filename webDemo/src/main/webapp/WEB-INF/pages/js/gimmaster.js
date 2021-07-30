@@ -252,9 +252,11 @@ let WDXC0001 = (function ($) {
                 "data": JSON.stringify(dataForSubmit),
                 "cache": false
             }).done(function (responseData, textStatus, jqXHR) {
+                console.log(responseData);
                 if ($.isEmptyObject(responseData.data) == false) {
                     $('#WDXC0001EditDetail').show();
                     $('#WDXC0001DeleteDetail').show();
+                    return false;
                 } else {
                     $('#WDXC0001EditDetail').hide();
                     $('#WDXC0001DeleteDetail').hide();

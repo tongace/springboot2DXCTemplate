@@ -14,11 +14,13 @@ import java.util.List;
 @Service
 public class GimMasterService {
 
-    private  GIMMasterMapper gimHeaderMapper;
+    private GIMMasterMapper gimHeaderMapper;
+
     @Autowired
-    GimMasterService(GIMMasterMapper gimHeaderMapper){
-        this.gimHeaderMapper=gimHeaderMapper;
+    GimMasterService(GIMMasterMapper gimHeaderMapper) {
+        this.gimHeaderMapper = gimHeaderMapper;
     }
+
     @Transactional(value = "mybastistx", readOnly = true)
     public List<GimHeader> getGimHeader(GimHeader criteria) {
         return gimHeaderMapper.findGimHeader(criteria);

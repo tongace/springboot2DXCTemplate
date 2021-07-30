@@ -17,17 +17,17 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/common")
 public class CommonController {
-	private CommonService commonService;
+    private CommonService commonService;
 
-	@Autowired
-	public CommonController(CommonService commonService){
-		this.commonService=commonService;
-	}
-	
-	@GetMapping("/dbservertime")
-	@ResponseBody
-	public Date home(HttpServletRequest request) {
-		log.info("DB Server Time request!!");
-		return commonService.getDBServerTime();
-	}
+    @Autowired
+    public CommonController(CommonService commonService) {
+        this.commonService = commonService;
+    }
+
+    @GetMapping("/dbservertime")
+    @ResponseBody
+    public Date home(HttpServletRequest request) {
+        log.info("DB Server Time request!!");
+        return commonService.getDBServerTime();
+    }
 }

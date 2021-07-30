@@ -3,11 +3,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>com.dxc.application</groupId>
+
+	<parent>
+		<artifactId>springboot2DXCTemplate</artifactId>
+		<groupId>com.dxc.application</groupId>
+		<version>1.0.0</version>
+	</parent>
+
 	<artifactId>configurationLib</artifactId>
 	<version>1.0.0</version>
-	<name>configurationLib</name>
 	
 	<dependencies>
 	</dependencies>

@@ -3,12 +3,12 @@ package com.dxc.application.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class DXCUtils {
-	private DXCUtils() {}
-	
+public class JsonUtil {
+	private JsonUtil() {}
+
 	private static final ObjectMapper OBJECT_MAPPER_SINGLETON = new ObjectMapper();
 
-	public static String toStringUsingJackson(final Object object) {
+	public static String toJsonString(final Object object) {
 		try {
 			return OBJECT_MAPPER_SINGLETON.writeValueAsString(object);
 		} catch (final JsonProcessingException e) {

@@ -14,18 +14,20 @@ import com.dxc.application.model.Combo;
 @RestController
 @RequestMapping("/combo")
 public class ComboController {
-	private CommonService commonService;
+    private CommonService commonService;
 
-	@Autowired
-	public ComboController(CommonService commonService){
-		this.commonService=commonService;
-	}
-	@GetMapping(value="/gimtypecombo",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Combo> getGimTypeCombo() {
-		return commonService.getGimTypeCombo();
-	}
-	@GetMapping(value="/activeflagcombo",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Combo> getActiveFlagCombo() {
-		return commonService.getActiveFlagCombo();
-	}
+    @Autowired
+    public ComboController(CommonService commonService) {
+        this.commonService = commonService;
+    }
+
+    @GetMapping(value = "/gimtypecombo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Combo> getGimTypeCombo() {
+        return commonService.getGimTypeCombo();
+    }
+
+    @GetMapping(value = "/activeflagcombo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Combo> getActiveFlagCombo() {
+        return commonService.getActiveFlagCombo();
+    }
 }

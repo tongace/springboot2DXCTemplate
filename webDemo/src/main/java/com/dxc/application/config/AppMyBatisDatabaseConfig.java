@@ -1,4 +1,4 @@
-package com.dxc.config;
+package com.dxc.application.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
