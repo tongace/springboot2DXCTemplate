@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
 
 @ControllerAdvice
-public class ApiLogging extends RequestBodyAdviceAdapter implements ResponseBodyAdvice {
-    private HttpServletRequest request;
-    private LogService logService;
+public class ApiLogging extends RequestBodyAdviceAdapter implements ResponseBodyAdvice<Object> {
+    private final HttpServletRequest request;
+    private final LogService logService;
 
     @Autowired
     public ApiLogging(HttpServletRequest request, LogService logService){
@@ -37,7 +37,7 @@ public class ApiLogging extends RequestBodyAdviceAdapter implements ResponseBody
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        logService.logResponse(request, serverHttpResponse, body);
+        logService.logResponse(request, body);
         return body;
     }
 

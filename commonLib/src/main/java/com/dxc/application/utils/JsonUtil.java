@@ -1,5 +1,6 @@
 package com.dxc.application.utils;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,6 +11,7 @@ public class JsonUtil {
 
 	public static String toJsonString(final Object object) {
 		try {
+            OBJECT_MAPPER_SINGLETON.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 			return OBJECT_MAPPER_SINGLETON.writeValueAsString(object);
 		} catch (final JsonProcessingException e) {
 			return String.valueOf(object);
