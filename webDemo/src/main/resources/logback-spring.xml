@@ -28,18 +28,18 @@
             <charset>utf8</charset>
         </encoder>
     </appender>
-    <appender name="APP" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="APP_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%date|%thread|%level|%logger.%M [%file:%line]|%msg%n</pattern>
             <charset>utf8</charset>
         </encoder>
     </appender>
     <logger name="com.dxc.application" level="@log.level@" additivity="false">
-        <appender-ref ref="APP"/>
+        <appender-ref ref="APP_CONSOLE"/>
         <appender-ref ref="APPLOGFILE"/>
     </logger>
     <logger name="com.dxc.application.mybatis" level="@log.mybatis.level@" additivity="false">
-        <appender-ref ref="APP"/>
+        <appender-ref ref="APP_CONSOLE"/>
         <appender-ref ref="APPLOGFILE"/>
     </logger>
     <root level="@root.log.level@">
