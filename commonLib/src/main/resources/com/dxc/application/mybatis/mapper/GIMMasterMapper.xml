@@ -73,9 +73,9 @@
                 #{field3Label},
                 #{activeFlag},
                 #{createdBy},
-                SYSDATE,
+                NOW(),
                 #{modifiedBy},
-                SYSDATE)
+                NOW())
     </insert>
     <update id="updateGimHeader" parameterType="com.dxc.application.model.GimHeader">
         UPDATE TB_M_GIM_H
@@ -86,7 +86,7 @@
                 FIELD3_LABEL = #{field3Label},
                 ACTIVE_FLAG = #{activeFlag},
                 MODIFIED_BY = #{modifiedBy},
-                MODIFIED_DT = SYSDATE
+                MODIFIED_DT = NOW()
         WHERE GIM_TYPE = #{gimType} 
             AND MODIFIED_DT = #{modifiedDt}
     </update>
@@ -94,7 +94,7 @@
         UPDATE TB_M_GIM_D
             SET ACTIVE_FLAG = #{activeFlag},
                 MODIFIED_BY = #{modifiedBy},
-                MODIFIED_DT = SYSDATE
+                MODIFIED_DT = NOW()
         WHERE GIM_TYPE = #{gimType}
     </update>
     <select id="findGimDetail" resultType="com.dxc.application.model.GimDetail" parameterType="com.dxc.application.model.GimDetail">
@@ -161,15 +161,15 @@
             #{field3},
             #{activeFlag},
             #{createdBy},
-            SYSDATE,
+            NOW(),
             #{modifiedBy},
-            SYSDATE)
+            NOW())
     </insert>
     <update id="updateActiveFlagOfGimHeaderByGimDetailActiveFlag" parameterType="com.dxc.application.model.GimHeader">
         UPDATE TB_M_GIM_H
         SET ACTIVE_FLAG = #{activeFlag},
             MODIFIED_BY = #{modifiedBy},
-            MODIFIED_DT = SYSDATE
+            MODIFIED_DT = NOW()
         WHERE GIM_TYPE = UPPER (#{gimType})
     </update>
     <update id="updateGimDetail" parameterType="com.dxc.application.model.GimDetail">
@@ -180,7 +180,7 @@
             FIELD3 = #{field3},
             ACTIVE_FLAG = #{activeFlag},
             MODIFIED_BY = #{modifiedBy},
-            MODIFIED_DT = SYSDATE
+            MODIFIED_DT = NOW()
         WHERE     GIM_TYPE = UPPER ( #{gimType})
             AND GIM_CD = UPPER ( #{gimCd})
             AND MODIFIED_DT = #{modifiedDt}

@@ -94,38 +94,22 @@ var DXCUtils = (function ($) {
             if (S(javaDate).isEmpty()) {
                 return '';
             } else {
-                return moment(new Date(javaDate)).format(format);
+                return dayjs(new Date(javaDate)).format(format);
             }
         },
         parseDate: function (stringDate, format) {
             if (S(stringDate).isEmpty()) {
                 return null;
             } else {
-                return moment(stringDate, format).toDate();
+                return dayjs(stringDate, format).toDate();
             }
         },
         parseDateForDB: function (stringDate, format) {
             if (S(stringDate).isEmpty()) {
                 return null;
             } else {
-                return moment(stringDate, format).toDate().getTime();
+                return dayjs(stringDate, format).toDate().getTime();
             }
-        },
-        showLoading: function () {
-            $('.pusher').ploading({
-                useAddOns: ['plspinkit'],
-                action: 'show',
-                spinner: 'wave',
-                maskColor: 'rgba(0, 0, 0, 0.9)',
-                destroyAfterHide: true
-            });
-            $('body').css('overflow', 'hidden');
-        },
-        hideLoading: function () {
-            $('.pusher').ploading({
-                action: 'hide'
-            });
-            $('body').removeAttr('style');
         },
         comfirmModal: function (confirmMessage, params) {
             var messageCode = confirmMessage.substring(0, confirmMessage.indexOf(":"));

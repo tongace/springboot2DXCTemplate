@@ -1,4 +1,52 @@
-.ui.inverted.menu .active.item {
-    background: rgba(255, 255, 255, 0.15);
-    color: red !important;
+table.dataTable.table thead th {
+    position: relative;
+    background-color: #777777;
+    color: white;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: normal;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+}
+
+table.dataTable tbody th.dt-body-left,
+table.dataTable tbody td.dt-body-left {
+    text-align: left;
+}
+
+table.dataTable tbody th.dt-body-center,
+table.dataTable tbody td.dt-body-center {
+    text-align: center;
+}
+
+table.dataTable tbody th.dt-body-right,
+table.dataTable tbody td.dt-body-right {
+    text-align: right;
+}
+
+table.dataTable tbody th.dt-body-justify,
+table.dataTable tbody td.dt-body-justify {
+    text-align: justify;
+}
+
+table.dataTable tbody th.dt-body-nowrap,
+table.dataTable tbody td.dt-body-nowrap {
+    white-space: nowrap;
+}
+
+table.dataTable tbody td.dt-valign-top {
+    vertical-align: top;
+}
+
+.addRowDataTable {
+    background-color: #ffb3ff !important;
+}
+
+.mtnColsDataTable {
+    color: #0082ff;
+}
+
+.deleteRowDataTable {
+    background-color: #b9b8b8 !important;
 }

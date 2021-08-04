@@ -76,7 +76,7 @@ let WDXC0001 = (function ($) {
             });
         },
         populateGIMHeaderDatatable: function (formData) {
-            DXCUtils.showLoading();
+            $.LoadingOverlay('show');
             $.ajax({
                 "async": true,
                 "url": "/demo/gimmaster/gimheader",
@@ -175,7 +175,7 @@ let WDXC0001 = (function ($) {
                         }
                     ]
                 });
-                DXCUtils.hideLoading();
+                $.LoadingOverlay('hide');
             });
         },
         // for outside this document.ready scope can call such as html element onclick
@@ -240,7 +240,7 @@ let WDXC0001 = (function ($) {
             WDXC0001.populateGIMDetailDatatable(false);
         },
         populateGIMDetailDatatable: function (saveMessage) {
-            DXCUtils.showLoading();
+            $.LoadingOverlay('show');
             let gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
             let dataForSubmit = {};
             dataForSubmit.gimType = gimHeaderObj.gimType;
@@ -347,8 +347,7 @@ let WDXC0001 = (function ($) {
                         }
                     ]
                 });
-                gimDetailTable.columns.adjust().responsive.recalc();
-                DXCUtils.hideLoading();
+                $.LoadingOverlay('hide');
             });
         },
         saveGimDetail: function (formData) {
@@ -405,8 +404,6 @@ let WDXC0001 = (function ($) {
     }
 }(jQuery));
 $(document).ready(function () {
-    // datatable moment date time sorting
-    $.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss');
     $("#WDXC0001Edit").hide();
     $.when(WDXC0001.getGimTypeCombo())
         .done(function (responseData) {

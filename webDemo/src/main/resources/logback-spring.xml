@@ -5,21 +5,30 @@
         <prudent>true</prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                @log.path@/${CONTEXT_NAME}-%d{yyyy-MM-dd}.log
+                @log.traditional.path@/${CONTEXT_NAME}-%d{yyyy-MM-dd}.log
             </fileNamePattern>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
-        <!--           <encoder class="net.logstash.logback.encoder.LogstashEncoder">-->
-        <!--               <customFields>{"app-name":"springboot2DXCDemo", "category":"framework"}</customFields>-->
-        <!--               <fieldNames>-->
-        <!--                   <timestamp>time</timestamp>-->
-        <!--                   <version>[ignore]</version>-->
-        <!--                   <levelValue>[ignore]</levelValue>-->
-        <!--               </fieldNames>-->
-        <!--           </encoder>-->
         <encoder>
             <pattern>%date|%thread|%level|%logger.%M [%file:%line]|%msg%n</pattern>
             <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <appender name="APPLOGJSONFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <prudent>true</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                @log.json.path@/${CONTEXT_NAME}-%d{yyyy-MM-dd}.json
+            </fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app-name":"springboot2DXCDemo", "category":"framework"}</customFields>
+            <fieldNames>
+                <timestamp>time</timestamp>
+                <version>[ignore]</version>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
         </encoder>
     </appender>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -37,12 +46,16 @@
     <logger name="com.dxc.application" level="@log.level@" additivity="false">
         <appender-ref ref="APP_CONSOLE"/>
         <appender-ref ref="APPLOGFILE"/>
+        <appender-ref ref="APPLOGJSONFILE"/>
     </logger>
     <logger name="com.dxc.application.mybatis" level="@log.mybatis.level@" additivity="false">
         <appender-ref ref="APP_CONSOLE"/>
         <appender-ref ref="APPLOGFILE"/>
+        <appender-ref ref="APPLOGJSONFILE"/>
     </logger>
     <root level="@root.log.level@">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="APPLOGFILE"/>
+        <appender-ref ref="APPLOGJSONFILE"/>
     </root>
 </configuration>

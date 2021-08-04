@@ -9,20 +9,15 @@
     <link rel="icon" type="image/ico" th:href="@{/images/logo.ico}" />
     <title>[[#{DXC.Title}]]</title>
 
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"></script>
-    <script th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/webjars/datatables/js/dataTables.semanticui.min.js}"></script>
-    <script th:src="@{/webjars/datatables/js/dataTables.semanticui.min.js}"></script>
-    <script th:src="@{/webjars/datatables-responsive/js/dataTables.responsive.min.js}"></script>
-    <script th:src="@{/webjars/datatables-responsive/js/responsive.semanticui.min.js}"></script>
-    <script th:src="@{/webjars/moment/min/moment.min.js}"></script>
-    <script th:src="@{/webjars/numeral/min/numeral.min.js}"></script>
-    <script th:src="@{/scripts/string.js}"></script>
-    <script th:src="@{/scripts/underscore.js}"></script>
-    <script th:src="@{/scripts/datetime-moment.js}"></script>
-    <script th:src="@{/scripts/p-loading.js}"></script>
-    <script th:src="@{/scripts/pl-spinkit.js}"></script>
+    <script th:src="@{/scripts/jquery.min.js}"></script>
+    <script th:src="@{/scripts/semantic.min.js}"></script>
+    <script th:src="@{/scripts/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/scripts/dataTables.semanticui.min.js}"></script>
+    <script th:src="@{/scripts/dayjs.min.js}"></script>
+    <script th:src="@{/scripts/numeral.min.js}"></script>
+    <script th:src="@{/scripts/string.min.js}"></script>
+    <script th:src="@{/scripts/underscore.min.js}"></script>
+    <script th:src="@{/scripts/loadingoverlay.min.js}"></script>
     <script th:src="@{/scripts/browserDetection.js}"></script>
     <!-- DXC Utils -->
     <script th:src="@{/scripts/DXCUtils.js}"></script>
@@ -31,14 +26,10 @@
     <!-- script for child -->
     <th:block th:replace="${scripts}" />
 
-    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel='stylesheet' />
-    <link th:href="@{/webjars/datatables/css/dataTables.semanticui.min.css}" rel='stylesheet' />
-    <link th:href="@{/webjars/datatables-responsive/css/responsive.semanticui.min.css}" rel='stylesheet' />
-    <link th:href="@{/css/font.css}" rel='stylesheet' />
+    <link th:href="@{/css/semantic.min.css}" rel='stylesheet' />
+    <link th:href="@{/css/dataTables.semanticui.min.css}" rel='stylesheet' />
+    <link th:href="@{/css/fontsize.css}" rel='stylesheet' />
     <link th:href="@{/css/dxc_style.css}" rel='stylesheet' />
-    <link th:href="@{/css/p-loading.css}" rel='stylesheet' />
-    <link th:href="@{/css/pl-spinkit.css}" rel='stylesheet' />
-    <link th:href="@{/css/spinkit.css}" rel='stylesheet' />
 
     <th:block th:replace="${links}" />
 

@@ -36,10 +36,10 @@ $(document).ready(function () {
             "type": "GET"
         }).done(function (responseData, textStatus, jqXHR) {
             let dateTime = new Date(responseData);
-            $('.time').text(moment(dateTime).format('DD MMM YYYY HH:mm:ss'));
+            $('.time').text(dayjs(dateTime).format('DD MMM YYYY HH:mm:ss'));
             setInterval(function () {
                 dateTime.setTime((dateTime.getTime() + 1000));
-                $('.time').text(moment(dateTime).format('DD MMM YYYY HH:mm:ss'));
+                $('.time').text(dayjs(dateTime).format('DD MMM YYYY HH:mm:ss'));
             }, 1000);
         });
     };
