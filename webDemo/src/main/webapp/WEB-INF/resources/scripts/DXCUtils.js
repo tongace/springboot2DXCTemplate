@@ -3,6 +3,8 @@ var DXCUtils = (function ($) {
     return {
         COMBOBOX_ALL: 'All',
         COMBOBOX_SELECT: 'Select',
+        MODE_ADD: 'ADD',
+        MODE_EDIT: 'EDIT',
         toggleGroupMenu: function (obj) {
             var menuGroup = $(obj).parent();
             menuGroup.children(".menu").toggle();
