@@ -1,4 +1,4 @@
-var DXCUtils = (function ($) {
+let DXCUtils = (function ($) {
     // class properties
     return {
         COMBOBOX_ALL: 'All',
@@ -6,13 +6,13 @@ var DXCUtils = (function ($) {
         MODE_ADD: 'ADD',
         MODE_EDIT: 'EDIT',
         toggleGroupMenu: function (obj) {
-            var menuGroup = $(obj).parent();
+            let menuGroup = $(obj).parent();
             menuGroup.children(".menu").toggle();
             // hide all other menu group
-            var allOtherMenuGroup = $(obj).parent().siblings();
+            let allOtherMenuGroup = $(obj).parent().siblings();
             if (allOtherMenuGroup != null) {
-                for (var ii = 0; ii < allOtherMenuGroup.length; ii++) {
-                    var otherMenuGroup = allOtherMenuGroup[ii];
+                for (let ii = 0; ii < allOtherMenuGroup.length; ii++) {
+                    let otherMenuGroup = allOtherMenuGroup[ii];
                     if ($(otherMenuGroup).children(".menu").is(':visible')) {
                         $(otherMenuGroup).children(".menu").hide();
                     }
@@ -21,7 +21,7 @@ var DXCUtils = (function ($) {
             return false;
         },
         setActiveMenu: function (screenId) {
-            var creenIdObj = $('#' + screenId)
+            let creenIdObj = $('#' + screenId)
             creenIdObj.toggleClass("active");
             creenIdObj.parent().show();
             creenIdObj.parent().parent().siblings().children(".menu").hide();
@@ -36,29 +36,29 @@ var DXCUtils = (function ($) {
             //     }).done(function (responseData, textStatus, jqXHR) {
             //         // menu group
             //         if (responseData.menuGroups[0] != null) {
-            //             for (var ii = 0; ii < responseData.menuGroups.length; ii++) {
-            //                 var menuGroupId = responseData.menuGroups[ii];
+            //             for (let ii = 0; ii < responseData.menuGroups.length; ii++) {
+            //                 let menuGroupId = responseData.menuGroups[ii];
             //                 $("#" + menuGroupId).attr("data-auth", "yes");
             //             }
             //         }
             //         // menu subgroup
             //         if (responseData.menuSubGroups[0] != null) {
-            //             for (var ii = 0; ii < responseData.menuSubGroups.length; ii++) {
-            //                 var menuSubGroupId = responseData.menuSubGroups[ii];
+            //             for (let ii = 0; ii < responseData.menuSubGroups.length; ii++) {
+            //                 let menuSubGroupId = responseData.menuSubGroups[ii];
             //                 $("#" + menuSubGroupId).attr("data-auth", "yes");
             //             }
             //         }
             //         // menu item
             //         if (responseData.menuItems[0] != null) {
             //             for (ii = 0; ii < responseData.menuItems.length; ii++) {
-            //                 var menuItemId = responseData.menuItems[ii];
+            //                 let menuItemId = responseData.menuItems[ii];
             //                 $("#" + menuItemId).attr("data-auth", "yes");
             //             }
             //         }
             //         // buuton
             //         if (responseData.alcButtons[0] != null) {
             //             for (ii = 0; ii < responseData.alcButtons.length; ii++) {
-            //                 var alcButton = responseData.alcButtons[ii];
+            //                 let alcButton = responseData.alcButtons[ii];
             //                 $("#" + alcButton).attr("data-auth", "yes");
             //             }
             //         }
@@ -80,8 +80,8 @@ var DXCUtils = (function ($) {
                 }));
             }
             if (comboList != null) {
-                for (var ii = 0; ii < comboList.length; ii++) {
-                    var item = comboList[ii];
+                for (let ii = 0; ii < comboList.length; ii++) {
+                    let item = comboList[ii];
                     selectObj.append($('<option>', {
                         value: item.value,
                         text: item.name
@@ -113,20 +113,20 @@ var DXCUtils = (function ($) {
                 return dayjs(stringDate, format).toDate().getTime();
             }
         },
-        comfirmModal: function (confirmMessage, params) {
-            var messageCode = confirmMessage.substring(0, confirmMessage.indexOf(":"));
+        comfirmModal: function (confirmMessage, params,approveCallback) {
+            let messageCode = confirmMessage.substring(0, confirmMessage.indexOf(":"));
             $('#confirmingModal').children(".header").empty();
             $('#confirmingModal').children(".content").empty();
             $('#confirmingModal').children(".header").removeClass("yellow red green");
             $('#confirmingModal').children(".header").append(messageCode);
             if (params != null) {
-                for (var indexInArray = 0; indexInArray < params.length; indexInArray++) {
-                    var valueOfElement = params[indexInArray];
+                for (let indexInArray = 0; indexInArray < params.length; indexInArray++) {
+                    let valueOfElement = params[indexInArray];
                     confirmMessage = confirmMessage.replace('{' + indexInArray + '}', valueOfElement);
                 }
             }
-            var firstConlon = confirmMessage.indexOf(':');
-            var messageType = confirmMessage.substring(firstConlon - 3, firstConlon);
+            let firstConlon = confirmMessage.indexOf(':');
+            let messageType = confirmMessage.substring(firstConlon - 3, firstConlon);
             switch (messageType) {
                 case 'WRN':
                     $('#confirmingModal').children(".header").addClass("yellow");
@@ -136,22 +136,29 @@ var DXCUtils = (function ($) {
                     break;
             }
             $('#confirmingModal').children(".content").append(confirmMessage);
-            return $('#confirmingModal');
+            return $('#confirmingModal').modal({
+                closable: false,
+                onDeny: function () {
+                    return true;
+                },
+                onApprove: approveCallback,
+                duration:0
+            });
         },
         alertModal: function (alertMessage, params) {
-            var messageCode = alertMessage.substring(0, alertMessage.indexOf(":"));
+            let messageCode = alertMessage.substring(0, alertMessage.indexOf(":"));
             $('#alertModal').children(".header").empty();
             $('#alertModal').children(".content").empty();
             $('#alertModal').children(".header").removeClass("yellow red green");
             $('#alertModal').children(".header").append(messageCode);
             if (params != null) {
-                for (var indexInArray = 0; indexInArray < params.length; indexInArray++) {
-                    var valueOfElement = params[indexInArray];
+                for (let indexInArray = 0; indexInArray < params.length; indexInArray++) {
+                    let valueOfElement = params[indexInArray];
                     alertMessage = alertMessage.replace('{' + indexInArray + '}', valueOfElement);
                 }
             }
-            var firstConlon = alertMessage.indexOf(':');
-            var messageType = alertMessage.substring(firstConlon - 3, firstConlon);
+            let firstConlon = alertMessage.indexOf(':');
+            let messageType = alertMessage.substring(firstConlon - 3, firstConlon);
             switch (messageType) {
                 case 'INF':
                     $('#alertModal').children(".header").addClass("green");
@@ -164,7 +171,12 @@ var DXCUtils = (function ($) {
                     break;
             }
             $('#alertModal').children(".content").append(alertMessage);
-            return $('#alertModal');
+            return $('#alertModal').modal({
+                selector: {
+                    close: '#modalButtonOK'
+                },
+                duration:0
+            });
         },
         stringEmpty: function (param) {
             return (S(param).isEmpty() ? '' : param);
@@ -173,10 +185,10 @@ var DXCUtils = (function ($) {
             if (_.isArray(itemsArray) === false) {
                 return 0;
             } else {
-                var sumVal = 0;
+                let sumVal = 0;
                 if (itemsArray[0] != null) {
-                    for (var indexInArray = 0; indexInArray < itemsArray.length; indexInArray++) {
-                        var valueOfElement = itemsArray[indexInArray];
+                    for (let indexInArray = 0; indexInArray < itemsArray.length; indexInArray++) {
+                        let valueOfElement = itemsArray[indexInArray];
                         sumVal = sumVal + numeral(valueOfElement[property]).value();
                     }
                 }
@@ -187,9 +199,9 @@ var DXCUtils = (function ($) {
             if (_.isArray(itemsArray) === false) {
                 return null;
             } else {
-                var dataArr = [];
-                for (var ii = 0; ii < itemsArray.length; ii++) {
-                    var objVal = itemsArray[ii][property];
+                let dataArr = [];
+                for (let ii = 0; ii < itemsArray.length; ii++) {
+                    let objVal = itemsArray[ii][property];
                     if (S(objVal).isEmpty() == false) {
                         dataArr.push(objVal);
                     }
@@ -205,9 +217,9 @@ var DXCUtils = (function ($) {
             if (_.isArray(itemsArray) === false) {
                 return null;
             } else {
-                var dataArr = [];
-                for (var ii = 0; ii < itemsArray.length; ii++) {
-                    var objVal = itemsArray[ii][property];
+                let dataArr = [];
+                for (let ii = 0; ii < itemsArray.length; ii++) {
+                    let objVal = itemsArray[ii][property];
                     if (S(objVal).isEmpty() == false) {
                         dataArr.push(objVal);
                     }
@@ -220,16 +232,16 @@ var DXCUtils = (function ($) {
             }
         },
         checkDuplicatedUploadFiles: function (uploadingFileArray, uploadedFileDataTableId) {
-            var uploadedFile = [];
-            var dataTableId = '#' + uploadedFileDataTableId;
+            let uploadedFile = [];
+            let dataTableId = '#' + uploadedFileDataTableId;
             if ($.fn.DataTable.isDataTable(dataTableId)) {
-                var uploadedFileArray = $(dataTableId).DataTable().rows().data().toArray();
-                for (var ii = 0; ii < uploadedFileArray.length; ii++) {
+                let uploadedFileArray = $(dataTableId).DataTable().rows().data().toArray();
+                for (let ii = 0; ii < uploadedFileArray.length; ii++) {
                     uploadedFile.push(uploadedFileArray[ii].fileName);
                 }
             }
-            var uploadingFileName = null;
-            for (var ii = 0; ii < uploadingFileArray.length; ii++) {
+            let uploadingFileName = null;
+            for (let ii = 0; ii < uploadingFileArray.length; ii++) {
                 uploadingFileName = uploadingFileArray[ii].name;
                 console.log('uploadingFileName>>>>>' + uploadingFileName);
                 if (_.contains(uploadedFile, uploadingFileName) == true) {
@@ -252,7 +264,7 @@ var DXCUtils = (function ($) {
             return partNo;
         },
         focusFirstError: function () {
-            var elem = $('.field.error:first').find('input,select,textarea');
+            let elem = $('.field.error:first').find('input,select,textarea');
             setTimeout(function () {
                 $('html, body').animate({
                     scrollTop: $($(elem)[0]).closest('div').offset().top - 100
@@ -280,7 +292,7 @@ var DXCUtils = (function ($) {
                 console.log("error status:" + XMLHttpRequest.status);
                 console.log("error message:" + errorThrown);
                 if (XMLHttpRequest.status == 404) {
-                    var modal = ESPIUtils.alertModal(errorMessage, null);
+                    let modal = ESPIUtils.alertModal(errorMessage, null);
                     modal.modal({
                         closable: false,
                         selector: {
@@ -292,11 +304,11 @@ var DXCUtils = (function ($) {
             });
         },
         clearMessageRulesErrors: function (selectObj) {
-            var $field = selectObj.find('input, textarea, select'),
+            let $field = selectObj.find('input, textarea, select'),
                 $group = selectObj.find('.field');
             $field
                 .each(function () {
-                    var
+                    let
                         $field = $(this),
                         $fieldGroup = $field.closest($group),
                         $prompt = $fieldGroup.find('.prompt.label'),
