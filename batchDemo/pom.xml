@@ -70,6 +70,14 @@
 				<log.level>DEBUG</log.level>
 			</properties>
 		</profile>
+		<profile>
+			<id>CLOUD</id>
+			<properties>
+				<!-- log -->
+				<log.path>/home/batchdemo</log.path>
+				<log.level>DEBUG</log.level>
+			</properties>
+		</profile>
 	</profiles>
 	<!-- end Profiles configuration -->
 	<build>
@@ -100,6 +108,10 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 	</build>

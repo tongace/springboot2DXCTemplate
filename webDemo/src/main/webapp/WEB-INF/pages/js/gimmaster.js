@@ -32,7 +32,7 @@ let WDXC0001 = (function ($) {
                     });
                     // set save message
                     if (responseData.rowCount > 0) {
-                        let modal = DXCUtils.alertModal('[[#{MSTD0101AINF}]]', null);
+                        let modal = DXCUtils.alertModal([[#{MBX00005AINF}]], null);
                         modal.modal({
                             selector: {
                                 close: '#modalButtonOK'
@@ -40,7 +40,7 @@ let WDXC0001 = (function ($) {
                         });
                         modal.modal('show');
                     } else {
-                        let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                        let modal = DXCUtils.alertModal([[#{MBX00009AERR}]], null);
                         modal.modal({
                             selector: {
                                 close: '#modalButtonOK'
@@ -202,7 +202,7 @@ let WDXC0001 = (function ($) {
         setGimDetailFormLabel: function () {
             let selectedGimHeader = JSON.parse($('#selectedGimHeaderDiv').text());
             // assign Gim Code,Field1,2,3 label
-            $('#detailGimCodeLabel').text('[[#{BX0.WDXC0001.Label.Code}]]' + ' (' + selectedGimHeader.cdLength + ')');
+            $('#detailGimCodeLabel').text([[#{DXC.WDXC0001.Label.Code}]] + ' (' + selectedGimHeader.cdLength + ')');
             $('#detailField1Label').text(selectedGimHeader.field1Label);
             $('#detailField2Label').text(selectedGimHeader.field2Label);
             $('#detailField3Label').text(selectedGimHeader.field3Label);
@@ -364,7 +364,7 @@ let WDXC0001 = (function ($) {
                     });
                     // set save message
                     if (responseData.rowCount > 0) {
-                        let modal = DXCUtils.alertModal('[[#{MSTD0101AINF}]]', null);
+                        let modal = DXCUtils.alertModal([[#{MBX00005AINF}]], null);
                         modal.modal({
                             selector: {
                                 close: '#modalButtonOK'
@@ -372,7 +372,7 @@ let WDXC0001 = (function ($) {
                         });
                         modal.modal('show');
                     } else {
-                        let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                        let modal = DXCUtils.alertModal([[#{MBX00009AERR}]], null);
                         modal.modal({
                             selector: {
                                 close: '#modalButtonOK'
@@ -443,14 +443,14 @@ $(document).ready(function () {
     let WDXC0001SaveClick;
     $('#WDXC0001Save').on('click', _.debounce(function (event) {
         event.preventDefault();
-        let modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null);
+        let modal = DXCUtils.comfirmModal([[#{MSTD0006ACFM}]], null);
         modal.modal({
             closable: false,
             onDeny: function () {
                 return true;
             },
             onApprove: function () {
-                if ($('#editGimHeaderForm').form('is valid')) {
+                if ($('#editGimHeaderForm').form('validate form')) {
                     let formData = $('#editGimHeaderForm').form('get values');
                     WDXC0001.saveGimHeaderData(formData);
                 }
@@ -461,7 +461,7 @@ $(document).ready(function () {
     let WDXC0001CancelClick;
     $('#WDXC0001Cancel').on('click', _.debounce(function (event) {
         event.preventDefault();
-        let modal = DXCUtils.comfirmModal('[[#{MBX0000MACFM}]]', null);
+        let modal = DXCUtils.comfirmModal([[#{MBX0000MACFM}]], null);
         modal.modal({
             closable: false,
             onDeny: function () {
@@ -502,7 +502,7 @@ $(document).ready(function () {
         let countChecked = gimHeaderTable.rows().nodes().to$().find(':checked[name="chkGimHeader"]').length;
 
         if (countChecked != 1) {
-            let modal = DXCUtils.alertModal('[[#{MSTD1017AERR}]]', null);
+            let modal = DXCUtils.alertModal([[#{MSTD1017AERR}]], null);
             modal.modal({
                 selector: {
                     close: '#modalButtonOK'
@@ -688,7 +688,7 @@ $(document).ready(function () {
         let countChecked = gimDetailDatatable.rows().nodes().to$().find(':checked[name="chkGimDetail"]').length;
 
         if (countChecked != 1) {
-            let modal = DXCUtils.alertModal('[[#{MSTD1017AERR}]]', null);
+            let modal = DXCUtils.alertModal([[#{MSTD1017AERR}]], null);
             modal.modal({
                 selector: {
                     close: '#modalButtonOK'
@@ -724,7 +724,7 @@ $(document).ready(function () {
         let gimDetailDatatable = $('#tableGimDetailResult').DataTable();
         let countChecked = gimDetailDatatable.rows().nodes().to$().find(':checked[name="chkGimDetail"]').length;
         if (countChecked == 0) {
-            let modal = DXCUtils.alertModal('[[#{MBX00006AERR}]]', null);
+            let modal = DXCUtils.alertModal([[#{MBX00006AERR}]], null);
             modal.modal({
                 selector: {
                     close: '#modalButtonOK'
@@ -732,7 +732,7 @@ $(document).ready(function () {
             });
             modal.modal('show');
         } else {
-            let modal = DXCUtils.comfirmModal('[[#{MBX00001ACFM}]]', null);
+            let modal = DXCUtils.comfirmModal([[#{MBX00001ACFM}]], null);
             modal.modal({
                 closable: false,
                 onDeny: function () {
@@ -757,7 +757,7 @@ $(document).ready(function () {
                         if (responseData.message == null || responseData.message == '') {
                             // set delete message
                             if (responseData.rowCount > 0) {
-                                let modal = DXCUtils.alertModal('[[#{MSTD0090AINF}]]', null);
+                                let modal = DXCUtils.alertModal([[#{MBX00004AINF}]], null);
                                 modal.modal({
                                     selector: {
                                         close: '#modalButtonOK'
@@ -765,7 +765,7 @@ $(document).ready(function () {
                                 });
                                 modal.modal('show');
                             } else {
-                                let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                                let modal = DXCUtils.alertModal([[#{MBX00009AERR}]], null);
                                 modal.modal({
                                     selector: {
                                         close: '#modalButtonOK'
@@ -793,7 +793,7 @@ $(document).ready(function () {
     let WDXC0001DetailSaveClick;
     $('#WDXC0001DetailSave').on('click', _.debounce(function (event) {
         event.preventDefault();
-        let modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null);
+        let modal = DXCUtils.comfirmModal([[#{MSTD0006ACFM}]], null);
         modal.modal({
             closable: false,
             onDeny: function () {
@@ -803,7 +803,6 @@ $(document).ready(function () {
                 if ($('#editGimDetailForm').form('is valid')) {
                     let formData = $('#editGimDetailForm').form('get values');
                     WDXC0001.saveGimDetail(formData);
-
                 }
             }
         }).modal('show');
@@ -811,7 +810,7 @@ $(document).ready(function () {
     let WDXC0001DetailCancelClick;
     $('#WDXC0001DetailCancel').on('click', _.debounce(function (event) {
         event.preventDefault();
-        let modal = DXCUtils.comfirmModal('[[#{MBX0000MACFM}]]', null);
+        let modal = DXCUtils.comfirmModal([[#{MBX0000MACFM}]], null);
         modal.modal({
             closable: false,
             onDeny: function () {
@@ -868,7 +867,7 @@ $(document).ready(function () {
                     },
                     {
                         type: 'validationGimCodeLenth',
-                        prompt: '[[#{MBX01005AERR}]]'
+                        prompt: [[#{MBX01005AERR}]]
                     }
                 ]
             },
@@ -902,7 +901,7 @@ $(document).ready(function () {
                 identifier: 'field2',
                 rules: [{
                         type: 'validationField2',
-                        prompt: '[[#{MBX01002AERR}]]'
+                        prompt: [[#{MBX01002AERR}]]
                     },
                     {
                         type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
@@ -916,7 +915,7 @@ $(document).ready(function () {
                 identifier: 'field3',
                 rules: [{
                         type: 'validationField3',
-                        prompt: '[[#{MBX01002AERR}]]'
+                        prompt: [[#{MBX01002AERR}]]
                     },
                     {
                         type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
@@ -930,7 +929,7 @@ $(document).ready(function () {
                 identifier: 'activeFlag',
                 rules: [{
                     type: 'not[Select]',
-                    prompt: '[[#{MBX01001AERR}]]'
+                    prompt: [[#{MBX01001AERR}]]
                 }]
             }
         },

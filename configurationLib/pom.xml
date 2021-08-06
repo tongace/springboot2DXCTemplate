@@ -56,6 +56,30 @@
 				<database.jpa.showSql>true</database.jpa.showSql>
 			</properties>
 		</profile>
+		<profile>
+			<id>CLOUD</id>
+			<properties>
+				<!-- standard properties -->
+				<standard.projectCode>DXC</standard.projectCode>
+				<standard.homepath>/home/webdemo</standard.homepath>
+				<standard.mail.smtp.host>172.26.8.14</standard.mail.smtp.host>
+				<standard.mail.fromemail>espi_dev@tdem.toyota-asia.com</standard.mail.fromemail>
+				<standard.mail.toemail>chairat_sam_hp@tdem.toyota-asia.com</standard.mail.toemail>
+				<standard.mail.ccemail></standard.mail.ccemail>
+				<!-- database -->
+				<database.jdbc.driverClassName>com.mysql.cj.jdbc.Driver</database.jdbc.driverClassName>
+				<database.jdbc.maximumPoolSize>2</database.jdbc.maximumPoolSize>
+				<database.jdbc.url>jdbc:mysql://159.89.210.222:3306/demo</database.jdbc.url>
+				<database.jdbc.username>demo</database.jdbc.username>
+				<database.jdbc.password>demo</database.jdbc.password>
+				<database.bfw.jdbc.url>jdbc:mysql://159.89.210.222:3306/demo</database.bfw.jdbc.url>
+				<database.bfw.jdbc.username>demo</database.bfw.jdbc.username>
+				<database.bfw.jdbc.password>demo</database.bfw.jdbc.password>
+				<database.hibernate.dialect>org.hibernate.dialect.MySQLDialect</database.hibernate.dialect>
+				<database.jpa.database>MYSQL</database.jpa.database>
+				<database.jpa.showSql>true</database.jpa.showSql>
+			</properties>
+		</profile>
 	</profiles>
 	<!-- end Profiles configuration -->
 	
@@ -87,6 +111,10 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 	</build>
