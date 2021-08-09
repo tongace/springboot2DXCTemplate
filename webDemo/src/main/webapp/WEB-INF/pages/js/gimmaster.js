@@ -32,10 +32,10 @@ let WDXC0001 = (function ($) {
                     });
                     // set save message
                     if (responseData.rowCount > 0) {
-                        let modal = DXCUtils.alertModal('[[#{MBX00005AINF}]]', null);
+                        let modal = DXCUtils.alertModal([[#{MBX00005AINF}]], null);
                         modal.modal('show');
                     } else {
-                        let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                        let modal = DXCUtils.alertModal([[#{MBX00009AERR}]], null);
                         modal.modal('show');
                     }
                     let formData = $('#gimHeaderForm').form('get values');
@@ -182,7 +182,7 @@ let WDXC0001 = (function ($) {
         setGimDetailFormLabel: function () {
             let selectedGimHeader = JSON.parse($('#selectedGimHeaderDiv').text());
             // assign Gim Code,Field1,2,3 label
-            $('#detailGimCodeLabel').text('[[#{DXC.WDXC0001.Label.Code}]]' + ' (' + selectedGimHeader.cdLength + ')');
+            $('#detailGimCodeLabel').text([[#{DXC.WDXC0001.Label.Code}]] + ' (' + selectedGimHeader.cdLength + ')');
             $('#detailField1Label').text(selectedGimHeader.field1Label);
             $('#detailField2Label').text(selectedGimHeader.field2Label);
             $('#detailField3Label').text(selectedGimHeader.field3Label);
@@ -344,10 +344,10 @@ let WDXC0001 = (function ($) {
                     });
                     // set save message
                     if (responseData.rowCount > 0) {
-                        let modal = DXCUtils.alertModal('[[#{MBX00005AINF}]]', null);
+                        let modal = DXCUtils.alertModal([[#{MBX00005AINF}]], null);
                         modal.modal('show');
                     } else {
-                        let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                        let modal = DXCUtils.alertModal([[#{MBX00009AERR}]], null);
                         modal.modal('show');
                     }
                     WDXC0001.populateGIMDetailDatatable(true);
@@ -413,7 +413,7 @@ $(document).ready(function () {
             WDXC0001.saveGimHeaderData(formData);
         }
         if ($('#editGimHeaderForm').form('validate form')) {
-            let modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null, approveCallback);
+            let modal = DXCUtils.comfirmModal([[#{MSTD0006ACFM}]], null, approveCallback);
             modal.modal('show');
         }
         return false;
@@ -421,7 +421,7 @@ $(document).ready(function () {
     let WDXC0001CancelClick;
     $('#WDXC0001Cancel').on('click', _.debounce(function (event) {
         event.preventDefault();
-        let modal = DXCUtils.comfirmModal('[[#{MBX0000MACFM}]]', null,
+        let modal = DXCUtils.comfirmModal([[#{MBX0000MACFM}]], null,
         function () {
             $('#gimHeaderEditSection').fadeOut(600, function () {
                 $('#gimHeaderSearchSection').fadeIn(600);
@@ -456,7 +456,7 @@ $(document).ready(function () {
         let countChecked = gimHeaderTable.rows().nodes().to$().find(':checked[name="chkGimHeader"]').length;
 
         if (countChecked != 1) {
-            let modal = DXCUtils.alertModal('[[#{MSTD1017AERR}]]', null);
+            let modal = DXCUtils.alertModal([[#{MSTD1017AERR}]], null);
             modal.modal('show');
         } else {
             let editHeaderDataSelection = {};
@@ -637,7 +637,7 @@ $(document).ready(function () {
         let countChecked = gimDetailDatatable.rows().nodes().to$().find(':checked[name="chkGimDetail"]').length;
 
         if (countChecked != 1) {
-            let modal = DXCUtils.alertModal('[[#{MSTD1017AERR}]]', null);
+            let modal = DXCUtils.alertModal([[#{MSTD1017AERR}]], null);
             modal.modal('show');
         } else {
             WDXC0001.setGimDetailFormLabel();
@@ -668,10 +668,10 @@ $(document).ready(function () {
         let gimDetailDatatable = $('#tableGimDetailResult').DataTable();
         let countChecked = gimDetailDatatable.rows().nodes().to$().find(':checked[name="chkGimDetail"]').length;
         if (countChecked == 0) {
-            let modal = DXCUtils.alertModal('[[#{MBX00006AERR}]]', null);
+            let modal = DXCUtils.alertModal([[#{MBX00006AERR}]], null);
             modal.modal('show');
         } else {
-            let modal = DXCUtils.comfirmModal('[[#{MBX00001ACFM}]]', 
+            let modal = DXCUtils.comfirmModal([[#{MBX00001ACFM}]], 
             function () {
                 let deleteGimDetailArr = [];
                 $.each(gimDetailDatatable.rows().nodes(), function (index, node) {
@@ -691,10 +691,10 @@ $(document).ready(function () {
                     if (responseData.message == null || responseData.message == '') {
                         // set delete message
                         if (responseData.rowCount > 0) {
-                            let modal = DXCUtils.alertModal('[[#{MBX00004AINF}]]', null);
+                            let modal = DXCUtils.alertModal([[#{MBX00004AINF}]], null);
                             modal.modal('show');
                         } else {
-                            let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                            let modal = DXCUtils.alertModal([[#{MBX00009AERR}]], null);
                             modal.modal('show');
                         }
                         WDXC0001.populateGIMDetailDatatable(true);
@@ -719,13 +719,13 @@ $(document).ready(function () {
                 WDXC0001.saveGimDetail(formData);
             }
         }
-        let modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null,approveCallback);
+        let modal = DXCUtils.comfirmModal([[#{MSTD0006ACFM}]], null,approveCallback);
         modal.modal('show');
     }, 300, true));
     let WDXC0001DetailCancelClick;
     $('#WDXC0001DetailCancel').on('click', _.debounce(function (event) {
         event.preventDefault();
-        let modal = DXCUtils.comfirmModal('[[#{MBX0000MACFM}]]', null,
+        let modal = DXCUtils.comfirmModal([[#{MBX0000MACFM}]], null,
         function () {
             $('#gimDetailEditSection').fadeOut(600, function () {
                 $('#gimDetailSection').fadeIn(600);
@@ -760,7 +760,10 @@ $(document).ready(function () {
                         type: 'empty'
                     },
                     {
-                        type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
+                        type: 'regExp[/\s*$/]'
+                    },
+                    {
+                        type: 'regExp[/^\s*/]'
                     },
                     {
                         type: 'maxLength[50]'
@@ -777,7 +780,7 @@ $(document).ready(function () {
                     },
                     {
                         type: 'validationGimCodeLenth',
-                        prompt: '[[#{MBX01005AERR}]]'
+                        prompt: [[#{MBX01005AERR}]]
                     }
                 ]
             },
@@ -811,7 +814,7 @@ $(document).ready(function () {
                 identifier: 'field2',
                 rules: [{
                         type: 'validationField2',
-                        prompt: '[[#{MBX01002AERR}]]'
+                        prompt: [[#{MBX01002AERR}]]
                     },
                     {
                         type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
@@ -825,7 +828,7 @@ $(document).ready(function () {
                 identifier: 'field3',
                 rules: [{
                         type: 'validationField3',
-                        prompt: '[[#{MBX01002AERR}]]'
+                        prompt: [[#{MBX01002AERR}]]
                     },
                     {
                         type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
@@ -839,7 +842,7 @@ $(document).ready(function () {
                 identifier: 'activeFlag',
                 rules: [{
                     type: 'not[Select]',
-                    prompt: '[[#{MBX01001AERR}]]'
+                    prompt: [[#{MBX01001AERR}]]
                 }]
             }
         },
@@ -847,4 +850,4 @@ $(document).ready(function () {
         on: 'blur'
     });
 });
-//]]'>
+//]]>
