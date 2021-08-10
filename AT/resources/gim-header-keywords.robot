@@ -12,7 +12,7 @@ Open Gim Master Screen with Google Chrome
     Set Window Size    1920    1080
     Set Window Position    0    0
 Open Gim Master Screen with Google Chrome Headless
-    Open Browser    http://localhost:8080/demo/gimmaster    headlesschrome    options=add_argument("--no-sandbox"); add_argument("--disable-dev-shm-usage"); add_argument("--ignore-certificate-errors"); add_argument("--incognito"); add_argument("--lang=en"); add_argument("--disable-gpu")
+    Open Browser    http://localhost:8080/demo/gimmaster    headlesschrome    options=add_argument("--no-sandbox"); add_argument("--disable-dev-shm-usage"); add_argument("--ignore-certificate-errors"); add_argument("--incognito"); add_argument("--disable-gpu")
     Set Window Size    1920    1080
     Set Window Position    0    0
 Check Gim Header Initial Correctly 
@@ -21,9 +21,9 @@ Check Gim Header Initial Correctly
     Element Attribute Value Should Be    jquery:#gimHeaderForm [name="searchGimDesc"]    value    ${EMPTY}
     Element Attribute Value Should Be    jquery:#gimHeaderForm [name="searchActiveFlag"]    value    All
     Element Should Be Visible    id:WDXC0001Search
-    Element Should Be Visible    jquery:#WDXC0001Clear
-    Element Should Be Visible    jquery:#WDXC0001Add
-    Element Should Not Be Visible    jquery:#WDXC0001Edit
+    Element Should Be Visible    id:WDXC0001Clear
+    Element Should Be Visible    id:WDXC0001Add
+    Element Should Not Be Visible    id:WDXC0001Edit
 Search Gim Header Data With No Criteria
     Search Gim Header Data With Criteria    ${EMPTY}    ${EMPTY}    ${DROPDOWN_ALL}
 Search Gim Header Data With Criteria

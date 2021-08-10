@@ -86,10 +86,16 @@ let WDXC0001 = (function ($) {
                 // datatable
                 let gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
                     "data": responseData.data,
-                    "destroy": true,
-                    "deferRender": true,
-                    "responsive": true,
-                    "stateSave": true,
+                    "lengthChange": false,
+                    "buttons": [{
+                        text: '<i class="green file excel outline icon">',
+                        titleAttr: 'Export to Excel',
+                        extend: 'excelHtml5',
+                        title: 'GIM Header Table',
+                        exportOptions: {
+                            columns: [ 1,2,3,4,5,6,7,8,9 ]
+                        }
+                    }, 'pageLength'],
                     "order": [
                         [1, "asc"]
                     ],
@@ -155,6 +161,7 @@ let WDXC0001 = (function ($) {
                         }
                     ]
                 });
+                gimheaderTable.buttons().container().appendTo($('div.eight.column:eq(0)', gimheaderTable.table().container()));
                 $.LoadingOverlay('hide');
             });
         },
