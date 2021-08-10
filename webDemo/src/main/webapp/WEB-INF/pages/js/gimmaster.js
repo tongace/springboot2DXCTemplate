@@ -86,6 +86,7 @@ let WDXC0001 = (function ($) {
                 // datatable
                 let gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
                     "data": responseData.data,
+                    "destroy": true,
                     "lengthChange": false,
                     "buttons": [{
                         text: '<i class="green file excel outline icon">',
@@ -251,9 +252,6 @@ let WDXC0001 = (function ($) {
                 let gimDetailTable = $("#tableGimDetailResult").DataTable({
                     "data": responseData.data,
                     "destroy": true,
-                    "deferRender": true,
-                    "responsive": true,
-                    "stateSave": true,
                     "order": [
                         [1, "asc"],
                         [2, "asc"]
@@ -417,6 +415,7 @@ $(document).ready(function () {
         event.preventDefault();
         function approveCallback(){
             let formData = $('#editGimHeaderForm').form('get values');
+            console.log(formData);
             WDXC0001.saveGimHeaderData(formData);
         }
         if ($('#editGimHeaderForm').form('validate form')) {

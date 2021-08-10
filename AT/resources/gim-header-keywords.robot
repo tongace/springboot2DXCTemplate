@@ -54,7 +54,7 @@ Check Data Add or Edit Page are
     Wait Until Element Is Visible    id:WDXC0001Save
     Element Attribute Value Should Be    jquery:#editGimHeaderForm [name="gimType"]    value    ${gimType}
     Element Attribute Value Should Be    jquery:#editGimHeaderForm [name="gimDesc"]    value    ${gimDesc}
-    Element Attribute Value Should Be    jquery:#editGimHeaderForm [name="cdLength"]    value    ${cdLength}
+    Element Attribute Value Should Be    id:editGimHeaderForm-cdLength    value    ${cdLength}
     Element Attribute Value Should Be    jquery:#editGimHeaderForm [name="field1Label"]    value    ${field1Label}
     Element Attribute Value Should Be    jquery:#editGimHeaderForm [name="field2Label"]    value    ${field2Label}
     Element Attribute Value Should Be    jquery:#editGimHeaderForm [name="field3Label"]    value    ${field3Label}
