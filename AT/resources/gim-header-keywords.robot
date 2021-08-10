@@ -20,7 +20,7 @@ Check Gim Header Initial Correctly
     Element Attribute Value Should Be    jquery:#gimHeaderForm [name="searchGimTypes"]    value    ${EMPTY}
     Element Attribute Value Should Be    jquery:#gimHeaderForm [name="searchGimDesc"]    value    ${EMPTY}
     Element Attribute Value Should Be    jquery:#gimHeaderForm [name="searchActiveFlag"]    value    All
-    Element Should Be Visible    jquery:#WDXC0001Search
+    Element Should Be Visible    id:WDXC0001Search
     Element Should Be Visible    jquery:#WDXC0001Clear
     Element Should Be Visible    jquery:#WDXC0001Add
     Element Should Not Be Visible    jquery:#WDXC0001Edit

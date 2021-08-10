@@ -28,10 +28,10 @@ Check Message Result Or Alert
     Element Text Should Be    xpath://*[@id="alertModal"]/div[1]    ${code}
     Element Text Should Be    xpath://*[@id="alertModal"]/div[2]    ${message}
 Click OK on Message Result Or Alert
-    Click Element    jquery:#modalButtonOK
+    Click Element    id:modalButtonOK
     Wait Until Keyword Succeeds    500x    20ms    Check Alert Modal Is Complete Invisible
-    Wait Until Page Does Not Contain Element    jquery:.loadingoverlay    10
-    Wait Until Element Is Not Visible    jquery:.loadingoverlay    10
+    Wait Until Page Does Not Contain Element    class:loadingoverlay    10
+    Wait Until Element Is Not Visible    class:loadingoverlay    10
 Click Yes on Confirm
     Click Element    xpath://*[@id="confirmingModal"]/div[3]/div[1]
     Wait Until Keyword Succeeds    500x    20ms    Check Confirm Modal Is Complete Invisible
