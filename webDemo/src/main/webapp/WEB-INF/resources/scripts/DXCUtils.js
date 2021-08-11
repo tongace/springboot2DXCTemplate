@@ -113,7 +113,8 @@ let DXCUtils = (function ($) {
                 return dayjs(stringDate, format).toDate().getTime();
             }
         },
-        comfirmModal: function (confirmMessage, params,approveCallback) {
+        comfirmModal: function (confirmMessage, params, approveCallback) {
+            confirmMessage = confirmMessage.replace(/['"]+/g, '')
             let messageCode = confirmMessage.substring(0, confirmMessage.indexOf(":"));
             $('#confirmingModal').children(".header").empty();
             $('#confirmingModal').children(".content").empty();
@@ -142,10 +143,11 @@ let DXCUtils = (function ($) {
                     return true;
                 },
                 onApprove: approveCallback,
-                duration:0
+                duration: 0
             });
         },
         alertModal: function (alertMessage, params) {
+            alertMessage = alertMessage.replace(/['"]+/g, '')
             let messageCode = alertMessage.substring(0, alertMessage.indexOf(":"));
             $('#alertModal').children(".header").empty();
             $('#alertModal').children(".content").empty();
@@ -175,7 +177,7 @@ let DXCUtils = (function ($) {
                 selector: {
                     close: '#modalButtonOK'
                 },
-                duration:0
+                duration: 0
             });
         },
         stringEmpty: function (param) {
@@ -333,5 +335,18 @@ let DXCUtils = (function ($) {
                 return -1;
             }
         },
+        callAPI: function (url, httpMethod, postData) {
+            let options = {
+                "async": true,
+                "url": url,
+                "type": httpMethod,
+                "contentType": "application/json; charset=utf-8",
+                "cache": false
+            };
+            if (postData != null) {
+                options.data = JSON.stringify(postData);
+            }
+            return $.ajax(options);
+        }
     }
 }(jQuery));

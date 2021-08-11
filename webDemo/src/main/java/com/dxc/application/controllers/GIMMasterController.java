@@ -40,6 +40,11 @@ public class GIMMasterController {
         return "js/gimmaster.js";
     }
 
+    @GetMapping("/js/gimmaster-call-api.js")
+    public String initialJSApi(Model model) {
+        return "js/gimmaster-call-api.js";
+    }
+
     @PostMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     @SneakyThrows

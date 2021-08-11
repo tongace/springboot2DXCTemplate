@@ -47,5 +47,14 @@ $(document).ready(function () {
     displayDBServerTime();
     // repeat call every 5 min to for update
     setInterval(displayDBServerTime, 300000);
+
+    $.fn.form.settings.rules.space = function (value, inputvalue) {
+        console.log(inputvalue);
+        console.log(value);
+        let pattern = /^$|^[^\s]+(\s+[^\s]+)*$/;
+        let result = pattern.test(value);
+        console.log(result);
+        return result;
+    }
 });
 //]]>

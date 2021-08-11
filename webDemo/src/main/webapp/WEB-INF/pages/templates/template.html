@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="app_header(scripts,links)">
+<head th:fragment="app_header(scripts,links,styles)">
     <!-- Standard Meta -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -32,7 +32,7 @@
     <link th:href="@{/css/dxc_style.css}" rel='stylesheet' />
 
     <th:block th:replace="${links}" />
-
+    <th:block th:replace="${styles}" />
 </head>
 
 <body>
