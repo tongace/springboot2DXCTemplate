@@ -325,13 +325,13 @@ let WDXC0001 = (function ($) {
 $(document).ready(async function () {
     $.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss');
     $("#WDXC0001Edit").hide();
-    let gimTypeDatas = await WDXC0001_API.getGimTypeCombo();
-    console.log(gimTypeDatas);
-    DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), gimTypeDatas, null);
+    let results = await Promise.all([WDXC0001_API.getGimTypeCombo(),WDXC0001_API.getActiveFlagCombo()]);
+    let gimTypeCombos = results[0];
+    DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'),gimTypeCombos , null);
     $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
         forceSelection: false
     });
-    let activeFlagData = await WDXC0001_API.getActiveFlagCombo();
+    let activeFlagData = results[1];
     DXCUtils.createSelectOption($('#gimHeaderForm [name="searchActiveFlag"]'), activeFlagData, DXCUtils.COMBOBOX_ALL);
     $('#gimHeaderForm [name="searchActiveFlag"]').dropdown({
         forceSelection: false

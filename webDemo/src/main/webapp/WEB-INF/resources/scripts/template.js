@@ -29,20 +29,14 @@ $(document).ready(function () {
     // end menu and button authorization
 
     // timer
-    var displayDBServerTime = function () {
-        $.ajax({
-            "async": true,
-            "cache": false,
-            "url": "/demo/common/dbservertime",
-            "type": "GET"
-        }).done(function (responseData, textStatus, jqXHR) {
-            let dateTime = new Date(responseData);
+    var displayDBServerTime = async function () {
+        let dbTime = await DXCUtils.callAPI("/demo/common/dbservertime", "GET");
+        let dateTime = new Date(dbTime);
+        $('.time').text(moment(dateTime).format('DD MMM YYYY HH:mm:ss'));
+        setInterval(function () {
+            dateTime.setTime((dateTime.getTime() + 1000));
             $('.time').text(moment(dateTime).format('DD MMM YYYY HH:mm:ss'));
-            setInterval(function () {
-                dateTime.setTime((dateTime.getTime() + 1000));
-                $('.time').text(moment(dateTime).format('DD MMM YYYY HH:mm:ss'));
-            }, 1000);
-        });
+        }, 1000);
     };
     // call displayDBServerTime immediately
     displayDBServerTime();
