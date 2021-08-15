@@ -1,5 +1,5 @@
+'use strict'
 let DXCUtils = (function ($) {
-    // class properties
     return {
         COMBOBOX_ALL: 'All',
         COMBOBOX_SELECT: 'Select',
@@ -96,21 +96,21 @@ let DXCUtils = (function ($) {
             if (S(javaDate).isEmpty()) {
                 return '';
             } else {
-                return dayjs(new Date(javaDate)).format(format);
+                return moment(new Date(javaDate)).format(format);
             }
         },
         parseDate: function (stringDate, format) {
             if (S(stringDate).isEmpty()) {
                 return null;
             } else {
-                return dayjs(stringDate, format).toDate();
+                return moment(stringDate, format).toDate();
             }
         },
         parseDateForDB: function (stringDate, format) {
             if (S(stringDate).isEmpty()) {
                 return null;
             } else {
-                return dayjs(stringDate, format).toDate().getTime();
+                return moment(stringDate, format).toDate().getTime();
             }
         },
         comfirmModal: function (confirmMessage, params, approveCallback) {
@@ -245,13 +245,11 @@ let DXCUtils = (function ($) {
             let uploadingFileName = null;
             for (let ii = 0; ii < uploadingFileArray.length; ii++) {
                 uploadingFileName = uploadingFileArray[ii].name;
-                console.log('uploadingFileName>>>>>' + uploadingFileName);
                 if (_.contains(uploadedFile, uploadingFileName) == true) {
                     return true;
                 } else {
                     uploadedFile.push(uploadingFileName);
                 }
-                console.log(uploadedFile);
             }
             return false;
         },
@@ -288,11 +286,8 @@ let DXCUtils = (function ($) {
                 dataType: 'jsonp',
                 "cache": false
             }).done(function (response) {
-                console.log("Connection active!");
                 dfr.resolve();
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log("error status:" + XMLHttpRequest.status);
-                console.log("error message:" + errorThrown);
                 if (XMLHttpRequest.status == 404) {
                     let modal = ESPIUtils.alertModal(errorMessage, null);
                     modal.modal({
@@ -336,7 +331,7 @@ let DXCUtils = (function ($) {
             }
         },
         callAPI: function (url, httpMethod, postData) {
-            let options = {
+            const options = {
                 "async": true,
                 "url": url,
                 "type": httpMethod,

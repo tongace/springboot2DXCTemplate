@@ -45,10 +45,10 @@
 				<!-- database -->
 				<database.jdbc.driverClassName>com.mysql.cj.jdbc.Driver</database.jdbc.driverClassName>
 				<database.jdbc.maximumPoolSize>2</database.jdbc.maximumPoolSize>
-				<database.jdbc.url>jdbc:mysql://localhost:3306/demo</database.jdbc.url>
+				<database.jdbc.url>jdbc:mysql://host.docker.internal:3306/demo</database.jdbc.url>
 				<database.jdbc.username>demo</database.jdbc.username>
 				<database.jdbc.password>demo</database.jdbc.password>
-				<database.bfw.jdbc.url>jdbc:mysql://localhost:3306/demo</database.bfw.jdbc.url>
+				<database.bfw.jdbc.url>jdbc:mysql://host.docker.internal:3306/demo</database.bfw.jdbc.url>
 				<database.bfw.jdbc.username>demo</database.bfw.jdbc.username>
 				<database.bfw.jdbc.password>demo</database.bfw.jdbc.password>
 				<database.hibernate.dialect>org.hibernate.dialect.MySQLDialect</database.hibernate.dialect>

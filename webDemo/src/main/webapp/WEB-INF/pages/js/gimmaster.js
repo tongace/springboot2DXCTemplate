@@ -1,150 +1,139 @@
 //<![CDATA[
+'use strict'
 let WDXC0001 = (function ($) {
     return {
-        saveGimHeaderData: function (formData) {
-            $when(WDXC0001_API.saveGimHeader(formData))
-                .done(function (responseData) {
-                    if (responseData.message == null || responseData.message == '') {
-                        $('#gimHeaderEditSection').fadeOut(600, function () {
-                            $('#gimHeaderSearchSection').fadeIn(600);
-                        });
-                        // set save message
-                        if (responseData.rowCount > 0) {
-                            let modal = DXCUtils.alertModal('[[#{MBX00005AINF}]]', null);
-                            modal.modal('show');
-                        } else {
-                            let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
-                            modal.modal('show');
-                        }
-                        let formData = $('#gimHeaderForm').form('get values');
-                        WDXC0001.populateGIMHeaderDatatable(formData);
-                        // reload gim type
-                        $.when(WDXC0001_API.getGimTypeCombo())
-                            .done(function (responseData) {
-                                let formData = $('#gimHeaderForm').form('get values');
-                                DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), responseData, null);
-                                $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
-                                    forceSelection: false
-                                });
-                                $('#gimHeaderForm [name="searchGimTypes"]').dropdown('set exactly', formData.searchGimTypes);
-                            });
-                    } else {
-                        let modal = DXCUtils.alertModal(responseData.message, null);
-                        modal.modal('show');
-                    }
+        saveGimHeaderData: async function (formData) {
+            let saveResp = await WDXC0001_API.saveGimHeader(formData);
+            if (saveResp.message == null || saveResp.message == '') {
+                $('#gimHeaderEditSection').fadeOut(600, function () {
+                    $('#gimHeaderSearchSection').fadeIn(600);
                 });
+                // set save message
+                if (saveResp.rowCount > 0) {
+                    let modal = DXCUtils.alertModal('[[#{MBX00005AINF}]]', null);
+                    modal.modal('show');
+                } else {
+                    let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                    modal.modal('show');
+                }
+                let formData = $('#gimHeaderForm').form('get values');
+                WDXC0001.populateGIMHeaderDatatable(formData);
+                // reload gim type
+                let gimTypeDatas = await WDXC0001_API.getGimTypeCombo()
+                DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), gimTypeDatas, null);
+                $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
+                    forceSelection: false
+                });
+                $('#gimHeaderForm [name="searchGimTypes"]').dropdown('set exactly', formData.searchGimTypes);
+            } else {
+                let modal = DXCUtils.alertModal(saveResp.message, null);
+                modal.modal('show');
+            }
         },
-        populateGIMHeaderDatatable: function (formData) {
+        populateGIMHeaderDatatable: async function (formData) {
             $.LoadingOverlay('show');
-            $.when(WDXC0001_API.searchGimHeader(formData))
-                .done(function (responseData) {
-                    console.log(responseData);
-                    if ($.isEmptyObject(responseData.data) == false) {
-                        $("#WDXC0001Edit").show();
-                    } else {
-                        $("#WDXC0001Edit").hide();
+            let responseData = await WDXC0001_API.searchGimHeader(formData);
+            if ($.isEmptyObject(responseData.data) == false) {
+                $("#WDXC0001Edit").show();
+            } else {
+                $("#WDXC0001Edit").hide();
+            }
+            if (S(responseData.message).isEmpty() == false) {
+                let modal = DXCUtils.alertModal(responseData.message, null);
+                modal.modal('show');
+                $('#searchResultSection').hide();
+            } else {
+                $('#searchResultSection').show();
+            }
+            // datatable
+            let gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
+                "data": responseData.data,
+                "destroy": true,
+                "lengthChange": false,
+                "buttons": [{
+                    text: '<i class="green file excel outline icon">',
+                    titleAttr: 'Export to Excel',
+                    extend: 'excelHtml5',
+                    title: 'GIM Header Table',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
                     }
-                    if (S(responseData.message).isEmpty() == false) {
-                        let modal = DXCUtils.alertModal(responseData.message, null);
-                        modal.modal('show');
-                        $('#searchResultSection').hide();
-                    } else {
-                        $('#searchResultSection').show();
+                }, 'pageLength'],
+                "order": [
+                    [1, "asc"]
+                ],
+                "columns": [{
+                        "data": "gimType",
+                        "searchable": false,
+                        "orderable": false,
+                        "className": "dt-body-center",
+                        "render": function (data, type, row) {
+                            return ('<input type="checkbox" name="chkGimHeader" value="' + data + '"/>');
+                        },
+                        "title": '<a href="#" onclick="return WDXC0001.clearHeaderCheckBox()"><i class="large square outline icon"/></a>'
+                    },
+                    {
+                        "data": "gimType",
+                        "orderable": true,
+                        "searchable": true,
+                        "className": "dt-body-left",
+                        "render": function (data, type, row,meta) {
+                            return '<a href="#" onclick="return WDXC0001.gimTypeSelect('+meta.row+');">' + data + '</a>';
+                        }
+                    },
+                    {
+                        "data": "gimDesc",
+                        "orderable": true,
+                        "searchable": true
+                    },
+                    {
+                        "data": "cdLength",
+                        "orderable": true,
+                        "className": "dt-body-right"
+                    },
+                    {
+                        "data": "field1Label",
+                        "orderable": true,
+                        "searchable": true
+                    },
+                    {
+                        "data": "field2Label",
+                        "orderable": true,
+                        "searchable": true
+                    },
+                    {
+                        "data": "field3Label",
+                        "orderable": true,
+                        "searchable": true
+                    },
+                    {
+                        "data": "displayActiveFlag",
+                        "orderable": true,
+                        "className": "dt-body-center"
+                    },
+                    {
+                        "data": "modifiedBy",
+                        "orderable": true
+                    },
+                    {
+                        "data": "modifiedDt",
+                        "orderable": true,
+                        "render": function (data, type, row) {
+                            return DXCUtils.formatDate(data, "DD/MM/YYYY HH:mm:ss");
+                        }
                     }
-                    // datatable
-                    let gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
-                        "data": responseData.data,
-                        "destroy": true,
-                        "lengthChange": false,
-                        "buttons": [{
-                            text: '<i class="green file excel outline icon">',
-                            titleAttr: 'Export to Excel',
-                            extend: 'excelHtml5',
-                            title: 'GIM Header Table',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                            }
-                        }, 'pageLength'],
-                        "order": [
-                            [1, "asc"]
-                        ],
-                        "columns": [{
-                                "data": "gimType",
-                                "searchable": false,
-                                "orderable": false,
-                                "className": "dt-body-center",
-                                "render": function (data, type, row) {
-                                    return ('<input type="checkbox" name="chkGimHeader" value="' + data + '"/>');
-                                },
-                                "title": '<a href="#" onclick="return WDXC0001.clearHeaderCheckBox()"><i class="large square outline icon"/></a>'
-                            },
-                            {
-                                "data": "gimType",
-                                "orderable": true,
-                                "searchable": true,
-                                "className": "dt-body-left",
-                                "render": function (data, type, row) {
-                                    return '<a href="#" onclick="return WDXC0001.gimTypeSelect(this);">' + data + '</a>';
-                                }
-                            },
-                            {
-                                "data": "gimDesc",
-                                "orderable": true,
-                                "searchable": true
-                            },
-                            {
-                                "data": "cdLength",
-                                "orderable": true,
-                                "className": "dt-body-right"
-                            },
-                            {
-                                "data": "field1Label",
-                                "orderable": true,
-                                "searchable": true
-                            },
-                            {
-                                "data": "field2Label",
-                                "orderable": true,
-                                "searchable": true
-                            },
-                            {
-                                "data": "field3Label",
-                                "orderable": true,
-                                "searchable": true
-                            },
-                            {
-                                "data": "displayActiveFlag",
-                                "orderable": true,
-                                "className": "dt-body-center"
-                            },
-                            {
-                                "data": "modifiedBy",
-                                "orderable": true
-                            },
-                            {
-                                "data": "modifiedDt",
-                                "orderable": true,
-                                "render": function (data, type, row) {
-                                    return DXCUtils.formatDate(data, "DD/MM/YYYY HH:mm:ss");
-                                }
-                            }
-                        ]
-                    });
-                    gimheaderTable.buttons().container().appendTo($('div.eight.column:eq(0)', gimheaderTable.table().container()));
+                ],
+                "initComplete": function(settings, json) {
                     $.LoadingOverlay('hide');
-                });
-        },
-        // for outside this document.ready scope can call such as html element onclick
-        gimTypeSelect: function (obj) {
-            // set select class
-            $(obj).addClass("selected");
-            let gimHeaderDataTable = $('#tableGimTypeHeaderResult').DataTable();
-            $.each(gimHeaderDataTable.rows().nodes(), function (indexInArray, valueOfElement) {
-                if ($(valueOfElement).find("a").hasClass("selected")) {
-                    $('#selectedGimHeaderDiv').text(JSON.stringify(gimHeaderDataTable.row(valueOfElement).data()));
-                    return;
                 }
             });
+            gimheaderTable.buttons().container().appendTo($('div.eight.column:eq(0)', gimheaderTable.table().container()));
+        },
+        // for outside this document.ready scope can call such as html element onclick
+        gimTypeSelect: function (selectedRow) {
+            let gimHeaderDataTable = $('#tableGimTypeHeaderResult').DataTable();
+            let rows = gimHeaderDataTable.rows(selectedRow).data();
+            $('#selectedGimHeaderDiv').text(JSON.stringify(rows[0]));
             $('#gimHeaderSearchSection').fadeOut(600, function () {
                 $('#gimDetailSection').fadeIn(600);
             });
@@ -195,128 +184,132 @@ let WDXC0001 = (function ($) {
         searchGimDetail: function () {
             WDXC0001.populateGIMDetailDatatable(false);
         },
-        populateGIMDetailDatatable: function (saveMessage) {
+        populateGIMDetailDatatable: async function (saveMessage) {
             $.LoadingOverlay('show');
-            let gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
-            let dataForSubmit = {};
+            const gimHeaderObj = JSON.parse($('#selectedGimHeaderDiv').text());
+            const dataForSubmit = {};
             dataForSubmit.gimType = gimHeaderObj.gimType;
-            $.when(WDXC0001_API.searchGimDetail(dataForSubmit))
-                .done(function (responseData) {
-                    console.log(responseData);
-                    if ($.isEmptyObject(responseData.data) == false) {
-                        $('#WDXC0001EditDetail').show();
-                        $('#WDXC0001DeleteDetail').show();
-                    } else {
-                        $('#WDXC0001EditDetail').hide();
-                        $('#WDXC0001DeleteDetail').hide();
-                    }
-                    // datatable
-                    let gimDetailTable = $("#tableGimDetailResult").DataTable({
-                        "data": responseData.data,
-                        "destroy": true,
-                        "order": [
-                            [1, "asc"],
-                            [2, "asc"]
-                        ],
-                        "columns": [{
-                                "data": "gimType",
-                                "searchable": false,
-                                "orderable": false,
-                                "className": "dt-body-center collapsing",
-                                "render": function (data) {
-                                    return ('<input type="checkbox" name="chkGimDetail" value="' + data + '"/>');
-                                },
-                                "title": '<a href="#" onclick="return WDXC0001.clearDetailCheckBox()"><i class="large square outline icon"/></a>'
-                            },
-                            {
-                                "data": "gimType",
-                                "orderable": true,
-                                "searchable": true
-                            },
-                            {
-                                "data": "gimCd",
-                                "orderable": true,
-                                "searchable": true,
-                                "render": function (data, type, full, meta) {
-                                    return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
-                                }
-                            },
-                            {
-                                "data": "gimValue",
-                                "orderable": true,
-                                "render": function (data, type, full, meta) {
-                                    return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
-                                }
-                            },
-                            {
-                                "data": "field1",
-                                "orderable": true,
-                                "searchable": true,
-                                "title": gimHeaderObj.field1Label,
-                                "render": function (data, type, full, meta) {
-                                    return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
-                                }
-                            },
-                            {
-                                "data": "field2",
-                                "orderable": true,
-                                "searchable": true,
-                                "title": gimHeaderObj.field2Label,
-                                "render": function (data, type, full, meta) {
-                                    return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
-                                }
-                            },
-                            {
-                                "data": "field3",
-                                "orderable": true,
-                                "searchable": true,
-                                "title": gimHeaderObj.field3Label,
-                                "render": function (data, type, full, meta) {
-                                    return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
-                                }
-                            },
-                            {
-                                "data": "displayActiveFlag",
-                                "orderable": true,
-                                "className": "dt-body-center"
-                            },
-                            {
-                                "data": "modifiedBy",
-                                "orderable": true
-                            },
-                            {
-                                "data": "modifiedDt",
-                                "orderable": true,
-                                "render": function (data, type, row) {
-                                    return DXCUtils.formatDate(data, "DD/MM/YYYY HH:mm:ss");
-                                }
-                            }
-                        ]
-                    });
-                    $.LoadingOverlay('hide');
-                });
-        },
-        saveGimDetail: function (formData) {
-            $.when(WDXC0001_API.saveGimDetail(formData))
-                .done(function (responseData) {
-                    if (responseData.message == null || responseData.message == '') {
-                        $('#gimDetailEditSection').fadeOut(600, function () {
-                            $('#gimDetailSection').fadeIn(600);
-                        });
-                        // set save message
-                        if (responseData.rowCount > 0) {
-                            let modal = DXCUtils.alertModal('[[#{MBX00005AINF}]]', null);
-                            modal.modal('show');
-                        } else {
-                            let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
-                            modal.modal('show');
+            const responseData = await WDXC0001_API.searchGimDetail(dataForSubmit);
+            console.log(responseData);
+            if ($.isEmptyObject(responseData.data) == false) {
+                $('#WDXC0001EditDetail').show();
+                $('#WDXC0001DeleteDetail').show();
+            } else {
+                $('#WDXC0001EditDetail').hide();
+                $('#WDXC0001DeleteDetail').hide();
+            }
+            if (S(responseData.message).isEmpty() == false) {
+                let modal = DXCUtils.alertModal(responseData.message, null);
+                modal.modal('show');
+                $("#tableGimDetailResult").DataTable().destroy();
+                $("#tableGimDetailResult").DataTable().clear();
+            }
+            // datatable
+            let gimDetailTable = $("#tableGimDetailResult").DataTable({
+                "data": responseData.data,
+                "destroy": true,
+                "order": [
+                    [1, "asc"],
+                    [2, "asc"]
+                ],
+                "columns": [{
+                        "data": "gimType",
+                        "searchable": false,
+                        "orderable": false,
+                        "className": "dt-body-center collapsing",
+                        "render": function (data) {
+                            return ('<input type="checkbox" name="chkGimDetail" value="' + data + '"/>');
+                        },
+                        "title": '<a href="#" onclick="return WDXC0001.clearDetailCheckBox()"><i class="large square outline icon"/></a>'
+                    },
+                    {
+                        "data": "gimType",
+                        "orderable": true,
+                        "searchable": true
+                    },
+                    {
+                        "data": "gimCd",
+                        "orderable": true,
+                        "searchable": true,
+                        "render": function (data, type, full, meta) {
+                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
                         }
-                        WDXC0001.populateGIMDetailDatatable(true);
-                    } else {
-                        let modal = DXCUtils.alertModal(responseData.message, null);
-                        modal.modal('show');
+                    },
+                    {
+                        "data": "gimValue",
+                        "orderable": true,
+                        "render": function (data, type, full, meta) {
+                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                        }
+                    },
+                    {
+                        "data": "field1",
+                        "orderable": true,
+                        "searchable": true,
+                        "title": gimHeaderObj.field1Label,
+                        "render": function (data, type, full, meta) {
+                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                        }
+                    },
+                    {
+                        "data": "field2",
+                        "orderable": true,
+                        "searchable": true,
+                        "title": gimHeaderObj.field2Label,
+                        "render": function (data, type, full, meta) {
+                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                        }
+                    },
+                    {
+                        "data": "field3",
+                        "orderable": true,
+                        "searchable": true,
+                        "title": gimHeaderObj.field3Label,
+                        "render": function (data, type, full, meta) {
+                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                        }
+                    },
+                    {
+                        "data": "displayActiveFlag",
+                        "orderable": true,
+                        "className": "dt-body-center"
+                    },
+                    {
+                        "data": "modifiedBy",
+                        "orderable": true
+                    },
+                    {
+                        "data": "modifiedDt",
+                        "orderable": true,
+                        "render": function (data, type, row) {
+                            return DXCUtils.formatDate(data, "DD/MM/YYYY HH:mm:ss");
+                        }
                     }
+                ],
+                "initComplete": function(settings, json) {
+                    $.LoadingOverlay('hide');
+                }
+            });
+        },
+        saveGimDetail: async function (formData) {
+            let responseData = await WDXC0001_API.saveGimDetail(formData)
+            if (responseData.message == null || responseData.message == '') {
+                $('#gimDetailEditSection').fadeOut(600, function () {
+                    $('#gimDetailSection').fadeIn(600);
                 });
+                // set save message
+                if (responseData.rowCount > 0) {
+                    let modal = DXCUtils.alertModal('[[#{MBX00005AINF}]]', null);
+                    modal.modal('show');
+                } else {
+                    let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                    modal.modal('show');
+                }
+                WDXC0001.populateGIMDetailDatatable(true);
+            } else {
+                let modal = DXCUtils.alertModal(responseData.message, null);
+                modal.modal('show');
+            }
         },
         clearHeaderCheckBox: function () {
             let gimHeaderTable = $("#tableGimTypeHeaderResult").DataTable();
@@ -328,30 +321,29 @@ let WDXC0001 = (function ($) {
         },
     }
 }(jQuery));
-$(document).ready(function () {
+
+$(document).ready(async function () {
+    $.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss');
     $("#WDXC0001Edit").hide();
-    $.when(WDXC0001_API.getGimTypeCombo())
-        .done(function (responseData) {
-            DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), responseData, null);
-            $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
-                forceSelection: false
-            });
-        });
-    $.when(WDXC0001_API.getActiveFlagCombo())
-        .done(function (responseData) {
-            DXCUtils.createSelectOption($('#gimHeaderForm [name="searchActiveFlag"]'), responseData, DXCUtils.COMBOBOX_ALL);
-            $('#gimHeaderForm [name="searchActiveFlag"]').dropdown({
-                forceSelection: false
-            });
-            DXCUtils.createSelectOption($('#editGimHeaderForm [name="activeFlag"]'), responseData, DXCUtils.COMBOBOX_SELECT);
-            $('#editGimHeaderForm [name="activeFlag"]').dropdown({
-                forceSelection: false
-            });
-            DXCUtils.createSelectOption($('#editGimDetailForm [name="activeFlag"]'), responseData, DXCUtils.COMBOBOX_SELECT);
-            $('#editGimDetailForm [name="activeFlag"]').dropdown({
-                forceSelection: false
-            });
-        });
+    let gimTypeDatas = await WDXC0001_API.getGimTypeCombo();
+    console.log(gimTypeDatas);
+    DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), gimTypeDatas, null);
+    $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
+        forceSelection: false
+    });
+    let activeFlagData = await WDXC0001_API.getActiveFlagCombo();
+    DXCUtils.createSelectOption($('#gimHeaderForm [name="searchActiveFlag"]'), activeFlagData, DXCUtils.COMBOBOX_ALL);
+    $('#gimHeaderForm [name="searchActiveFlag"]').dropdown({
+        forceSelection: false
+    });
+    DXCUtils.createSelectOption($('#editGimHeaderForm [name="activeFlag"]'), activeFlagData, DXCUtils.COMBOBOX_SELECT);
+    $('#editGimHeaderForm [name="activeFlag"]').dropdown({
+        forceSelection: false
+    });
+    DXCUtils.createSelectOption($('#editGimDetailForm [name="activeFlag"]'), activeFlagData, DXCUtils.COMBOBOX_SELECT);
+    $('#editGimDetailForm [name="activeFlag"]').dropdown({
+        forceSelection: false
+    });
     // end combo
     // button
     let WDXC0001SearchClick;
@@ -372,7 +364,6 @@ $(document).ready(function () {
 
         function approveCallback() {
             let formData = $('#editGimHeaderForm').form('get values');
-            console.log(formData);
             WDXC0001.saveGimHeaderData(formData);
         }
         if ($('#editGimHeaderForm').form('validate form')) {

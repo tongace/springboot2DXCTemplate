@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="templates/template.html :: app_header(~{::script},~{::link},~{::style})">
+<head th:replace="templates/template.html :: app_header(~{::script},~{::link},~{})">
     <script th:src="@{/scripts/dataTables.buttons.min.js}"></script>
     <script th:src="@{/scripts/buttons.semanticui.min.js}"></script>
     <script th:src="@{/scripts/buttons.html5.min.js}"></script>
@@ -10,11 +10,6 @@
     <script th:src="@{/gimmaster/js/gimmaster.js}"></script>
 
     <link th:href="@{/css/buttons.semanticui.min.css}" rel='stylesheet' />
-    <style>
-        .aaaaa {
-            width: auto;
-        }
-    </style>
 </head>
 
 <body>

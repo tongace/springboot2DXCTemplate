@@ -1,5 +1,6 @@
 //<![CDATA[
 $(document).ready(function () {
+    'use strict'
     // browser detection
     detectBrowser();
     if (!(_browser.chrome || (_browser.msie && _browser.version >= 11) || _browser.safari)) {
@@ -36,10 +37,10 @@ $(document).ready(function () {
             "type": "GET"
         }).done(function (responseData, textStatus, jqXHR) {
             let dateTime = new Date(responseData);
-            $('.time').text(dayjs(dateTime).format('DD MMM YYYY HH:mm:ss'));
+            $('.time').text(moment(dateTime).format('DD MMM YYYY HH:mm:ss'));
             setInterval(function () {
                 dateTime.setTime((dateTime.getTime() + 1000));
-                $('.time').text(dayjs(dateTime).format('DD MMM YYYY HH:mm:ss'));
+                $('.time').text(moment(dateTime).format('DD MMM YYYY HH:mm:ss'));
             }, 1000);
         });
     };
@@ -55,6 +56,6 @@ $(document).ready(function () {
         let result = pattern.test(value);
         console.log(result);
         return result;
-    }
+    };
 });
 //]]>
