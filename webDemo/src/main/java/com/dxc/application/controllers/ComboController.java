@@ -1,8 +1,6 @@
 package com.dxc.application.controllers;
 
-import java.util.List;
-
-import com.dxc.application.model.GimHeader;
+import com.dxc.application.model.Combo;
 import com.dxc.application.model.RestJsonData;
 import com.dxc.application.services.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dxc.application.model.Combo;
+import java.util.List;
 
 @RestController
 @RequestMapping("/combo")
@@ -25,13 +23,11 @@ public class ComboController {
 
     @GetMapping(value = "/gimtypecombo", produces = MediaType.APPLICATION_JSON_VALUE)
     public RestJsonData<List<Combo>> getGimTypeCombo() {
-        RestJsonData<List<Combo>> returnResult = new RestJsonData<>();
-        returnResult.setData(commonService.getGimTypeCombo());
-        return returnResult;
+        return new RestJsonData<List<Combo>>(null,null,commonService.getGimTypeCombo());
     }
 
     @GetMapping(value = "/activeflagcombo", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Combo> getActiveFlagCombo() {
-        return commonService.getActiveFlagCombo();
+    public RestJsonData<List<Combo>> getActiveFlagCombo() {
+        return new RestJsonData<List<Combo>>(null,null,commonService.getActiveFlagCombo());
     }
 }

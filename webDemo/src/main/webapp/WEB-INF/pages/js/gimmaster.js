@@ -332,15 +332,15 @@ $(document).ready(async function () {
         forceSelection: false
     });
     let activeFlagData = results[1];
-    DXCUtils.createSelectOption($('#gimHeaderForm [name="searchActiveFlag"]'), activeFlagData, DXCUtils.COMBOBOX_ALL);
+    DXCUtils.createSelectOption($('#gimHeaderForm [name="searchActiveFlag"]'), activeFlagData.data, DXCUtils.COMBOBOX_ALL);
     $('#gimHeaderForm [name="searchActiveFlag"]').dropdown({
         forceSelection: false
     });
-    DXCUtils.createSelectOption($('#editGimHeaderForm [name="activeFlag"]'), activeFlagData, DXCUtils.COMBOBOX_SELECT);
+    DXCUtils.createSelectOption($('#editGimHeaderForm [name="activeFlag"]'), activeFlagData.data, DXCUtils.COMBOBOX_SELECT);
     $('#editGimHeaderForm [name="activeFlag"]').dropdown({
         forceSelection: false
     });
-    DXCUtils.createSelectOption($('#editGimDetailForm [name="activeFlag"]'), activeFlagData, DXCUtils.COMBOBOX_SELECT);
+    DXCUtils.createSelectOption($('#editGimDetailForm [name="activeFlag"]'), activeFlagData.data, DXCUtils.COMBOBOX_SELECT);
     $('#editGimDetailForm [name="activeFlag"]').dropdown({
         forceSelection: false
     });
