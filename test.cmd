@@ -1,3 +1,7 @@
-.\mvnw clean test surefire-report:report-only
-REM .\mvnw surefire-report:report-only
-REM .\mvnw site -DgenerateReports=false
+.\mvnw clean install -DskipTests & ^
+cd webDemo & ^
+.\mvnw test & ^
+.\mvnw site -DgenerateReports=false & ^
+.\mvnw jacoco:report & ^
+.\mvnw surefire-report:report-only & ^
+cd ..
