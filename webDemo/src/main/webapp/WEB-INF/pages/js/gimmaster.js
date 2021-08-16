@@ -2,7 +2,7 @@
 'use strict'
 let WDXC0001 = (function ($) {
     return {
-        saveGimHeaderData: async function (formData) {
+        saveGimHeaderData: async  formData => {
             let saveResp = await WDXC0001_API.saveGimHeader(formData);
             if (saveResp.message == null || saveResp.message == '') {
                 $('#gimHeaderEditSection').fadeOut(600, function () {
@@ -19,7 +19,7 @@ let WDXC0001 = (function ($) {
                 let formData = $('#gimHeaderForm').form('get values');
                 WDXC0001.populateGIMHeaderDatatable(formData);
                 // reload gim type
-                let gimTypeDatas = await WDXC0001_API.getGimTypeCombo()
+                let gimTypeDatas = await WDXC0001_API.getGimTypeCombo();
                 DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), gimTypeDatas, null);
                 $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
                     forceSelection: false
@@ -32,7 +32,7 @@ let WDXC0001 = (function ($) {
         },
         populateGIMHeaderDatatable: async function (formData) {
             $.LoadingOverlay('show');
-            let responseData = await WDXC0001_API.searchGimHeader(formData);
+            const responseData = await WDXC0001_API.searchGimHeader(formData);
             if ($.isEmptyObject(responseData.data) == false) {
                 $("#WDXC0001Edit").show();
             } else {

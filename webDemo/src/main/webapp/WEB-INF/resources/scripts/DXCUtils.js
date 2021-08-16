@@ -5,7 +5,7 @@ let DXCUtils = (function ($) {
         COMBOBOX_SELECT: 'Select',
         MODE_ADD: 'ADD',
         MODE_EDIT: 'EDIT',
-        toggleGroupMenu: function (obj) {
+        toggleGroupMenu: obj => {
             let menuGroup = $(obj).parent();
             menuGroup.children(".menu").toggle();
             // hide all other menu group
@@ -20,14 +20,14 @@ let DXCUtils = (function ($) {
             }
             return false;
         },
-        setActiveMenu: function (screenId) {
+        setActiveMenu: screenId => {
             let creenIdObj = $('#' + screenId)
             creenIdObj.toggleClass("active");
             creenIdObj.parent().show();
             creenIdObj.parent().parent().siblings().children(".menu").hide();
             return false;
         },
-        authorizationRender: function (screenId) {
+        authorizationRender: screenId => {
             // $.ajax({
             //         "async": true,
             //         "cache": false,
@@ -70,7 +70,7 @@ let DXCUtils = (function ($) {
             //         console.log(errorThrown);
             //     });
         },
-        createSelectOption: function (selectObj, comboList, firstItemText) {
+        createSelectOption: (selectObj, comboList, firstItemText) => {
             //selectObj.empty();
             selectObj.find('option').remove().end();
             if (firstItemText != null) {
