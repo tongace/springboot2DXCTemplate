@@ -20,7 +20,7 @@ let WDXC0001 = (function ($) {
                 WDXC0001.populateGIMHeaderDatatable(formData);
                 // reload gim type
                 let gimTypeDatas = await WDXC0001_API.getGimTypeCombo();
-                DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), gimTypeDatas, null);
+                DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), gimTypeDatas.data, null);
                 $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
                     forceSelection: false
                 });
@@ -327,7 +327,7 @@ $(document).ready(async function () {
     $("#WDXC0001Edit").hide();
     let results = await Promise.all([WDXC0001_API.getGimTypeCombo(),WDXC0001_API.getActiveFlagCombo()]);
     let gimTypeCombos = results[0];
-    DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'),gimTypeCombos , null);
+    DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'),gimTypeCombos.data , null);
     $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
         forceSelection: false
     });

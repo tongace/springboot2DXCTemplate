@@ -2,6 +2,8 @@ package com.dxc.application.controllers;
 
 import java.util.List;
 
+import com.dxc.application.model.GimHeader;
+import com.dxc.application.model.RestJsonData;
 import com.dxc.application.services.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,8 +24,10 @@ public class ComboController {
     }
 
     @GetMapping(value = "/gimtypecombo", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Combo> getGimTypeCombo() {
-        return commonService.getGimTypeCombo();
+    public RestJsonData<List<Combo>> getGimTypeCombo() {
+        RestJsonData<List<Combo>> returnResult = new RestJsonData<>();
+        returnResult.setData(commonService.getGimTypeCombo());
+        return returnResult;
     }
 
     @GetMapping(value = "/activeflagcombo", produces = MediaType.APPLICATION_JSON_VALUE)
