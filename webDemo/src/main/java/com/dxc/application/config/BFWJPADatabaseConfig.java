@@ -32,8 +32,7 @@ public class BFWJPADatabaseConfig {
         this.jpaProperties = jpaProperties;
     }
 
-    @Bean
-    @Qualifier("dataSource_bfw")
+    @Bean(name="dataSource_bfw")
     public DataSource getBFWJPADataSource() {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(appDataSourceProperties.getDriverClassName());
@@ -50,8 +49,7 @@ public class BFWJPADatabaseConfig {
         return properties;
     }
 
-    @Bean
-    @Qualifier("entityManagerFactory_bfw")
+    @Bean(name="entityManagerFactory_bfw")
     public LocalContainerEntityManagerFactoryBean getBFWEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(getBFWJPADataSource());
@@ -65,8 +63,7 @@ public class BFWJPADatabaseConfig {
         return em;
     }
 
-    @Bean
-    @Qualifier("bfw")
+    @Bean(name="bfw")
     public PlatformTransactionManager bfwTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(getBFWEntityManagerFactory().getObject());

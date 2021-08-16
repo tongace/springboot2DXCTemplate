@@ -31,8 +31,7 @@ public class AppJPADatabaseConfig {
 		this.jpaProperties=jpaProperties;
 	}
 
-	@Bean
-	@Qualifier("jpaDataSource")
+	@Bean(name = "jpaDataSource")
 	public DataSource getJPADataSource() {
 		BasicDataSource ds = new BasicDataSource();
 		ds.setDriverClassName(appDataSourceProperties.getDriverClassName());
@@ -49,9 +48,8 @@ public class AppJPADatabaseConfig {
 		return properties;
 	}
 	
-	@Bean
+	@Bean(name = "entityManagerFactory")
 	@Primary
-	@Qualifier("entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(getJPADataSource());

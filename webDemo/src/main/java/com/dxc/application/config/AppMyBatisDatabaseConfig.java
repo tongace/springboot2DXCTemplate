@@ -24,9 +24,8 @@ public class AppMyBatisDatabaseConfig {
         this.appDataSourceProperties = appDataSourceProperties;
     }
 
-    @Bean
+    @Bean(name = "myBatisDataSource")
     @Primary
-    @Qualifier("myBatisDataSource")
     public DataSource getMyBatisDataSource() {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(appDataSourceProperties.getDriverClassName());
@@ -36,8 +35,7 @@ public class AppMyBatisDatabaseConfig {
         return ds;
     }
 
-    @Bean
-    @Qualifier("mybastistx")
+    @Bean(name="mybastistx")
     public DataSourceTransactionManager getMyBatisTransactionManager() {
         return new DataSourceTransactionManager(getMyBatisDataSource());
     }
