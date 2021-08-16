@@ -1,20 +1,40 @@
 plugins {
-	id 'java-library'
+	id 'java'
 }
 
 group = 'com.dxc.application'
 version = '1.0.0'
 sourceCompatibility = '1.8'
 
-repositories {
-	maven {
-		url "http://159.89.210.222:8085/repository/maven-public/"
-	}
-}
 
 dependencies {
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+	implementation 'org.springframework:spring-core:'+project.ext.springFrameworkVersion
+	implementation 'org.springframework:spring-context:'+project.ext.springFrameworkVersion
+	implementation 'org.springframework:spring-beans:'+project.ext.springFrameworkVersion
+	implementation 'org.springframework:spring-test:'+project.ext.springFrameworkVersion
+	implementation 'org.springframework:spring-tx:'+project.ext.springFrameworkVersion
+
+	implementation 'commons-fileupload:commons-fileupload:1.4'
+	implementation 'org.apache.commons:commons-dbcp2:2.8.0'
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	implementation 'net.sf.jasperreports:jasperreports:6.0.3'
+	implementation 'org.apache.poi:poi:5.0.0'
+	implementation 'org.apache.poi:poi-ooxml:5.0.0'
+	implementation 'org.apache.poi:poi-ooxml-schemas:4.1.2'
+	implementation 'org.mybatis:mybatis:3.5.7'
+	implementation 'org.mybatis:mybatis-spring:2.0.6'
+
+	implementation 'tdem-standard:st3-api:1.1.12-RELEASE'
+	implementation 'tdem-standard:st3-batch:1.1.17-RELEASE'
+
+	runtimeOnly 'mysql:mysql-connector-java:8.0.26'
+
+	compileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+	annotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+
+	testCompileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+	testAnnotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+	testImplementation 'org.junit.jupiter:junit-jupiter:'+project.ext.junitJupiterVersion
 }
 
 test {

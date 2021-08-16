@@ -1,0 +1,17 @@
+allprojects {
+    repositories {
+        maven {
+            url "http://159.89.210.222:8085/repository/maven-public/"
+            allowInsecureProtocol true
+        }
+    }
+    //THIS IS WHAT YOU ARE ADDING
+    project.ext {
+        camelVersion = '3.11.0'
+        springFrameworkVersion = '5.3.9'
+        thymeleafVersion = '3.0.12.RELEASE'
+        thymeleafLayoutDialectVersion = '2.5.3'
+        lombokVersion = '1.18.20'
+        junitJupiterVersion = '5.7.2'
+    }
+}
