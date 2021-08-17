@@ -339,6 +339,7 @@ let DXCUtils = (function ($) {
                 "cache": false
             };
             if (postData != null) {
+                console.log(postData);
                 options.data = JSON.stringify(postData);
             }
             return $.ajax(options);

@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GimDetail {
-	private String gimType;
+    private String gimType;
     private String gimCd;
     private String gimValue;
     private String field1;
@@ -19,7 +19,7 @@ public class GimDetail {
     private String displayActiveFlag;
     private String mode;
     private String createdBy;
-	private Date createdDt;
-	private String modifiedBy;
-	private Date modifiedDt;
+    private Date createdDt;
+    private String modifiedBy;
+    private Date modifiedDt;
 }

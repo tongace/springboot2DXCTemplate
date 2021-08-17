@@ -45,6 +45,7 @@ let WDXC0001 = (function ($) {
             } else {
                 $('#searchResultSection').show();
             }
+            console.log(JSON.stringify(responseData.data));
             // datatable
             let gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
                 "data": responseData.data,
