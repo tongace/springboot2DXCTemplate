@@ -1,7 +1,8 @@
 import org.apache.tools.ant.filters.*
 
 plugins {
-	id 'java-library'
+	id 'java'
+	id 'net.saliman.properties' version '1.5.1'
 }
 
 group = 'com.dxc.application'
@@ -9,7 +10,7 @@ version = '1.0.0'
 sourceCompatibility = '1.8'
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot:2.5.3'
+	implementation 'org.springframework.boot:spring-boot:'+project.ext.springbootVersion
 
 	compileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 	annotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
@@ -20,9 +21,28 @@ dependencies {
 }
 
 processResources {
-	filter ReplaceTokens, tokens: [
-			"database.jdbc.driverClassName": project.property("database.jdbc.driverClassName")
-	]
+	filesMatching('*.properties') {
+		filter ReplaceTokens, tokens: [
+				"standard.projectCode": project.property('standard.projectCode'),
+				"standard.homepath": project.property('standard.homepath'),
+				"standard.mail.smtp.host": project.property('standard.mail.smtp.host'),
+				"standard.mail.fromemail": project.property('standard.mail.fromemail'),
+				"standard.mail.toemail": project.property('standard.mail.toemail'),
+				"standard.mail.ccemail": project.property('standard.mail.ccemail'),
+
+				"database.jdbc.driverClassName": project.property('database.jdbc.driverClassName'),
+				"database.jdbc.maximumPoolSize": project.property('database.jdbc.maximumPoolSize'),
+				"database.jdbc.url": project.property('database.jdbc.url'),
+				"database.jdbc.username": project.property('database.jdbc.username'),
+				"database.jdbc.password": project.property('database.jdbc.password'),
+				"database.bfw.jdbc.url": project.property('database.bfw.jdbc.url'),
+				"database.bfw.jdbc.username": project.property('database.bfw.jdbc.username'),
+				"database.bfw.jdbc.password": project.property('database.bfw.jdbc.password'),
+				"database.hibernate.dialect": project.property('database.hibernate.dialect'),
+				"database.jpa.database": project.property('database.jpa.database'),
+				"database.jpa.showSql": project.property('database.jpa.showSql')
+		]
+	}
 }
 
 test {
