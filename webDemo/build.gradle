@@ -1,0 +1,82 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+	id 'org.springframework.boot' version '2.5.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'war'
+	id 'jacoco'
+	id 'net.saliman.properties' version '1.5.1'
+}
+
+group = 'com.dxc.application'
+version = '1.0.0'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+processResources {
+	filesMatching('logback-spring.xml') {
+		filter ReplaceTokens, tokens: [
+				"log.traditional.path": project.property('log.traditional.path'),
+				"log.json.path": project.property('log.json.path'),
+				"log.level": project.property('log.level'),
+				"log.mybatis.level": project.property('log.mybatis.level'),
+				"root.log.level": project.property('root.log.level')
+		]
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator:'+project.ext.springbootVersion
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:'+project.ext.springbootVersion
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:'+project.ext.springbootVersion
+	implementation 'org.springframework.boot:spring-boot-starter-web:'+project.ext.springbootVersion
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:'+project.ext.mybatisSpringbootVersion
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools:'+project.ext.springbootVersion
+
+	implementation 'org.springframework:spring-oxm:'+project.ext.springFrameworkVersion
+	implementation 'org.springframework:spring-orm:'+project.ext.springFrameworkVersion
+
+	implementation 'org.hibernate:hibernate-core:5.5.5.Final'
+	implementation 'org.hibernate:hibernate-entitymanager:5.5.5.Final'
+	implementation 'org.hibernate:hibernate-validator:7.0.1.Final'
+	implementation 'org.hibernate.common:hibernate-commons-annotations:5.1.2.Final'
+
+	implementation 'org.apache.camel:camel-core:3.11.0'
+	implementation 'org.apache.camel:camel-core-languages:3.11.0'
+	implementation 'org.apache.camel:camel-spring:3.11.0'
+	implementation 'org.apache.camel:camel-ftp:3.11.0'
+	implementation 'org.apache.camel:camel-mail:3.11.0'
+	implementation 'net.logstash.logback:logstash-logback-encoder:6.6'
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	implementation 'org.apache.commons:commons-dbcp2:2.8.0'
+
+	implementation 'tdem-standard:st3-api:1.1.12-RELEASE'
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:'+project.ext.springbootVersion
+	compileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+	annotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:'+project.ext.springbootVersion
+
+	testCompileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+	testAnnotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:'+project.ext.springbootVersion
+	
+	implementation project(':configurationLib')
+	implementation project(':commonLib')
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+}
