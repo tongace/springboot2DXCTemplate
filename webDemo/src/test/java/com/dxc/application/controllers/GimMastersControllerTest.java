@@ -299,5 +299,30 @@ class GimMastersControllerTest {
     }
 
 
+    @Test
+    @DisplayName("delete gim detail ")
+    @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void deleteGimDetail() {
+        GimDetail gimDetail = new GimDetail();
+        gimDetail.setGimType("ACTIVE_FLAG");
+        gimDetail.setGimCd("N");
+        String dateTime="20210804 10:43:35";
+        DateFormat formatter=new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+        try {
+            gimDetail.setModifiedDt(formatter. parse(dateTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        GimDetail gimArray[] = new GimDetail[]{gimDetail};
+        HttpEntity<GimDetail[]> req = new HttpEntity<>(gimArray,null);
+
+        ResponseEntity<RestJsonData> response = restTemplate.exchange("/gimmaster/gimdetail", HttpMethod.DELETE,req,RestJsonData.class);
+        log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
+        ObjectMapper mapper = new ObjectMapper();
+        BigDecimal result = mapper.convertValue(response.getBody().getRowCount(),new TypeReference<BigDecimal>(){});
+        assertEquals(1,result.intValue());
+    }
+
+
 
 }
