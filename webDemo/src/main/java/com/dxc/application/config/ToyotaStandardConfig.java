@@ -5,16 +5,12 @@ import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 import th.co.toyota.st3.api.download.CST30090ExcelGenerator;
 import th.co.toyota.st3.api.download.CST30091Downloader;
 import th.co.toyota.st3.api.report.CST30170JasperReportConnector;
 import th.co.toyota.st3.api.util.CST30000BatchManager;
 import th.co.toyota.st3.api.util.CST32010DocNoGenerator;
-
 @Configuration
 @PropertySource({"classpath:demo-application.properties"})
 public class ToyotaStandardConfig {

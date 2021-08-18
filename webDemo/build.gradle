@@ -79,7 +79,7 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 	testAnnotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:'+project.ext.springbootVersion
-	
+
 	implementation project(':configurationLib')
 	implementation project(':commonLib')
 }
