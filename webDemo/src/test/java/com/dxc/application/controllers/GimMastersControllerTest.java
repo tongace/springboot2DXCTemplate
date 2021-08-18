@@ -186,11 +186,13 @@ class GimMastersControllerTest {
 
     }
 
+
     @Test
     @DisplayName("add gim header ")
+    @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void addGimHeader() {
         GimHeader requestObj = new GimHeader();
-        requestObj.setGimType("Gim_Type_EK");
+        requestObj.setGimType("GIM_TYPE_EK");
         requestObj.setGimDesc("Gim Dest EK");
         requestObj.setCdLength( new BigDecimal(10));
         requestObj.setActiveFlag("Y");
@@ -211,9 +213,10 @@ class GimMastersControllerTest {
 
     @Test
     @DisplayName("update gim header ")
+    @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void updateGimHeader() {
         GimHeader requestObj = new GimHeader();
-        requestObj.setGimType("Gim_Type_EK");
+        requestObj.setGimType("ACTIVE_FLAG");
         requestObj.setGimDesc("Gim Dest EK");
         requestObj.setCdLength( new BigDecimal(10));
         requestObj.setActiveFlag("Y");
@@ -223,7 +226,7 @@ class GimMastersControllerTest {
         requestObj.setField2Label("update12");
         requestObj.setField3Label("update3");
         requestObj.setMode(AppConstants.MODE_EDIT);
-        String dateTime="20210818 05:17:55";
+        String dateTime="20211201 10:37:42";
         DateFormat formatter=new SimpleDateFormat("yyyyMMdd HH:mm:ss");
         try {
             requestObj.setModifiedDt(formatter. parse(dateTime));
@@ -243,9 +246,10 @@ class GimMastersControllerTest {
 
     @Test
     @DisplayName("add gim detail ")
+    @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void addGimDetail() {
         GimDetail gimDetail = new GimDetail();
-        gimDetail.setGimType("Gim_Type_EK");
+        gimDetail.setGimType("STATUS");
         gimDetail.setActiveFlag("Y");
         gimDetail.setGimCd("Cd1");
         gimDetail.setCreatedBy("ek");
@@ -269,16 +273,31 @@ class GimMastersControllerTest {
 
     @Test
     @DisplayName("search gim detail by Gim Type Hyerlink ")
-  //  @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimDetailByGimTypeHyperlink() {
         GimDetail requestObj = new GimDetail();
-        requestObj.setGimType("GIM_TYPE_EK");
+        requestObj.setGimType("ACTIVE_FLAG");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimdetail",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
         List<GimDetail> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<GimDetail>>(){});
-        assertEquals(1,result.size());
+        assertEquals(2,result.size());
 
     }
+
+    @Test
+    @DisplayName("search gim detail,Case No Data Found")
+    @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void searchGimDetailWithDataNotFound() {
+        GimDetail requestObj = new GimDetail();
+        requestObj.setGimType("xx");
+        ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimdetail",requestObj,RestJsonData.class);
+        ObjectMapper mapper = new ObjectMapper();
+        String message = mapper.convertValue(response.getBody().getMessage(),new TypeReference<String>(){});
+        assertEquals("MAPP0006AERR: No data found",message);
+        assertNull(response.getBody().getData(),"data should be null");
+    }
+
+
 
 }
