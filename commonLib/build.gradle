@@ -1,6 +1,9 @@
 plugins {
 	id 'java'
 }
+tasks.withType(Jar){
+	from sourceSets.main.java
+}
 
 group = 'com.dxc.application'
 version = '1.0.0'
