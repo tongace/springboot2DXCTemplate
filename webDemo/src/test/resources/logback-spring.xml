@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false">
+    <appender name="APP_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date|%thread|%level|%logger.%M [%file:%line]|%msg%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <logger name="com.dxc.application" level="DEBUG" additivity="false">
+        <appender-ref ref="APP_CONSOLE"/>
+    </logger>
+    <logger name="com.dxc.application.mybatis" level="DEBUG" additivity="false">
+        <appender-ref ref="APP_CONSOLE"/>
+    </logger>
+    <root level="ERROR">
+        <appender-ref ref="APP_CONSOLE"/>
+    </root>
+</configuration>

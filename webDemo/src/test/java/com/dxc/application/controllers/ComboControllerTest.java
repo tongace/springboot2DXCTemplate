@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,5 +87,23 @@ class ComboControllerTest {
         String message = mapper.convertValue(response.getBody().getMessage(),new TypeReference<String>(){});
         assertEquals("MAPP0006AERR: No data found",message);
         assertNull(response.getBody().getData(),"data should be null");
+    }
+    @Test
+    @DisplayName("Load Gim Page")
+    void loadGimPage() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/gimmaster",String.class);
+        assertTrue(response.getBody().contains("</html>"), "found end of html");
+    }
+    @Test
+    @DisplayName("Load Gim Api js")
+    void loadGimAPIJS() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/gimmaster/js/gimmaster-call-api.js",String.class);
+        assertTrue(response.getBody().contains("//]]'>"), "found end of js");
+    }
+    @Test
+    @DisplayName("Load Gim js")
+    void loadGimJS() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/gimmaster/js/gimmaster.js",String.class);
+        assertTrue(response.getBody().contains("//]]'>"), "found end of js");
     }
 }

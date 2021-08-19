@@ -5,6 +5,10 @@ plugins {
 	id 'net.saliman.properties' version '1.5.1'
 }
 
+tasks.withType(Jar){
+	from sourceSets.main.java
+}
+
 group = 'com.dxc.application'
 version = '1.0.0'
 sourceCompatibility = '1.8'

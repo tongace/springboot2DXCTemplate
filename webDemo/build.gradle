@@ -9,6 +9,17 @@ plugins {
 	id 'net.saliman.properties' version '1.5.1'
 }
 
+//tasks.withType(War){
+//	from sourceSets.main.java
+//}
+tasks.withType(War){
+	from(sourceSets.main.java) {
+		include '**/*.java'
+		into 'WEB-INF/classes'
+	}
+}
+
+
 group = 'com.dxc.application'
 version = '1.0.0'
 sourceCompatibility = '1.8'
@@ -68,7 +79,7 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 	testAnnotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:'+project.ext.springbootVersion
-	
+
 	implementation project(':configurationLib')
 	implementation project(':commonLib')
 }

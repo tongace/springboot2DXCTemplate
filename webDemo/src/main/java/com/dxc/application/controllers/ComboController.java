@@ -23,11 +23,11 @@ public class ComboController {
 
     @GetMapping(value = "/gimtypecombo", produces = MediaType.APPLICATION_JSON_VALUE)
     public RestJsonData<List<Combo>> getGimTypeCombo() {
-        return new RestJsonData<List<Combo>>(null,null,commonService.getGimTypeCombo());
+        return new RestJsonData<List<Combo>>(null, null, commonService.getGimTypeCombo());
     }
 
     @GetMapping(value = "/activeflagcombo", produces = MediaType.APPLICATION_JSON_VALUE)
     public RestJsonData<List<Combo>> getActiveFlagCombo() {
-        return new RestJsonData<List<Combo>>(null,null,commonService.getActiveFlagCombo());
+        return new RestJsonData<List<Combo>>(null, null, commonService.getActiveFlagCombo());
     }
 }

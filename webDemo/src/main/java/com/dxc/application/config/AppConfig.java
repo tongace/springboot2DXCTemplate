@@ -3,6 +3,7 @@ package com.dxc.application.config;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -10,7 +11,6 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.validation.Validator;
-
 @Configuration
 public class AppConfig {
     @Bean
