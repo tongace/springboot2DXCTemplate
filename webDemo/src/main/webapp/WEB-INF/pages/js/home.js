@@ -21,6 +21,11 @@ $(document).ready(function() {
 	$('#uploadFile').on('change', async (e) => {
 		const file = e.target.files[0];
 		console.log(file);
+		if(file.size> (100*1024)){
+			alert('file more than 100kB');
+			$(e.target).val(null);
+			return;
+		}
 		let data = await blobToData(file);
 		console.log(data);
 		const uploadForm = {};
