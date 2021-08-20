@@ -34,5 +34,11 @@ $(document).ready(function() {
 		console.log(uploadForm);
 		$(e.target).val(null);
 	});
+	$('#uploadDelete').on('click', _.debounce(async (e) => {
+		$('#uploadPic').removeAttr('src');
+		$('#uploadLink').removeAttr('href');
+		$('#uploadLink').removeAttr('download');
+		$('#uploadCard').hide();
+	}, 300, true));
 });
 //]]>
