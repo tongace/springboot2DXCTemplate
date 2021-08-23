@@ -2,11 +2,12 @@ package com.dxc.application.mybatis.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.dxc.application.model.GimDetail;
 import com.dxc.application.model.GimHeader;
-
+@Mapper
 public interface GIMMasterMapper {
 	
 	public GimHeader findGimHeaderByPrimaryKey(@Param("gimType") String gimType);
