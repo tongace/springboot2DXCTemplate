@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.dxc.application.mybatis.mapper")
 public class AppMyBatisDatabaseConfig {
     private AppDataSourceProperties appDataSourceProperties;
 
