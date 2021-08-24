@@ -1,0 +1,51 @@
+openapi: '3.0.2'
+info:
+  title: User Master Maintenance API
+  description: For maintain personal information
+  contact:
+    name: DXC
+    url: https://www.dxc.com/sk/en
+  version: '1.0.0'
+servers:
+  - url: https://api.server.dev/v1
+  - url: https://api.server.test/v1
+  - url: https://api.server.prod/v1
+paths:
+  /usermaster:
+    description: User's Personal Information Resource
+    get:
+      description: Operation to Fetch User's Personal Information
+      parameters:
+        - in: query
+          name: citizenid
+          required: true
+          schema:
+            type: string
+            example: 5670200069999
+        - in: query
+          name: firstname
+          required: true
+          schema:
+            type: string
+            example: Prayut
+        - in: query
+          name: lastname
+          required: true
+          schema:
+            type: string
+            example: Chan-o-cha
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+
+    post:
+      responses:
+        '200':
+          description: OK
+    delete:
+      responses:
+        '200':
+          description: OK

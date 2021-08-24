@@ -5,8 +5,8 @@
     <script th:src="@{/scripts/buttons.semanticui.min.js}"></script>
     <script th:src="@{/scripts/buttons.html5.min.js}"></script>
     <script th:src="@{/scripts/jszip.min.js}"></script>
-    <script th:src="@{/personalinfo/js/personalinfo-call-api.js}"></script>
-    <script th:src="@{/personalinfo/js/personalinfo.js}"></script>
+    <script th:src="@{/usermaster/js/usermaster-call-api.js}"></script>
+    <script th:src="@{/usermaster/js/usermaster.js}"></script>
     <script th:src="@{/scripts/calendar.min.js}"></script>
 
     <link th:href="@{/css/buttons.semanticui.min.css}" rel='stylesheet' />
@@ -14,9 +14,9 @@
 </head>
 <body th:replace="templates/template.html :: app_body(~{::div},#{DXC.WDXC0002.Screen.Id} ,#{DXC.WDXC0002.Screen.Desc})">
     <div style="width:100%;" id="screenContent">
-        <div id="personalInfoSearchSection" style="width:100%;">
+        <div id="userMasterSearchSection" style="width:100%;">
             <div class="sixteen wide column row">
-                <form class="ui form raised segment" id="personalInfoForm" style="width: 100%;">
+                <form class="ui form raised segment" id="userMasterForm" style="width: 100%;">
                     <div class="fields">
                         <div class="four wide field">
                             <label>[[#{DXC.WDXC0002.Label.CitizenID}]]</label>
@@ -52,7 +52,7 @@
             <div class="ui clearing hidden divider"></div>
             <div class="sixteen wide column row" id="searchResultSection">
                 <h4 class="ui dividing header">[[#{DXC.WDXC0002.Screen.Modal.Header}]]</h4>
-                <table id="tablePersonalInfoHeaderResult" class="ui celled striped unstackable table" style="width:100%;">
+                <table id="tableUserMasterHeaderResult" class="ui celled striped unstackable table" style="width:100%;">
                     <thead>
                         <tr style="text-align: center;">
                             <th></th>
@@ -69,10 +69,10 @@
                 </table>
             </div>
             <!--personal info edit -->
-        <div id="personalInfoEditSection" style="width: 40%;">
+        <div id="userMasterEditSection" style="width: 40%;">
             <div class="content">
                 <div class="sixteen wide column row">
-                    <form class="ui form segment" id="editPersonalInfoForm" style="width: 100%;">
+                    <form class="ui form segment" id="editUserMasterForm" style="width: 100%;">
                         <h4 class="ui dividing header">[[#{DXC.WDXC0002.Screen.Modal.Header}]]</h4>
                         <input type="hidden" id="mode" name="mode">
                         <div class="field">
@@ -84,21 +84,21 @@
                         <div class="field">
                             <label for="firstName">[[#{DXC.WDXC0002.Label.FirstName}]]</label>
                             <div class="ui mini basic mandatory input">
-                                <input type="text" name="firstName" id="personalInfoForm-firstName">
+                                <input type="text" name="firstName" id="userMasterForm-firstName">
                             </div>
                         </div>
                         <div class="field">
                             <label for="lastName">[[#{DXC.WDXC0002.Label.LastName}]]</label>
                             <div class="ui mini basic mandatory input">
-                                <input type="text" name="lastName" id="personalInfoForm-lastName">
+                                <input type="text" name="lastName" id="userMasterForm-lastName">
                             </div>
                         </div>
                         <div class="field">
                             <label for="birthDate">[[#{DXC.WDXC0002.Label.BirthDate}]]</label>
-                            <div class="ui calendar" id="birthDate">
+                            <div class="ui calendar" id="birthDateCal">
                                 <div class="ui input left icon">
                                   <i class="calendar icon"></i>
-                                  <input type="text" name="birthDate" placeholder="Date">
+                                  <input type="text" name="birthDate" placeholder="DD/MM/YYYY">
                                 </div>
                               </div>
                         </div>
