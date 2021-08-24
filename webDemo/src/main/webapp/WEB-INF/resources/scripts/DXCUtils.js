@@ -339,8 +339,22 @@ let DXCUtils = (function ($) {
                 "cache": false
             };
             if (postData != null) {
-                console.log(postData);
                 options.data = JSON.stringify(postData);
+            }
+            return $.ajax(options);
+        },
+        callAPIWithUploadFile: function (url, httpMethod, postData) {
+            const options = {
+                "async": true,
+                "enctype": 'multipart/form-data',
+                "url": url,
+                "type": httpMethod,
+                processData: false,
+                contentType: false,
+                "cache": false
+            };
+            if (postData != null) {
+                options.data = postData;
             }
             return $.ajax(options);
         }

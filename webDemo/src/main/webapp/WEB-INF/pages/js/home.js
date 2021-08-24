@@ -23,7 +23,6 @@ $(document).ready(function() {
 		console.log(file);
 		if(file.size> (100*1024)){
 			alert('file more than 100kB');
-			$(e.target).val(null);
 			return;
 		}
 		let data = await blobToData(file);
@@ -36,14 +35,26 @@ $(document).ready(function() {
 		$('#uploadLink').attr('href',data);
 		$('#uploadLink').attr('download',file.name);
 		$('#uploadCard').show();
-		console.log(uploadForm);
-		$(e.target).val(null);
 	});
 	$('#uploadDelete').on('click', _.debounce(async (e) => {
 		$('#uploadPic').removeAttr('src');
 		$('#uploadLink').removeAttr('href');
 		$('#uploadLink').removeAttr('download');
 		$('#uploadCard').hide();
+	}, 300, true));
+	$('#upload').on('click', _.debounce(async (e) => {
+		const file = $('#uploadFile').prop("files")[0];
+		let formData = new FormData();
+		let userModel = {};
+		userModel.id = "3333333333333";
+		userModel.firstName= "Test Name";
+		userModel.lastName="Test Last Name";
+		let userBlob = new Blob([JSON.stringify(userModel)], {type: "application/json"});
+		formData.append("userModel", userBlob);
+		formData.append("userPic",file,file.name);
+		console.log(formData.keys());
+		let response = await DXCUtils.callAPIWithUploadFile("/demo/home/upload","POST",formData);
+		console.log(response);
 	}, 300, true));
 });
 //]]>
