@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="templates/template.html :: app_header(~{::script},~{},~{})">
+<head th:replace="templates/template.html :: app_header(~{::script},~{::link},~{})">
 	<script th:src="@{/home/js/home.js}"></script>
+	<script th:src="@{/scripts/calendar.min.js}"></script>
+
+	<link th:href="@{/css/calendar.min.css}" rel='stylesheet' />
 </head>
 
 <body th:replace="templates/template.html :: app_body(~{::div},#{DXC.WDXC0000.Screen.Id} ,#{DXC.WDXC0000.Screen.Desc})">
@@ -15,6 +18,15 @@
 							<label>[[#{DXC.WDXC0001.Label.Type}]]</label>
 							<input type="file" id="uploadFile">
 						</div>
+						<div class="three wide field">
+							<label>Birth Date</label>
+							<div class="ui mini calendar" id="birthDateCal">
+								<div class="ui active mini input left icon">
+									<i class="calendar icon"></i>
+									<input id="birthDate" name="birthDate" type="text" placeholder="DD/MM/YYYY">
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="fields">
 						<div class="four wide field">
@@ -24,7 +36,7 @@
 				</form>
 			</div>
 		</div>
-		<div id="uploadCard" class="ui card" style="display: none;">
+		<!-- <div id="uploadCard" class="ui card" style="display: none;">
 			<div class="content">
 				<div id="uploadDelete" class="right floated meta"><i class="ui red x icon"></i></div>
 			</div>
@@ -33,6 +45,25 @@
 			</div>
 			<div class="extra content">
 				<a id="uploadLink" target="_blank">Download</a>
+			</div>
+		</div> -->
+	</div>
+	<div class="ui mini modal" id="imageModal">
+		<div class="ui black header">
+		</div>
+		<div class="content">
+			<div id="uploadCard" class="ui card">
+				<div class="image">
+					<img id="uploadPic">
+				</div>
+				<div class="extra content">
+					<a id="uploadLink" target="_blank">Download</a>
+				</div>
+			</div>
+		</div>
+		<div class="actions">
+			<div class="ui center floated button" id="modalUploadOK">
+				<i class="checkmark icon"></i> [[#{DXC.Button.OK}]]
 			</div>
 		</div>
 	</div>
