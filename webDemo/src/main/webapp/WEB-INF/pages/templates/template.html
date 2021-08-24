@@ -36,8 +36,8 @@
     <th:block th:replace="${styles}" />
 </head>
 
-<body>
-    <div class="ui inverted sidebar vertical menu" th:fragment="app_menu" id="app_menu">
+<body th:fragment="app_body(content,screenid,screenDesc)">
+    <div class="ui inverted sidebar vertical menu" id="app_menu">
         <div class="item" data-tagtype="menugroup">
             <h3>[[#{DXC.SystemName}]]</h3>
         </div>
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div class="ui black mini top fixed inverted borderless menu" th:fragment="app_page_header(screenid,screenDesc)">
+    <div class="ui black mini top fixed inverted borderless menu">
         <div class="left item">
             <div class="ui black mini button" id="menucaller">
                 <i class="content icon"></i> [[#{DXC.Button.Menu}]]
@@ -72,7 +72,7 @@
             </div>
         </div>
     </div>
-    <div class="ui black mini bottom fixed inverted borderless menu" th:fragment="app_page_footer">
+    <div class="ui black mini bottom fixed inverted borderless menu">
         <div class="left item">
             <span></span>
         </div>
@@ -85,8 +85,7 @@
     </div>
     <div class="pusher">
         <div class="ui fluid container" style="margin-top: 4rem; margin-bottom: 4rem; padding-left: 1rem; padding-right: 1rem;">
-            Hello DXC Template
-            <div class="ui mini modal" id="confirmingModal" th:fragment="app_page_confirmModal">
+            <div class="ui mini modal" id="confirmingModal">
                 <div class="ui header">
                 </div>
                 <div class="content">
@@ -100,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <div class="ui mini modal" id="alertModal" th:fragment="app_page_alertModal">
+            <div class="ui mini modal" id="alertModal">
                 <div class="ui black header">
                 </div>
                 <div class="content">
@@ -110,6 +109,9 @@
                         <i class="checkmark icon"></i> [[#{DXC.Button.OK}]]
                     </div>
                 </div>
+            </div>
+            <div class="ui grid">
+                <th:block th:replace="${content}" />
             </div>
         </div>
     </div>
