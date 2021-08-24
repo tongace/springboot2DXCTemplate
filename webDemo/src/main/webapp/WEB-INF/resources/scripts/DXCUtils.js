@@ -330,33 +330,28 @@ let DXCUtils = (function ($) {
                 return -1;
             }
         },
-        callAPI: function (url, httpMethod, postData) {
+        callAPI: async (url, httpMethod, postData) => {
             const options = {
-                "async": true,
-                "url": url,
-                "type": httpMethod,
-                "contentType": "application/json; charset=utf-8",
-                "cache": false
+                "method": httpMethod,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
             };
             if (postData != null) {
-                options.data = JSON.stringify(postData);
+                options.body = JSON.stringify(postData);
             }
-            return $.ajax(options);
+            const response = await fetch(url, options);
+            return response.json();
         },
-        callAPIWithUploadFile: function (url, httpMethod, postData) {
+        callAPIWithUploadFile: async (url, httpMethod, postData) => {
             const options = {
-                "async": true,
-                "enctype": 'multipart/form-data',
-                "url": url,
-                "type": httpMethod,
-                processData: false,
-                contentType: false,
-                "cache": false
+                "method": httpMethod,
             };
             if (postData != null) {
-                options.data = postData;
+                options.body = postData;
             }
-            return $.ajax(options);
+            const response = await fetch(url, options);
+            return response.json();
         }
     }
 }(jQuery));
