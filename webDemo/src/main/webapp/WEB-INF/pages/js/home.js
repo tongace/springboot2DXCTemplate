@@ -56,20 +56,22 @@ $(document).ready(function () {
 	// 	$('#uploadCard').hide();
 	// }, 300, true));
 	$('#upload').on('click', _.debounce(async (e) => {
-		const file = $('#uploadFile').prop("files")[0];
-		let formData = new FormData();
-		let userModel = {};
-		userModel.id = "3333333333333";
-		userModel.firstName = "Test Name";
-		userModel.lastName = "Test Last Name";
-		let userBlob = new Blob([JSON.stringify(userModel)], {
-			type: "application/json"
-		});
-		formData.append("userModel", userBlob);
-		formData.append("userPic", file, file.name);
-		console.log(formData.keys());
-		let response = await DXCUtils.callAPIWithUploadFile("/demo/home/upload", "POST", formData);
-		console.log(response);
+		const formValues = $('#mainForm').form('get values');
+		console.log(formValues);
+		// const file = $('#uploadFile').prop("files")[0];
+		// let formData = new FormData();
+		// let userModel = {};
+		// userModel.id = "3333333333333";
+		// userModel.firstName = "Test Name";
+		// userModel.lastName = "Test Last Name";
+		// let userBlob = new Blob([JSON.stringify(userModel)], {
+		// 	type: "application/json"
+		// });
+		// formData.append("userModel", userBlob);
+		// formData.append("userPic", file, file.name);
+		// console.log(formData.keys());
+		// let response = await DXCUtils.callAPIWithUploadFile("/demo/home/upload", "POST", formData);
+		// console.log(response);
 	}, 300, true));
 });
 //]]>
