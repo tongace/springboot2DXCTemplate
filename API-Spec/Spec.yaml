@@ -1,0 +1,609 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/demo",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/gimmaster/gimheader": {
+      "put": {
+        "tags": [
+            "gim-master-controller"
+        ],
+        "operationId": "insertGimHeader",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsertGimHeaderDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+            "gim-master-controller"
+        ],
+        "operationId": "searchGimHeader",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchGimHeaderDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataListGimHeaderResultDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+            "gim-master-controller"
+        ],
+        "operationId": "updateGimHeader",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateGimHeaderDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gimmaster/gimdetail": {
+      "put": {
+        "tags": [
+            "gim-master-controller"
+        ],
+        "operationId": "saveGimDetail",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GimDetail"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+            "gim-master-controller"
+        ],
+        "operationId": "getGimDetail",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GimDetail"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataListGimDetail"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+            "gim-master-controller"
+        ],
+        "operationId": "deleteGimDetail",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GimDetail"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/home/upload": {
+      "post": {
+        "tags": [
+            "home-controller"
+        ],
+        "operationId": "upload",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                    "userModel",
+                    "userPic"
+                ],
+                "type": "object",
+                "properties": {
+                  "userPic": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "userModel": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataBigDecimal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/home/test": {
+      "get": {
+        "tags": [
+            "home-controller"
+        ],
+        "operationId": "test",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/common/dbservertime": {
+      "get": {
+        "tags": [
+            "common-controller"
+        ],
+        "operationId": "home",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/combo/gimtypecombo": {
+      "get": {
+        "tags": [
+            "combo-controller"
+        ],
+        "operationId": "getGimTypeCombo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataListCombo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/combo/activeflagcombo": {
+      "get": {
+        "tags": [
+            "combo-controller"
+        ],
+        "operationId": "getActiveFlagCombo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestJsonDataListCombo"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InsertGimHeaderDTO": {
+        "required": [
+            "activeFlag",
+            "cdLength",
+            "createdBy",
+            "field1Label",
+            "field2Label",
+            "field3Label",
+            "gimDesc",
+            "gimType",
+            "modifiedBy"
+        ],
+        "type": "object",
+        "properties": {
+          "gimType": {
+            "type": "string"
+          },
+          "gimDesc": {
+            "type": "string"
+          },
+          "cdLength": {
+            "type": "number"
+          },
+          "field1Label": {
+            "type": "string"
+          },
+          "field2Label": {
+            "type": "string"
+          },
+          "field3Label": {
+            "type": "string"
+          },
+          "activeFlag": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "modifiedBy": {
+            "type": "string"
+          }
+        }
+      },
+      "RestJsonDataString": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "rowCount": {
+            "type": "number"
+          },
+          "data": {
+            "type": "string"
+          }
+        }
+      },
+      "GimDetail": {
+        "type": "object",
+        "properties": {
+          "gimType": {
+            "type": "string"
+          },
+          "gimCd": {
+            "type": "string"
+          },
+          "gimValue": {
+            "type": "string"
+          },
+          "field1": {
+            "type": "string"
+          },
+          "field2": {
+            "type": "string"
+          },
+          "field3": {
+            "type": "string"
+          },
+          "activeFlag": {
+            "type": "string"
+          },
+          "displayActiveFlag": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "createdDt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "modifiedDt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        }
+      },
+      "RestJsonDataBigDecimal": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "rowCount": {
+            "type": "number"
+          },
+          "data": {
+            "type": "number"
+          }
+        }
+      },
+      "SearchGimHeaderDTO": {
+        "type": "object",
+        "properties": {
+          "searchGimTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "searchGimDesc": {
+            "type": "string"
+          },
+          "searchActiveFlag": {
+            "type": "string"
+          }
+        }
+      },
+      "GimHeaderResultDTO": {
+        "type": "object",
+        "properties": {
+          "gimType": {
+            "type": "string"
+          },
+          "gimDesc": {
+            "type": "string"
+          },
+          "cdLength": {
+            "type": "number"
+          },
+          "field1Label": {
+            "type": "string"
+          },
+          "field2Label": {
+            "type": "string"
+          },
+          "field3Label": {
+            "type": "string"
+          },
+          "activeFlag": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "createdDt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "modifiedDt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "displayActiveFlag": {
+            "type": "string"
+          }
+        }
+      },
+      "RestJsonDataListGimHeaderResultDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "rowCount": {
+            "type": "number"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GimHeaderResultDTO"
+            }
+          }
+        }
+      },
+      "RestJsonDataListGimDetail": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "rowCount": {
+            "type": "number"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GimDetail"
+            }
+          }
+        }
+      },
+      "UpdateGimHeaderDTO": {
+        "required": [
+            "activeFlag",
+            "cdLength",
+            "field1Label",
+            "field2Label",
+            "field3Label",
+            "gimDesc",
+            "gimType",
+            "modifiedBy"
+        ],
+        "type": "object",
+        "properties": {
+          "gimType": {
+            "type": "string"
+          },
+          "gimDesc": {
+            "type": "string"
+          },
+          "cdLength": {
+            "type": "number"
+          },
+          "field1Label": {
+            "type": "string"
+          },
+          "field2Label": {
+            "type": "string"
+          },
+          "field3Label": {
+            "type": "string"
+          },
+          "activeFlag": {
+            "type": "string"
+          },
+          "modifiedBy": {
+            "type": "string"
+          }
+        }
+      },
+      "Combo": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "RestJsonDataListCombo": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "rowCount": {
+            "type": "number"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Combo"
+            }
+          }
+        }
+      }
+    }
+  }
+}
