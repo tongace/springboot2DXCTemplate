@@ -2,6 +2,7 @@ package com.dxc.application.mybatis.mapper;
 
 import java.util.List;
 
+import com.dxc.application.model.GimHeaderSearchCriteria;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +12,7 @@ import com.dxc.application.model.GimHeader;
 public interface GIMMasterMapper {
 	
 	public GimHeader findGimHeaderByPrimaryKey(@Param("gimType") String gimType);
-	public List<GimHeader> findGimHeader(GimHeader gimHeader);
+	public List<GimHeader> findGimHeader(GimHeaderSearchCriteria gimHeader);
 	public int saveGimHeader(GimHeader criteria);
 	public int updateGimHeader(GimHeader criteria);
 	public int updateActiveFlagOfGimDetailByGimHeaderActiveFlag(GimHeader criteria);

@@ -1,13 +1,16 @@
-package com.dxc.application.controllers;
+package com.dxc.application.feature.gimmaster.controller;
 
 import com.dxc.application.constants.MessagesConstants;
 import com.dxc.application.exceptions.ApplicationException;
+import com.dxc.application.feature.gimmaster.dto.SearchGimHeader;
 import com.dxc.application.model.GimDetail;
 import com.dxc.application.model.GimHeader;
+import com.dxc.application.model.GimHeaderSearchCriteria;
 import com.dxc.application.model.RestJsonData;
 import com.dxc.application.services.GimMasterService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,10 +27,12 @@ import java.util.List;
 public class GIMMasterController {
 
     private GimMasterService gimService;
+    private ModelMapper modelMapper;
 
     @Autowired
-    public GIMMasterController(GimMasterService gimService) {
+    public GIMMasterController(GimMasterService gimService, ModelMapper modelMapper) {
         this.gimService = gimService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping()
@@ -48,9 +53,10 @@ public class GIMMasterController {
     @PostMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     @SneakyThrows
-    RestJsonData<List<GimHeader>> getGimHeader(@RequestBody GimHeader input, HttpServletRequest request) {
+    RestJsonData<List<GimHeader>> searchGimHeader(@RequestBody SearchGimHeader input, HttpServletRequest request) {
+        GimHeaderSearchCriteria criteria = modelMapper.map(input,GimHeaderSearchCriteria.class);
         RestJsonData<List<GimHeader>> returnData = new RestJsonData<>();
-        List<GimHeader> gimList = gimService.getGimHeader(input);
+        List<GimHeader> gimList = gimService.searchGimHeader(criteria);
         if (gimList.isEmpty()) {
             throw new ApplicationException(MessagesConstants.ERROR_MESSAGE_DATA_NOT_FOUND, null);
         }
@@ -60,11 +66,21 @@ public class GIMMasterController {
 
     @PutMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RestJsonData<String> saveGimHeader(@RequestBody GimHeader input, HttpServletRequest request) {
+    RestJsonData<String> insertGimHeader(@RequestBody GimHeader input, HttpServletRequest request) {
         RestJsonData<String> returnData = new RestJsonData<>();
         input.setCreatedBy("csamphao");
         input.setModifiedBy("csamphao");
-        int saveRowCount = gimService.saveGimHeader(input);
+        int saveRowCount = gimService.insertGimHeader(input);
+        returnData.setRowCount(new BigDecimal(saveRowCount));
+        return returnData;
+    }
+    @PatchMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    RestJsonData<String> updateGimHeader(@RequestBody GimHeader input, HttpServletRequest request) {
+        RestJsonData<String> returnData = new RestJsonData<>();
+        input.setCreatedBy("csamphao");
+        input.setModifiedBy("csamphao");
+        int saveRowCount = gimService.insertGimHeader(input);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }

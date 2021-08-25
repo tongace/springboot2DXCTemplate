@@ -21,10 +21,4 @@ public class GimHeader {
 	private String modifiedBy;
 	private Date modifiedDt;
 	private String displayActiveFlag;
-	
-	private String mode;
-	
-	private String[] searchGimTypes;
-	private String searchGimDesc;
-	private String searchActiveFlag;
 }

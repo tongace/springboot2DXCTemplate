@@ -40,6 +40,11 @@ processResources {
 				"root.log.level": project.property('root.log.level')
 		]
 	}
+	filesMatching('application.properties') {
+		filter ReplaceTokens, tokens: [
+				"swagger-on-off": project.property('swagger-on-off')
+		]
+	}
 }
 
 dependencies {
@@ -67,6 +72,8 @@ dependencies {
 	implementation 'net.logstash.logback:logstash-logback-encoder:6.6'
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
 	implementation 'org.apache.commons:commons-dbcp2:2.8.0'
+	implementation 'org.modelmapper:modelmapper:2.4.4'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.5.10'
 
 	implementation 'tdem-standard:st3-api:1.1.12-RELEASE'
 
