@@ -54,8 +54,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web:'+project.ext.springbootVersion
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:'+project.ext.mybatisSpringbootVersion
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools:'+project.ext.springbootVersion
-
 	implementation 'org.springframework:spring-oxm:'+project.ext.springFrameworkVersion
 	implementation 'org.springframework:spring-orm:'+project.ext.springFrameworkVersion
 
