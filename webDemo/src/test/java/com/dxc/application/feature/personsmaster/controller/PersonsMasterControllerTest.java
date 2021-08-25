@@ -1,4 +1,4 @@
-package com.dxc.application.controllers;
+package com.dxc.application.feature.personsmaster.controller;
 
 import com.dxc.application.constants.AppConstants;
 import com.dxc.application.feature.personsmaster.dto.*;

@@ -1,10 +1,7 @@
 package com.dxc.application.controllers;
 
 import com.dxc.application.constants.AppConstants;
-import com.dxc.application.model.Combo;
-import com.dxc.application.model.GimDetail;
-import com.dxc.application.model.GimHeader;
-import com.dxc.application.model.RestJsonData;
+import com.dxc.application.model.*;
 import com.dxc.application.utils.JsonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -70,9 +67,9 @@ class GimMastersControllerTest {
     @DisplayName("search gim header with search gim type = null, search gim desc = null and active flag = all")
     @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimHeaderWithDefaultCriteria() {
-        GimHeader requestObj = new GimHeader();
-        requestObj.setSearchGimTypes(new String[]{"ACTIVE_FLAG", "TEST_GIM"});
-        requestObj.setSearchActiveFlag("ALL");
+        GimHeaderSearchCriteria requestObj = new GimHeaderSearchCriteria();
+        requestObj.setGimTypes(new String[]{"ACTIVE_FLAG", "TEST_GIM"});
+        requestObj.setActiveFlag("ALL");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimheader",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
@@ -86,9 +83,9 @@ class GimMastersControllerTest {
     @DisplayName("search gim header with search gim type with No Data Found")
     @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDataNotFound.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimHeaderWithDataNotFound() {
-        GimHeader requestObj = new GimHeader();
-        requestObj.setSearchGimDesc("GGGGGGG");
-        requestObj.setSearchActiveFlag("ALL");
+        GimHeaderSearchCriteria requestObj = new GimHeaderSearchCriteria();
+        requestObj.setGimDesc("GGGGGGG");
+        requestObj.setActiveFlag("ALL");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimheader",requestObj,RestJsonData.class);
         ObjectMapper mapper = new ObjectMapper();
         String message = mapper.convertValue(response.getBody().getMessage(),new TypeReference<String>(){});
@@ -110,9 +107,9 @@ class GimMastersControllerTest {
     @DisplayName("search gim header with search gim type = STATUS, search gim desc = null , active flag = all")
     @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimHeaderWithGimType() {
-        GimHeader requestObj = new GimHeader();
-        requestObj.setSearchGimTypes(new String[]{"STATUS"});
-        requestObj.setSearchActiveFlag("ALL");
+        GimHeaderSearchCriteria requestObj = new GimHeaderSearchCriteria();
+        requestObj.setGimTypes(new String[]{"STATUS"});
+        requestObj.setActiveFlag("ALL");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimheader",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
@@ -126,10 +123,10 @@ class GimMastersControllerTest {
     @DisplayName("search gim header with search  gim desc = ddddd  , gim type = null , active flag = all")
     @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimHeaderWithGimDesc() {
-        GimHeader requestObj = new GimHeader();
-        requestObj.setSearchGimDesc("ddddd");
-        requestObj.setSearchGimTypes(null);
-        requestObj.setSearchActiveFlag("ALL");
+        GimHeaderSearchCriteria requestObj = new GimHeaderSearchCriteria();
+        requestObj.setGimDesc("ddddd");
+        requestObj.setGimTypes(null);
+        requestObj.setActiveFlag("ALL");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimheader",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
@@ -142,10 +139,10 @@ class GimMastersControllerTest {
     @DisplayName("search gim header with search  gim desc and wildcard = Prod*  , gim type = null , active flag = all")
     @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimHeaderWithGimDescWildCard() {
-        GimHeader requestObj = new GimHeader();
-        requestObj.setSearchGimDesc("Prod*");
-        requestObj.setSearchGimTypes(null);
-        requestObj.setSearchActiveFlag("ALL");
+        GimHeaderSearchCriteria requestObj = new GimHeaderSearchCriteria();
+        requestObj.setGimDesc("Prod*");
+        requestObj.setGimTypes(null);
+        requestObj.setActiveFlag("ALL");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimheader",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
@@ -158,10 +155,10 @@ class GimMastersControllerTest {
     @DisplayName("search gim header with search  active flag = Y , gim desc  = null , gim type = null ")
     @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimHeaderWithActiveFlag() {
-        GimHeader requestObj = new GimHeader();
-        requestObj.setSearchGimDesc("");
-        requestObj.setSearchGimTypes(null);
-        requestObj.setSearchActiveFlag("Y");
+        GimHeaderSearchCriteria requestObj = new GimHeaderSearchCriteria();
+        requestObj.setGimDesc("");
+        requestObj.setGimTypes(null);
+        requestObj.setActiveFlag("Y");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimheader",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
@@ -174,10 +171,10 @@ class GimMastersControllerTest {
     @DisplayName("search gim header with search  active flag = Y , gim desc  = Production Release Status Puay , gim type = STATUS ")
     @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimHeaderWithAllField() {
-        GimHeader requestObj = new GimHeader();
-        requestObj.setSearchGimDesc("Production Release Status Puay");
-        requestObj.setSearchGimTypes(new String[]{"STATUS"});
-        requestObj.setSearchActiveFlag("Y");
+        GimHeaderSearchCriteria requestObj = new GimHeaderSearchCriteria();
+        requestObj.setGimDesc("Production Release Status Puay");
+        requestObj.setGimTypes(new String[]{"STATUS"});
+        requestObj.setActiveFlag("Y");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimheader",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
@@ -201,7 +198,7 @@ class GimMastersControllerTest {
         requestObj.setField1Label("not used");
         requestObj.setField2Label("not used");
         requestObj.setField3Label("not used");
-        requestObj.setMode(AppConstants.MODE_ADD);
+    //    requestObj.setMode(AppConstants.MODE_ADD);
         HttpEntity<GimHeader> req = new HttpEntity<>(requestObj,null);
 
         ResponseEntity<RestJsonData> response = restTemplate.exchange("/gimmaster/gimheader", HttpMethod.PUT,req,RestJsonData.class);
@@ -225,7 +222,7 @@ class GimMastersControllerTest {
         requestObj.setField1Label("update1");
         requestObj.setField2Label("update12");
         requestObj.setField3Label("update3");
-        requestObj.setMode(AppConstants.MODE_EDIT);
+     //   requestObj.setMode(AppConstants.MODE_EDIT);
         String dateTime="20211201 10:37:42";
         DateFormat formatter=new SimpleDateFormat("yyyyMMdd HH:mm:ss");
         try {

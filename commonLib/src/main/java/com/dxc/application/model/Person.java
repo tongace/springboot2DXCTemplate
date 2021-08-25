@@ -1,24 +1,21 @@
 package com.dxc.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GimHeader {
-	private String gimType;
-	private String gimDesc;
-	private BigDecimal cdLength;
-	private String field1Label;
-	private String field2Label;
-	private String field3Label;
-	private String activeFlag;
-	private String createdBy;
-	private Date createdDt;
+public class Person {
+	private String citizenId;
+	private String firstName;
+	private String lastName;
+	private Date birthDate;
+	private String address;
+	private String fileName;
+	private BigDecimal fileId;
 	private String modifiedBy;
 	private Date modifiedDt;
-	private String displayActiveFlag;
 }
