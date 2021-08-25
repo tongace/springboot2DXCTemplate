@@ -22,7 +22,7 @@ $(document).ready(function () {
 				return DXCUtils.parseDate(text, 'DD/MM/YYYY');
 			}
 		},
-		maxDate: moment().toDate(),
+		maxDate: moment().startOf('day').toDate(),
 		today: true,
 		monthFirst: false
 	});
