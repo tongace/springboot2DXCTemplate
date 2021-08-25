@@ -30,6 +30,9 @@ dependencies {
 	implementation 'tdem-standard:st3-api:1.1.12-RELEASE'
 	implementation 'tdem-standard:st3-batch:1.1.17-RELEASE'
 
+	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+
 	runtimeOnly 'mysql:mysql-connector-java:8.0.26'
 
 	compileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion

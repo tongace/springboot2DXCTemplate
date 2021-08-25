@@ -1,0 +1,112 @@
+{
+  "swagger": "2.0",
+  "info":
+    {
+      "description": "Sample API template",
+      "version": "1.0.0",
+      "title": "DXC Demo API",
+      "termsOfService": "Free to use",
+      "contact":
+        {
+          "name": "DXC Technology Thailand",
+          "url": "https://www.dxc.com/sk/en",
+          "email": "xxx@dxc.com",
+        },
+      "license":
+        { "name": "MIT License", "url": "https://opensource.org/licenses/MIT" },
+    },
+  "host": "localhost:8080",
+  "basePath": "/demo",
+  "tags":
+    [
+      {
+        "name": "user-master-controller",
+        "description": "User Master Controller",
+      },
+    ],
+  "paths":
+    {
+      "/usermaster/usermaster":
+        {
+          "get":
+            {
+              "tags": ["user-master-controller"],
+              "summary": "getUser",
+              "operationId": "getUserUsingGET",
+              "produces": ["application/json"],
+              "parameters":
+                [
+                  {
+                    "in": "body",
+                    "name": "input",
+                    "description": "input",
+                    "required": true,
+                    "schema": { "$ref": "#/definitions/UserMaster" },
+                  },
+                ],
+              "responses":
+                {
+                  "200":
+                    {
+                      "description": "OK",
+                      "schema":
+                        {
+                          "$ref": "#/definitions/RestJsonData«List«UserMaster»»",
+                        },
+                    },
+                  "401": { "description": "Unauthorized" },
+                  "403": { "description": "Forbidden" },
+                  "404": { "description": "Not Found" },
+                },
+              "deprecated": false,
+            },
+        },
+    },
+  "definitions":
+    {
+      "RestJsonData«List«UserMaster»»":
+        {
+          "type": "object",
+          "properties":
+            {
+              "data":
+                {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/UserMaster" },
+                },
+              "message": { "type": "string" },
+              "rowCount": { "type": "number" },
+            },
+          "title": "RestJsonData«List«UserMaster»»",
+        },
+      "UserMaster":
+        {
+          "type": "object",
+          "properties":
+            {
+              "address":
+                { "type": "string", "description": "The person's address" },
+              "birthDate":
+                {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "31/12/1988",
+                  "description": "The person's birth date",
+                },
+              "citizenId":
+                {
+                  "type": "string",
+                  "example": 3328100036799,
+                  "description": "The unique 13 numbers of Citizen ID",
+                },
+              "firstName":
+                { "type": "string", "description": "The person's first name" },
+              "lastName":
+                { "type": "string", "description": "The person's last name" },
+              "picture": { "type": "string", "description": "yyy" },
+            },
+          "title": "UserMaster",
+          "description": "Details about the user personal information",
+        },
+    },
+}
