@@ -1,7 +1,7 @@
 package com.dxc.application.exception;
 
 import com.dxc.application.exceptions.ApplicationException;
-import com.dxc.application.model.RestJsonData;
+import com.dxc.application.feature.common.dto.RestJsonData;
 import com.dxc.application.utils.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

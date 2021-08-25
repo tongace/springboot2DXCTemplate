@@ -2,12 +2,15 @@ package com.dxc.application.feature.gimmaster.controller;
 
 import com.dxc.application.constants.MessagesConstants;
 import com.dxc.application.exceptions.ApplicationException;
-import com.dxc.application.feature.gimmaster.dto.SearchGimHeader;
-import com.dxc.application.model.GimDetail;
-import com.dxc.application.model.GimHeader;
-import com.dxc.application.model.GimHeaderSearchCriteria;
-import com.dxc.application.model.RestJsonData;
-import com.dxc.application.services.GimMasterService;
+import com.dxc.application.feature.common.dto.RestJsonData;
+import com.dxc.application.feature.gimmaster.data.database.model.GimDetail;
+import com.dxc.application.feature.gimmaster.data.database.model.GimHeader;
+import com.dxc.application.feature.gimmaster.data.database.model.GimHeaderSearchCriteria;
+import com.dxc.application.feature.gimmaster.dto.GimHeaderResultDTO;
+import com.dxc.application.feature.gimmaster.dto.InsertGimHeaderDTO;
+import com.dxc.application.feature.gimmaster.dto.SearchGimHeaderDTO;
+import com.dxc.application.feature.gimmaster.dto.UpdateGimHeaderDTO;
+import com.dxc.application.feature.gimmaster.service.GimMasterService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -50,13 +53,14 @@ public class GIMMasterController {
         return "js/gimmaster-call-api.js";
     }
 
+
     @PostMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     @SneakyThrows
-    RestJsonData<List<GimHeader>> searchGimHeader(@RequestBody SearchGimHeader input, HttpServletRequest request) {
-        GimHeaderSearchCriteria criteria = modelMapper.map(input,GimHeaderSearchCriteria.class);
-        RestJsonData<List<GimHeader>> returnData = new RestJsonData<>();
-        List<GimHeader> gimList = gimService.searchGimHeader(criteria);
+    RestJsonData<List<GimHeaderResultDTO>> searchGimHeader(@RequestBody SearchGimHeaderDTO input, HttpServletRequest request) {
+        GimHeaderSearchCriteria criteria = modelMapper.map(input, GimHeaderSearchCriteria.class);
+        RestJsonData<List<GimHeaderResultDTO>> returnData = new RestJsonData<>();
+        List<GimHeaderResultDTO> gimList = gimService.searchGimHeader(criteria);
         if (gimList.isEmpty()) {
             throw new ApplicationException(MessagesConstants.ERROR_MESSAGE_DATA_NOT_FOUND, null);
         }
@@ -66,21 +70,23 @@ public class GIMMasterController {
 
     @PutMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RestJsonData<String> insertGimHeader(@RequestBody GimHeader input, HttpServletRequest request) {
+    RestJsonData<String> insertGimHeader(@RequestBody InsertGimHeaderDTO input, HttpServletRequest request) {
+        GimHeader insertModel = modelMapper.map(input, GimHeader.class);
         RestJsonData<String> returnData = new RestJsonData<>();
-        input.setCreatedBy("csamphao");
-        input.setModifiedBy("csamphao");
-        int saveRowCount = gimService.insertGimHeader(input);
+        insertModel.setCreatedBy("csamphao");
+        insertModel.setModifiedBy("csamphao");
+        int saveRowCount = gimService.insertGimHeader(insertModel);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }
+
     @PatchMapping(value = "/gimheader", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RestJsonData<String> updateGimHeader(@RequestBody GimHeader input, HttpServletRequest request) {
+    RestJsonData<String> updateGimHeader(@RequestBody UpdateGimHeaderDTO input, HttpServletRequest request) {
+        GimHeader updateModel = modelMapper.map(input, GimHeader.class);
         RestJsonData<String> returnData = new RestJsonData<>();
-        input.setCreatedBy("csamphao");
-        input.setModifiedBy("csamphao");
-        int saveRowCount = gimService.insertGimHeader(input);
+        updateModel.setModifiedBy("csamphao");
+        int saveRowCount = gimService.updateGimHeader(updateModel);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }
