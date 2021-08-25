@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dxc.application.mybatis.mapper.GIMMasterMapper">
-	<select id="findGimHeader" resultType="com.dxc.application.model.GimHeader" parameterType="com.dxc.application.model.GimHeader">
+	<select id="findGimHeader" resultType="com.dxc.application.model.GimHeader" parameterType="com.dxc.application.model.GimHeaderSearchCriteria">
 		SELECT GIM_TYPE,
 			GIM_DESC,
 			CD_LENGTH,
@@ -20,17 +20,17 @@
 			MODIFIED_DT
 		FROM TB_M_GIM_H GIMH
 		<where>
-			<if test="@org.apache.commons.lang3.ArrayUtils@isNotEmpty(searchGimTypes)">
+			<if test="@org.apache.commons.lang3.ArrayUtils@isNotEmpty(gimTypes)">
 				AND GIM_TYPE IN 
-                <foreach item="item" index="index" collection="searchGimTypes" open="(" separator="," close=")">
+                <foreach item="item" index="index" collection="gimTypes" open="(" separator="," close=")">
                     #{item}
                 </foreach>
 			</if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchGimDesc)">
-                AND UPPER(GIM_DESC) LIKE UPPER(REPLACE(#{searchGimDesc},'*','%'))
+            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(gimDesc)">
+                AND UPPER(GIM_DESC) LIKE UPPER(REPLACE(#{gimDesc},'*','%'))
             </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchActiveFlag) and !@org.apache.commons.lang3.StringUtils@equalsIgnoreCase(searchActiveFlag,'ALL')">
-                AND ACTIVE_FLAG =#{searchActiveFlag}
+            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(activeFlag) and !@org.apache.commons.lang3.StringUtils@equalsIgnoreCase(activeFlag,'ALL')">
+                AND ACTIVE_FLAG =#{activeFlag}
             </if>
 		</where>
 		ORDER BY GIM_TYPE
