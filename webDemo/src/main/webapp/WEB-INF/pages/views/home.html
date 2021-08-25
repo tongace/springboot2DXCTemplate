@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="templates/template.html :: app_header(~{::script},~{::link},~{})">
+<head th:replace="templates/template.html :: app_header(~{::script},~{},~{})">
 	<script th:src="@{/home/js/home.js}"></script>
-	<script th:src="@{/scripts/calendar.min.js}"></script>
-
-	<link th:href="@{/css/calendar.min.css}" rel='stylesheet' />
 </head>
 
 <body th:replace="templates/template.html :: app_body(~{::div},#{DXC.WDXC0000.Screen.Id} ,#{DXC.WDXC0000.Screen.Desc})">
