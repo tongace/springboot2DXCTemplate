@@ -1,13 +1,11 @@
-package com.dxc.application.model;
+package com.dxc.application.feature.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class UserMaster {
-    private String citizenId;
+public class UpdatedUserMaster {
     private String firstName;
     private String lastName;
     private Date birthDate;

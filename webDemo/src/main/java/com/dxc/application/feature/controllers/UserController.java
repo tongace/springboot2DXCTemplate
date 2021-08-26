@@ -1,4 +1,4 @@
-package com.dxc.application.controllers;
+package com.dxc.application.feature.controllers;
 
 import com.dxc.application.model.RestJsonData;
 import com.dxc.application.model.User;
