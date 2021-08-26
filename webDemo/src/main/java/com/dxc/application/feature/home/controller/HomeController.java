@@ -35,8 +35,7 @@ public class HomeController {
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
     RestJsonData<BigDecimal> upload(@RequestPart("userPic") MultipartFile userPic,@RequestPart("userModel") User userModel){
-        log.debug("upload File Name >>>> {}",userPic.getOriginalFilename());
-        log.debug("userModel >>>> {}",userModel);
+
         return new RestJsonData<>();
     }
 }

@@ -212,7 +212,7 @@ class PersonsMasterControllerTest {
         requestObj.setFileName("Pic1.jpg");
         String modifiedDate ="20210101 03:23:50";
         formatter=new SimpleDateFormat("yyyyMMdd HH:mm:ss");
-        requestObj.setModifiedDt(formatter,parse(modifiedDate));
+        requestObj.setModifiedDt(formatter.parse(modifiedDate));
         HttpEntity<UpdatePersonsDTO> req = new HttpEntity<>(requestObj,null);
         ResponseEntity<RestJsonData> response = restTemplate.exchange("/personsmaster/person", HttpMethod.PATCH,req,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
@@ -237,7 +237,7 @@ class PersonsMasterControllerTest {
         requestObj.setFileName("Pic1.jpg");
         String modifiedDate ="20210202 03:23:50";
         formatter=new SimpleDateFormat("yyyyMMdd HH:mm:ss");
-        requestObj.setModifiedDt(formatter,parse(modifiedDate));
+        requestObj.setModifiedDt(formatter.parse(modifiedDate));
         HttpEntity<UpdatePersonsDTO> req = new HttpEntity<>(requestObj,null);
         ResponseEntity<RestJsonData> response = restTemplate.exchange("/personsmaster/person", HttpMethod.PATCH,req,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));

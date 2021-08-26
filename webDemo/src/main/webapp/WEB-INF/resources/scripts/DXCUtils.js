@@ -352,6 +352,23 @@ let DXCUtils = (function ($) {
             }
             const response = await fetch(url, options);
             return response.json();
+        },
+        callAPIWithDownloadFile: async (url, httpMethod, postData) => {
+            const options = {
+                "method": httpMethod,
+            };
+            if (postData != null) {
+                options.body = JSON.stringify(postData);
+            }
+            const response = await fetch(url, options);
+            return response.blob();
+        },
+        blobToBase64Url: blob => {
+            return new Promise((resolve) => {
+                const reader = new FileReader()
+                reader.onloadend = () => resolve(reader.result)
+                reader.readAsDataURL(blob)
+            })
         }
     }
 }(jQuery));

@@ -84,7 +84,8 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 	testAnnotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:'+project.ext.springbootVersion
-	testImplementation 'org.apache.httpcomponents:httpclient:4.5.2'
+	testImplementation 'org.apache.httpcomponents:httpclient:4.5.13'
+	testImplementation 'commons-io:commons-io:2.11.0'
 	implementation project(':configurationLib')
 	implementation project(':commonLib')
 }
