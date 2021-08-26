@@ -7,6 +7,7 @@ import com.dxc.application.model.*;
 import com.dxc.application.utils.JsonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import com.dxc.application.feature.common.dto.RestJsonData ;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,7 +46,7 @@ class PersonsMasterControllerTest {
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/personsmaster/person",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
-        List<GimHeader> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<GimHeader>>(){});
+        List<PersonsResultDTO> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<PersonsResultDTO>>(){});
         assertEquals(1,result.size());
 
     }
@@ -58,9 +60,23 @@ class PersonsMasterControllerTest {
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/personsmaster/person",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
-        List<GimHeader> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<GimHeader>>(){});
+        List<PersonsResultDTO> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<PersonsResultDTO>>(){});
         assertEquals(1,result.size());
     }
+
+    @Test
+    @DisplayName("search Person with  First Name = first* ,Citizen Id = null , Last Name = null ")
+    @Sql(value = {"/testdata/ComboControllerTest/testPersons.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void searchPersonWithFirstNameAndWildCard() {
+        SearchPersonsDTO requestObj = new SearchPersonsDTO();
+        requestObj.setSearchFirstName("first*");
+        ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/personsmaster/person",requestObj,RestJsonData.class);
+        log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
+        ObjectMapper mapper = new ObjectMapper();
+        List<PersonsResultDTO> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<PersonsResultDTO>>(){});
+        assertEquals(1,result.size());
+    }
+
 
     @Test
     @DisplayName("search Person with Last Name = lastName1 , First Name = null  ,Citizen Id = null  ")
@@ -71,36 +87,50 @@ class PersonsMasterControllerTest {
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/personsmaster/person",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
-        List<GimHeader> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<GimHeader>>(){});
+        List<PersonsResultDTO> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<PersonsResultDTO>>(){});
         assertEquals(1,result.size());
     }
 
     @Test
-    @DisplayName("search Person with Citizen Id = 22222  , Last Name = last* , First Name = null ")
+    @DisplayName("search Person with Last Name = last* , First Name = null  ,Citizen Id = null  ")
     @Sql(value = {"/testdata/ComboControllerTest/testPersons.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void searchPersonWithCitizenIdAndLastName() {
+    void searchPersonWithLastNameAndWildCard() {
         SearchPersonsDTO requestObj = new SearchPersonsDTO();
-        requestObj.setSearchCitizenId("22222");
         requestObj.setSearchLastName("last*");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/personsmaster/person",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
-        List<GimHeader> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<GimHeader>>(){});
+        List<PersonsResultDTO> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<PersonsResultDTO>>(){});
         assertEquals(1,result.size());
     }
 
+
     @Test
-    @DisplayName("search Person with Citizen Id = 22222  , Last Name = lastName1 , First Name = firstn* ")
+    @DisplayName("search Person with Citizen Id = 22222  , Last Name = lastName, First Name = null ")
     @Sql(value = {"/testdata/ComboControllerTest/testPersons.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void searchPersonAllSearchCriteria() {
+    void searchPersonWithCitizenIdAndLastName() {
         SearchPersonsDTO requestObj = new SearchPersonsDTO();
         requestObj.setSearchCitizenId("22222");
-        requestObj.setSearchFirstName("firstn*");
         requestObj.setSearchLastName("lastName1");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/personsmaster/person",requestObj,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
-        List<GimHeader> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<GimHeader>>(){});
+        List<PersonsResultDTO> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<PersonsResultDTO>>(){});
+        assertEquals(1,result.size());
+    }
+
+    @Test
+    @DisplayName("search Person with Citizen Id = 22222  , Last Name = lastName1 , First Name = firstname1 ")
+    @Sql(value = {"/testdata/ComboControllerTest/testPersons.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void searchPersonAllSearchCriteria() {
+        SearchPersonsDTO requestObj = new SearchPersonsDTO();
+        requestObj.setSearchCitizenId("22222");
+        requestObj.setSearchFirstName("firstname1");
+        requestObj.setSearchLastName("lastName1");
+        ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/personsmaster/person",requestObj,RestJsonData.class);
+        log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
+        ObjectMapper mapper = new ObjectMapper();
+        List<PersonsResultDTO> result = mapper.convertValue(response.getBody().getData(),new TypeReference<List<PersonsResultDTO>>(){});
         assertEquals(1,result.size());
     }
 
@@ -142,8 +172,9 @@ class PersonsMasterControllerTest {
     }
 
     @Test
-    @DisplayName("insert Person ")
-    void insertPerson() {
+    @DisplayName("insert Person Case duplicated")
+    @Sql(value = {"/testdata/ComboControllerTest/testPersons.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void addPersonCaseDuplicated() {
         InsertPersonsDTO requestObj = new InsertPersonsDTO();
         requestObj.setCitizenId("1111");
         requestObj.setFirstName("firstName1");
@@ -160,12 +191,15 @@ class PersonsMasterControllerTest {
         ResponseEntity<RestJsonData> response = restTemplate.exchange("/personsmaster/person", HttpMethod.PUT,req,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
         ObjectMapper mapper = new ObjectMapper();
-        BigDecimal result = mapper.convertValue(response.getBody().getRowCount(),new TypeReference<BigDecimal>(){});
-        assertEquals(1,result.intValue());
+        String message = mapper.convertValue(response.getBody().getMessage(),new TypeReference<String>(){});
+        assertEquals("MAPP0010AERR: Duplicate data",message);
     }
+
 
     @Test
     @DisplayName("update Person")
+    @Sql(value = {"/testdata/ComboControllerTest/testPersons.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @SneakyThrows
     void updatePerson() {
         UpdatePersonsDTO requestObj = new UpdatePersonsDTO();
         requestObj.setCitizenId("1111");
@@ -173,12 +207,12 @@ class PersonsMasterControllerTest {
         requestObj.setLastName("lastNameEdit");
         String birthDate ="2001201";
         DateFormat formatter=new SimpleDateFormat("yyyyMMdd");
-        try {
-            requestObj.setBirthDate(formatter. parse(birthDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        requestObj.setBirthDate(formatter. parse(birthDate));
+
         requestObj.setFileName("Pic1.jpg");
+        String modifiedDate ="20210101 03:23:50";
+        formatter=new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+        requestObj.setModifiedDt(formatter,parse(modifiedDate));
         HttpEntity<UpdatePersonsDTO> req = new HttpEntity<>(requestObj,null);
         ResponseEntity<RestJsonData> response = restTemplate.exchange("/personsmaster/person", HttpMethod.PATCH,req,RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
@@ -187,6 +221,31 @@ class PersonsMasterControllerTest {
         assertEquals(1,result.intValue());
     }
 
+    @Test
+    @DisplayName("update Person (Change by Another )")
+    @Sql(value = {"/testdata/ComboControllerTest/testPersons.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @SneakyThrows
+    void updatePersonChangeByAnother() {
+        UpdatePersonsDTO requestObj = new UpdatePersonsDTO();
+        requestObj.setCitizenId("1111");
+        requestObj.setFirstName("firstNameEdit");
+        requestObj.setLastName("lastNameEdit");
+        String birthDate ="2001201";
+        DateFormat formatter=new SimpleDateFormat("yyyyMMdd");
+        requestObj.setBirthDate(formatter. parse(birthDate));
+
+        requestObj.setFileName("Pic1.jpg");
+        String modifiedDate ="20210202 03:23:50";
+        formatter=new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+        requestObj.setModifiedDt(formatter,parse(modifiedDate));
+        HttpEntity<UpdatePersonsDTO> req = new HttpEntity<>(requestObj,null);
+        ResponseEntity<RestJsonData> response = restTemplate.exchange("/personsmaster/person", HttpMethod.PATCH,req,RestJsonData.class);
+        log.info("response raw data >>>>>>>>>>>>>>>> {}",JsonUtil.toJsonString(response));
+        ObjectMapper mapper = new ObjectMapper();
+        String message = mapper.convertValue(response.getBody().getMessage(),new TypeReference<String>(){});
+        assertEquals("MBX00009AERR: Operation cannot be completed. Data has been modified by another user.",message);
+
+    }
 
 
     @Test

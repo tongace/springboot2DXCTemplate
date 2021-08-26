@@ -2,7 +2,7 @@ package com.dxc.application.feature.personsmaster.controller;
 
 import com.dxc.application.feature.personsmaster.dto.*;
 import com.dxc.application.model.Person;
-import com.dxc.application.model.RestJsonData;
+import com.dxc.application.feature.common.dto.RestJsonData;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

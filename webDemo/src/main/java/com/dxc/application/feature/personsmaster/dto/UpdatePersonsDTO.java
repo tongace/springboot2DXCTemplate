@@ -12,4 +12,5 @@ public class UpdatePersonsDTO {
     private Date birthDate;
     private String address;
     private String fileName;
+    private Date modifiedDt;
 }
