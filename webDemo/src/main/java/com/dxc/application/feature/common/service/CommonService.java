@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +45,7 @@ public class CommonService {
 
     @Transactional(value = "mybastistx", rollbackFor = Exception.class)
     @SneakyThrows
-    public Integer insertAttachedFile(MultipartFile multipartFile, String uploadedBy){
+    public Integer insertAttachedFile(MultipartFile multipartFile, String uploadedBy) {
         AttachedFile attachedFile = new AttachedFile();
         attachedFile.setFileName(multipartFile.getOriginalFilename());
         attachedFile.setFileContentType(multipartFile.getContentType());

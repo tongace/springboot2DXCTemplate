@@ -1,19 +1,19 @@
-package com.dxc.application.feature.personsmaster.dto;
+package com.dxc.application.feature.usermaster.dto;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class PersonsResultDTO {
+public class UserResultDTO {
     private String citizenId;
     private String firstName;
     private String lastName;
-    private Date birthDate;
+    private Date dateOfBirth;
     private String address;
-    private String fileName;
-    private BigDecimal fileId;
+    private Integer pictureId;
+    private String createdBy;
+    private Date createdDt;
     private String modifiedBy;
     private Date modifiedDt;
 }

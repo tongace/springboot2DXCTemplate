@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="templates/template.html :: app_header(~{::script},~{::link},~{})">
+    <script th:src="@{/scripts/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/scripts/buttons.semanticui.min.js}"></script>
+    <script th:src="@{/scripts/buttons.html5.min.js}"></script>
+    <script th:src="@{/scripts/jszip.min.js}"></script>
+    <script th:src="@{/scripts/calendar.min.js}"></script>
+    <script th:src="@{/usermaster/js/usermaster-call-api.js}"></script>
+    <script th:src="@{/usermaster/js/usermaster.js}"></script>
+
+    <link th:href="@{/css/buttons.semanticui.min.css}" rel='stylesheet' />
+    <link th:href="@{/css/calendar.min.css}" rel='stylesheet' />
+</head>
+
+<body th:replace="templates/template.html :: app_body(~{::div},#{DXC.WDXC0001.Screen.Id} ,#{DXC.WDXC0001.Screen.Desc})">
+    <div style="width:100%;" id="screenContent">
+        <div id="userSearchSection" style="width:100%;">
+            <div class="sixteen wide column row">
+                <form class="ui form raised segment" id="userSearchForm" style="width: 100%;">
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>[[#{DXC.WDXC0002.Label.CitizenId}]]</label>
+                            <div class="ui mini basic input">
+                                <input type="text" name="searchCitizenId">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>[[#{DXC.WDXC0002.Label.FirstName}]]</label>
+                            <div class="ui mini basic input">
+                                <input type="text" name="searchFirstName">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>[[#{DXC.WDXC0002.Label.LastName}]]</label>
+                            <div class="ui mini basic input">
+                                <input type="text" name="searchLastName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="three fields">
+                        <div class="field"></div>
+                        <div class="field"></div>
+                        <div class="field" id="buttonPanel" style="text-align: right;">
+                            <div class="ui active mini button" id="WDXC0002Search" data-auth="no"><i class="search icon"></i>[[#{DXC.Button.Search}]]</div>
+                            <div class="ui active mini button" id="WDXC0002Clear" data-auth="no"><i class="paint brush icon"></i>[[#{DXC.Button.Clear}]]</div>
+                            <div class="ui active mini button" id="WDXC0002Add" data-auth="no"><i class="add icon"></i>[[#{DXC.Button.Add}]]</div>
+                            <div class="ui active mini button" id="WDXC0002Edit" data-auth="no"><i class="write brush icon"></i>[[#{DXC.Button.Edit}]]</div>
+                            <div class="ui active mini button" id="WDXC0002Delete" data-auth="no"><i class="write brush icon"></i>[[#{DXC.Button.Delete}]]</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="ui clearing hidden divider"></div>
+            <div class="sixteen wide column row" id="searchResultSection" style="display: none;">
+                <h4 class="ui dividing header">[[#{DXC.WDXC0002.Screen.Modal.Header}]]</h4>
+                <table id="tableUserResult" class="ui celled striped unstackable table" style="width:100%;">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th></th>
+                            <th>[[#{DXC.WDXC0002.Label.CitizenId}]]</th>
+                            <th>[[#{DXC.WDXC0002.Label.FirstName}]]</th>
+                            <th>[[#{DXC.WDXC0002.Label.LastName}]]</th>
+                            <th>[[#{DXC.WDXC0002.Label.BirthDay}]]</th>
+                            <th>[[#{DXC.WDXC0002.Label.Address}]]</th>
+                            <th>[[#{DXC.WDXC0002.Label.Picture}]]</th>
+                            <th>[[#{DXC.Label.ModifiedBy}]]</th>
+                            <th>[[#{DXC.Label.ModifiedDt}]]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--user edit -->
+        <div id="userEditSection" style="width: 40%;display:none;">
+            <div class="content">
+                <div class="sixteen wide column row">
+                    <form class="ui form segment" id="editUserForm" style="width: 100%;" autocomplete="off">
+                        <h4 class="ui dividing header">[[#{DXC.WDXC0002.Screen.Modal.Header}]]</h4>
+                        <input type="hidden" name="modifiedDt">
+                        <input type="hidden" name="pictureId">
+                        <div class="field">
+                            <label for="citizenId">[[#{DXC.WDXC0002.Label.CitizenId}]]</label>
+                            <div class="ui mini basic mandatory input">
+                                <input type="text" name="citizenId" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="firstName">[[#{DXC.WDXC0002.Label.FirstName}]]</label>
+                            <div class="ui mini basic mandatory input">
+                                <input type="text" name="firstName" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="lastName">[[#{DXC.WDXC0002.Label.LastName}]]</label>
+                            <div class="ui mini basic mandatory input">
+                                <input type="text" name="lastName" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="dateOfBirth">[[#{DXC.WDXC0002.Label.BirthDay}]]</label>
+                            <div class="ui mini calendar" id="dateOfBirthCalendar">
+                                <div class="ui active mini input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="DD/MM/YYYY">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="address">[[#{DXC.WDXC0002.Label.Address}]]</label>
+                            <div class="ui mini basic input">
+                                <textarea style="width: 100%; resize: none;" rows="10" name="address" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="picture">[[#{DXC.WDXC0002.Label.Picture}]]</label>
+                            <div class="ui mini basic mandatory input">
+                                <input type="file" id="uploadFile">
+                            </div>
+                        </div>
+
+                        <div id="uploadCard" class="ui card" style="display: none;">
+                            <div class="content">
+                                <div id="uploadDelete" class="right floated meta"><i class="ui red x icon"></i></div>
+                            </div>
+                            <div class="image">
+                                <img id="uploadPic">
+                            </div>
+                            <div class="extra content">
+                                <a id="uploadLink" target="_blank">Download</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="ui clearing hidden divider"></div>
+            <div class="actions" style="text-align: right;">
+                <div class="ui active mini button" id="WDXC0002Save" data-auth="no"><i class="checkmark icon"></i>[[#{DXC.Button.Save}]]</div>
+                <div class="ui active mini button" id="WDXC0002Cancel" data-auth="no"><i class="remove icon"></i>[[#{DXC.Button.Cancel}]]</div>
+            </div>
+        </div>
+        <!--end user edit section-->
+
+        <div class="ui mini modal" id="imageModal">
+            <div class="ui black header">
+            </div>
+            <div class="content">
+                <div id="userCard" class="ui card">
+                    <div class="image">
+                        <img id="userPic">
+                    </div>
+                    <div class="extra content">
+                        <a id="userLink" target="_blank">Download</a>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui center floated button" id="modalUploadOK">
+                    <i class="checkmark icon"></i> [[#{DXC.Button.OK}]]
+                </div>
+            </div>
+        </div>
+        <div class="ui clearing hidden divider"></div>
+        <div class="ui clearing hidden divider"></div>
+        <div class="ui clearing hidden divider"></div>
+        <div class="ui clearing hidden divider"></div>
+    </div>
+</body>
+
+</html>

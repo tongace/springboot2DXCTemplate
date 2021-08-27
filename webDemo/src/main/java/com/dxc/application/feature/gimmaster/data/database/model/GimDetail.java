@@ -1,10 +1,8 @@
 package com.dxc.application.feature.gimmaster.data.database.model;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class GimDetail {

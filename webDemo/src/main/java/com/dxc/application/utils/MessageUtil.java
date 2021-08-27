@@ -2,13 +2,11 @@ package com.dxc.application.utils;
 
 import com.dxc.application.constants.MessagesConstants;
 import com.dxc.application.exceptions.ApplicationException;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 public final class MessageUtil {
     // protected new Instant

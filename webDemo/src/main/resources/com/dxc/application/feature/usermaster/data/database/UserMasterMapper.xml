@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dxc.application.feature.usermaster.data.database.UserMasterMapper">
+	<select id="findUser" resultType="com.dxc.application.feature.usermaster.dto.UserResultDTO"
+            parameterType="com.dxc.application.feature.usermaster.data.database.model.UserSearchCriteria">
+        SELECT CITIZEN_ID,
+        FIRST_NAME,
+        LAST_NAME,
+        DATE_OF_BIRTH,
+        ADDRESS,
+        PICTURE_ID,
+        CREATED_BY,
+        CREATED_DT,
+        MODIFIED_BY,
+        MODIFIED_DT
+        FROM TB_M_USER
+		<where>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchCitizenId)">
+                AND CITIZEN_ID = #{searchCitizenId}
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchFirstName)">
+                AND FIRST_NAME LIKE REPLACE(#{searchFirstName},'*','%')
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchLastName)">
+                AND LAST_NAME LIKE REPLACE(#{searchLastName},'*','%')
+            </if>
+		</where>
+		ORDER BY CITIZEN_ID
+	</select>
+	<select id="findUserPrimaryKey" resultType="com.dxc.application.feature.usermaster.dto.UserResultDTO" parameterType="map">
+        SELECT CITIZEN_ID,
+        FIRST_NAME,
+        LAST_NAME,
+        DATE_OF_BIRTH,
+        ADDRESS,
+        PICTURE_ID,
+        CREATED_BY,
+        CREATED_DT,
+        MODIFIED_BY,
+        MODIFIED_DT
+        FROM TB_M_USER
+	 	WHERE CITIZEN_ID = #{citizenId}
+	</select>
+	<insert id="insertUser" parameterType="com.dxc.application.feature.usermaster.data.database.model.User">
+        INSERT INTO TB_M_USER (CITIZEN_ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH
+        , ADDRESS, PICTURE_ID, CREATED_BY, CREATED_DT, MODIFIED_BY, MODIFIED_DT)
+        VALUES (#{citizenId}, #{firstName}, #{lastName}, #{dateOfBirth}, #{address}, #{pictureId}, #{createdBy}, NOW(), #{modifiedBy}, NOW());
+    </insert>
+    <update id="updateUser" parameterType="com.dxc.application.feature.usermaster.data.database.model.User">
+        UPDATE TB_M_USER SET
+            CITIZEN_ID = #{citizenId},
+            FIRST_NAME = #{firstName},
+            LAST_NAME = #{lastName},
+            DATE_OF_BIRTH = #{dateOfBirth},
+            ADDRESS = #{address},
+            PICTURE_ID = #{pictureId},
+            MODIFIED_BY = #{modifiedBy},
+            MODIFIED_DT = NOW()
+            WHERE CITIZEN_ID = #{citizenId}
+            AND MODIFIED_DT = #{modifiedDt}
+    </update>
+    <delete id="deleteUser" parameterType="map">
+        DELETE FROM TB_M_USER
+        WHERE CITIZEN_ID = #{citizenId}
+    </delete>
+</mapper>

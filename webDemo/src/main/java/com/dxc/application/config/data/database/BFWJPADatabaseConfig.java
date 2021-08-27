@@ -5,10 +5,8 @@ import com.dxc.application.properties.BfwJpaDataSourceProperties;
 import com.dxc.application.properties.JpaProperties;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -18,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
+
 @Configuration
 @EnableTransactionManagement
 public class BFWJPADatabaseConfig {
@@ -32,7 +31,7 @@ public class BFWJPADatabaseConfig {
         this.jpaProperties = jpaProperties;
     }
 
-    @Bean(name="dataSource_bfw")
+    @Bean(name = "dataSource_bfw")
     public DataSource getBFWJPADataSource() {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(appDataSourceProperties.getDriverClassName());
@@ -49,7 +48,7 @@ public class BFWJPADatabaseConfig {
         return properties;
     }
 
-    @Bean(name="entityManagerFactory_bfw")
+    @Bean(name = "entityManagerFactory_bfw")
     public LocalContainerEntityManagerFactoryBean getBFWEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(getBFWJPADataSource());
@@ -63,7 +62,7 @@ public class BFWJPADatabaseConfig {
         return em;
     }
 
-    @Bean(name="bfw")
+    @Bean(name = "bfw")
     public PlatformTransactionManager bfwTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(getBFWEntityManagerFactory().getObject());

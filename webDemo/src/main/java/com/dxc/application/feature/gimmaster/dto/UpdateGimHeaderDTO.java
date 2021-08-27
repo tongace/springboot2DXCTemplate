@@ -3,8 +3,6 @@ package com.dxc.application.feature.gimmaster.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Data

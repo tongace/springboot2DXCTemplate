@@ -20,17 +20,18 @@ public class ApiLogging extends RequestBodyAdviceAdapter implements ResponseBody
     private final LogService logService;
 
     @Autowired
-    public ApiLogging(HttpServletRequest request, LogService logService){
-        this.request=request;
-        this.logService=logService;
+    public ApiLogging(HttpServletRequest request, LogService logService) {
+        this.request = request;
+        this.logService = logService;
     }
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) {
         return true;
     }
+
     @Override
-    public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType){
+    public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         logService.logRequest(request, body);
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
     }

@@ -1,5 +1,15 @@
 package com.dxc.application.feature.common.controller;
 
+import com.dxc.application.feature.common.data.database.model.AttachedFile;
+import com.dxc.application.feature.common.service.CommonService;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -7,18 +17,6 @@ import java.math.BigDecimal;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.dxc.application.feature.common.data.database.model.AttachedFile;
-import com.dxc.application.feature.common.service.CommonService;
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.*;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -40,7 +38,7 @@ public class CommonController {
 
     @GetMapping(value = "file/{id}")
     @SneakyThrows
-    public void downloadAttachedFile(HttpServletRequest request, HttpServletResponse response,@PathVariable("id") BigDecimal id) {
+    public void downloadAttachedFile(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") BigDecimal id) {
         AttachedFile attachedFile = commonService.getAttachedFile(id);
         String mimeType = URLConnection.guessContentTypeFromName(attachedFile.getFileName());
         if (mimeType == null) {

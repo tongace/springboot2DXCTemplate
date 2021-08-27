@@ -1,0 +1,135 @@
+package com.dxc.application.feature.usermaster.controller;
+
+import com.dxc.application.constants.MessagesConstants;
+import com.dxc.application.exceptions.ApplicationException;
+import com.dxc.application.feature.common.dto.RestJsonData;
+import com.dxc.application.feature.common.service.CommonService;
+import com.dxc.application.feature.usermaster.data.database.model.User;
+import com.dxc.application.feature.usermaster.data.database.model.UserSearchCriteria;
+import com.dxc.application.feature.usermaster.dto.InsertUserDTO;
+import com.dxc.application.feature.usermaster.dto.SearchUserDTO;
+import com.dxc.application.feature.usermaster.dto.UpdateUserDTO;
+import com.dxc.application.feature.usermaster.dto.UserResultDTO;
+import com.dxc.application.feature.usermaster.service.UserMasterService;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.util.List;
+
+@Slf4j
+@Controller
+@RequestMapping("/usermaster")
+public class UserMasterController {
+
+    private UserMasterService userMasterService;
+    private ModelMapper modelMapper;
+    private CommonService commonService;
+
+    @Autowired
+    public UserMasterController(UserMasterService userMasterService, ModelMapper modelMapper, CommonService commonService) {
+        this.userMasterService = userMasterService;
+        this.modelMapper = modelMapper;
+        this.commonService = commonService;
+    }
+
+    @GetMapping()
+    public String initialHTML(Model model) {
+        return "usermaster/usermaster.html";
+    }
+
+    @GetMapping("/js/usermaster.js")
+    public String initialJS(Model model) {
+        return "usermaster/usermaster.js";
+    }
+
+    @GetMapping("/js/usermaster-call-api.js")
+    public String initialJSApi(Model model) {
+        return "usermaster/usermaster-call-api.js";
+    }
+
+    @PostMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    @SneakyThrows
+    RestJsonData<List<UserResultDTO>> getUser(@RequestBody SearchUserDTO input, HttpServletRequest request) {
+        RestJsonData<List<UserResultDTO>> returnData = new RestJsonData<>();
+
+        UserSearchCriteria criteria = modelMapper.map(input, UserSearchCriteria.class);
+        List<UserResultDTO> userMasterList = userMasterService.searchUser(criteria);
+
+        if (userMasterList.isEmpty()) {
+            throw new ApplicationException(MessagesConstants.ERROR_MESSAGE_DATA_NOT_FOUND, null);
+        }
+        returnData.setData(userMasterList);
+        return returnData;
+    }
+
+    @PutMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public @ResponseBody
+    RestJsonData<String> updateUser(@RequestPart("userPic") MultipartFile userPic, @RequestPart("userDTO") InsertUserDTO input) {
+        RestJsonData<String> returnData = new RestJsonData<>();
+
+        User criteria = modelMapper.map(input, User.class);
+
+        if (userPic != null && !userPic.isEmpty()) {
+            Integer fileID = commonService.insertAttachedFile(userPic, "csamphao");
+            log.info("fileID " + fileID.intValue());
+            criteria.setPictureId(fileID);
+        } else {
+            criteria.setPictureId(0);
+        }
+
+        criteria.setCreatedBy("csamphao");
+        criteria.setModifiedBy("csamphao");
+
+        int saveRowCount = userMasterService.insertUser(criteria);
+        returnData.setRowCount(new BigDecimal(saveRowCount));
+        return returnData;
+    }
+
+    @PatchMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public @ResponseBody
+    RestJsonData<String> updateUser(@RequestPart("userPic") MultipartFile userPic, @RequestPart("userDTO") UpdateUserDTO input) {
+
+        RestJsonData<String> returnData = new RestJsonData<>();
+        log.info("userPic:" + userPic);
+        log.info("upic is empty : " + userPic.isEmpty());
+        log.info("upic is empty : " + userPic.getName());
+
+        User criteria = modelMapper.map(input, User.class);
+        criteria.setModifiedBy("csamphao");
+
+        if (userPic != null && !userPic.isEmpty()) {
+            Integer fileID = commonService.insertAttachedFile(userPic, "csamphao");
+            log.info("fileID " + fileID.intValue());
+            criteria.setPictureId(fileID);
+        }
+
+        int saveRowCount = userMasterService.updateUser(criteria);
+        returnData.setRowCount(new BigDecimal(saveRowCount));
+        return returnData;
+    }
+
+    @DeleteMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    RestJsonData<String> deleteUser(@RequestBody UpdateUserDTO[] input, HttpServletRequest request) {
+        RestJsonData<String> returnData = new RestJsonData<>();
+
+        User userArray[] = new User[input.length];
+        for (int i = 0; i < input.length; i++) {
+            userArray[i] = modelMapper.map(input[i], User.class);
+        }
+
+        int saveRowCount = userMasterService.deleteUser(userArray);
+        returnData.setRowCount(new BigDecimal(saveRowCount));
+        return returnData;
+    }
+}

@@ -1,7 +1,5 @@
 package com.dxc.application.feature.home.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.dxc.application.feature.common.dto.RestJsonData;
 import com.dxc.application.feature.home.controller.dto.User;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
 @Controller
@@ -28,13 +27,14 @@ public class HomeController {
     }
 
     @GetMapping("/test")
-    public @ResponseBody String test() {
+    public @ResponseBody
+    String test() {
         return "test";
     }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
-    RestJsonData<BigDecimal> upload(@RequestPart("userPic") MultipartFile userPic,@RequestPart("userModel") User userModel){
+    RestJsonData<BigDecimal> upload(@RequestPart("userPic") MultipartFile userPic, @RequestPart("userModel") User userModel) {
 
         return new RestJsonData<>();
     }
