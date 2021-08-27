@@ -29,8 +29,8 @@ import java.util.List;
 @RequestMapping("/gimmaster")
 public class GIMMasterController {
 
-    private GimMasterService gimService;
-    private ModelMapper modelMapper;
+    private final GimMasterService gimService;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public GIMMasterController(GimMasterService gimService, ModelMapper modelMapper) {
@@ -91,13 +91,13 @@ public class GIMMasterController {
         return returnData;
     }
 
-    @PostMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/gimdetail/{gimType}", produces = MediaType.APPLICATION_JSON_VALUE)
     public
     @ResponseBody
     @SneakyThrows
-    RestJsonData<List<GimDetail>> getGimDetail(@RequestBody GimDetail input, HttpServletRequest request) {
+    RestJsonData<List<GimDetail>> getGimDetail(@PathVariable("gimType") String gimType) {
         RestJsonData<List<GimDetail>> returnData = new RestJsonData<>();
-        List<GimDetail> gimDetailList = gimService.getGimDetail(input);
+        List<GimDetail> gimDetailList = gimService.getGimDetailByGimType(gimType);
         if (gimDetailList.isEmpty()) {
             throw new ApplicationException(MessagesConstants.ERROR_MESSAGE_DATA_NOT_FOUND, null);
         }
@@ -112,11 +112,21 @@ public class GIMMasterController {
         RestJsonData<String> returnData = new RestJsonData<>();
         input.setCreatedBy("csamphao");
         input.setModifiedBy("csamphao");
-        int saveRowCount = gimService.saveGimDetail(input);
+        int saveRowCount = gimService.insertGimDetail(input);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }
 
+    @PatchMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    RestJsonData<String> updateGimDetail(@RequestBody GimDetail input, HttpServletRequest request) {
+        RestJsonData<String> returnData = new RestJsonData<>();
+        input.setCreatedBy("csamphao");
+        input.setModifiedBy("csamphao");
+        int saveRowCount = gimService.updateGimDetail(input);
+        returnData.setRowCount(new BigDecimal(saveRowCount));
+        return returnData;
+    }
 
     @DeleteMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody

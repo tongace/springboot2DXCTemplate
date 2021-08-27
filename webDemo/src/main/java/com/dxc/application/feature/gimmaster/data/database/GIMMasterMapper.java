@@ -10,16 +10,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 @Mapper
 public interface GIMMasterMapper {
-	
-	public GimHeader findGimHeaderByPrimaryKey(@Param("gimType") String gimType);
 	public List<GimHeaderResultDTO> findGimHeader(GimHeaderSearchCriteria gimHeader);
 	public int insertGimHeader(GimHeader criteria);
 	public int updateGimHeader(GimHeader criteria);
-	public int updateActiveFlagOfGimDetailByGimHeaderActiveFlag(GimHeader criteria);
-	public List<GimDetail> findGimDetail(GimDetail criteria);
-	public GimDetail findGimDetailByPrimaryKey(GimDetail criteria);
+	public List<GimDetail> findGimDetailByGimType(@Param("gimType") String gimType);
 	public int saveGimDetail(GimDetail criteria);
-	public int updateActiveFlagOfGimHeaderByGimDetailActiveFlag(GimHeader criteria);
 	public int updateGimDetail(GimDetail criteria);
 	public int deleteGimDetailByKeys(GimDetail criteria);
 }

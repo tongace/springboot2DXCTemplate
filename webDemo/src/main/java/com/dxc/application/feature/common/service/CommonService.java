@@ -52,6 +52,7 @@ public class CommonService {
         attachedFile.setFileContentType(multipartFile.getContentType());
         attachedFile.setFileData(multipartFile.getBytes());
         attachedFile.setCreatedBy(uploadedBy);
-        return commonMapper.insertAttachedFiled(attachedFile);
+        commonMapper.insertAttachedFiled(attachedFile);
+        return attachedFile.getId();
     }
 }

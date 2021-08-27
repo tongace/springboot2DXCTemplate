@@ -38,19 +38,18 @@ public class GimMasterService {
     }
 
     @Transactional(value = "mybastistx", readOnly = true)
-    public List<GimDetail> getGimDetail(GimDetail criteria) {
-        return gimHeaderMapper.findGimDetail(criteria);
+    public List<GimDetail> getGimDetailByGimType(String gimType) {
+        return gimHeaderMapper.findGimDetailByGimType(gimType);
     }
 
     @Transactional(value = "mybastistx", rollbackFor = Exception.class)
-    public int saveGimDetail(GimDetail gimData) {
-        if (StringUtils.equalsIgnoreCase(gimData.getMode(), AppConstants.MODE_ADD)) {
-            return gimHeaderMapper.saveGimDetail(gimData);
-        } else {
-            return gimHeaderMapper.updateGimDetail(gimData);
-        }
+    public int insertGimDetail(GimDetail gimData) {
+        return gimHeaderMapper.saveGimDetail(gimData);
     }
-
+    @Transactional(value = "mybastistx", rollbackFor = Exception.class)
+    public int updateGimDetail(GimDetail gimData) {
+        return gimHeaderMapper.updateGimDetail(gimData);
+    }
     @Transactional(value = "mybastistx", rollbackFor = Exception.class)
     public int deleteGimDetail(GimDetail[] gimData) {
         int deleteRowCount = 0;

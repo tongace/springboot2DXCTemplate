@@ -27,7 +27,7 @@
                 </foreach>
 			</if>
             <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(gimDesc)">
-                AND UPPER(GIM_DESC) LIKE UPPER(REPLACE(#{gimDesc},'*','%'))
+                AND GIM_DESC LIKE REPLACE(#{gimDesc},'*','%')
             </if>
             <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(activeFlag) and !@org.apache.commons.lang3.StringUtils@equalsIgnoreCase(activeFlag,'ALL')">
                 AND ACTIVE_FLAG =#{activeFlag}
@@ -51,7 +51,7 @@
 			MODIFIED_BY,
 			MODIFIED_DT
 	  	FROM TB_M_GIM_H GIMH
-	 	WHERE GIM_TYPE = UPPER (#{gimType})
+	 	WHERE GIM_TYPE = #{gimType}
 	</select>
 	<insert id="insertGimHeader" parameterType="com.dxc.application.feature.gimmaster.data.database.model.GimHeader">
         INSERT INTO TB_M_GIM_H (GIM_TYPE,
@@ -90,14 +90,7 @@
         WHERE GIM_TYPE = #{gimType} 
             AND MODIFIED_DT = #{modifiedDt}
     </update>
-    <update id="updateActiveFlagOfGimDetailByGimHeaderActiveFlag" parameterType="com.dxc.application.feature.gimmaster.data.database.model.GimHeader">
-        UPDATE TB_M_GIM_D
-            SET ACTIVE_FLAG = #{activeFlag},
-                MODIFIED_BY = #{modifiedBy},
-                MODIFIED_DT = NOW()
-        WHERE GIM_TYPE = #{gimType}
-    </update>
-    <select id="findGimDetail" resultType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail" parameterType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail">
+    <select id="findGimDetailByGimType" resultType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail" parameterType="map">
         SELECT GIM_TYPE,
             GIM_CD,
             GIM_VALUE,
@@ -113,33 +106,8 @@
             MODIFIED_BY,
             MODIFIED_DT
         FROM TB_M_GIM_D GIMD
-        <where>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(gimType)">
-                AND GIM_TYPE =#{gimType}
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(gimCd)">
-                AND UPPER(GIM_CD) = UPPER(#{gimCd})
-            </if>
-        </where>
+        WHERE GIM_TYPE =#{gimType}
         ORDER BY GIM_TYPE,GIM_CD
-    </select>
-    <select id="findGimDetailByPrimaryKey" resultType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail" parameterType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail">
-        SELECT GIM_TYPE,
-        GIM_CD,
-        GIM_VALUE,
-        FIELD1,
-        FIELD2,
-        FIELD3,
-        ACTIVE_FLAG,
-        (SELECT GIM_VALUE
-            FROM TB_M_GIM_D
-            WHERE GIM_TYPE = 'ACTIVE_FLAG' AND GIM_CD = GIMD.ACTIVE_FLAG)  AS DISPLAY_ACTIVE_FLAG,
-        CREATED_BY,
-        CREATED_DT
-        MODIFIED_BY,
-        MODIFIED_DT
-        FROM TB_M_GIM_D GIMD
-        WHERE GIM_TYPE = UPPER (#{gimType}) AND GIM_CD = UPPER (#{gimCd})
     </select>
     <insert id="saveGimDetail" parameterType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail">
         INSERT INTO TB_M_GIM_D (GIM_TYPE,
@@ -165,13 +133,6 @@
             #{modifiedBy},
             NOW())
     </insert>
-    <update id="updateActiveFlagOfGimHeaderByGimDetailActiveFlag" parameterType="com.dxc.application.feature.gimmaster.data.database.model.GimHeader">
-        UPDATE TB_M_GIM_H
-        SET ACTIVE_FLAG = #{activeFlag},
-            MODIFIED_BY = #{modifiedBy},
-            MODIFIED_DT = NOW()
-        WHERE GIM_TYPE = UPPER (#{gimType})
-    </update>
     <update id="updateGimDetail" parameterType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail">
         UPDATE TB_M_GIM_D
         SET GIM_VALUE = #{gimValue},
@@ -181,14 +142,14 @@
             ACTIVE_FLAG = #{activeFlag},
             MODIFIED_BY = #{modifiedBy},
             MODIFIED_DT = NOW()
-        WHERE     GIM_TYPE = UPPER ( #{gimType})
-            AND GIM_CD = UPPER ( #{gimCd})
+        WHERE     GIM_TYPE = #{gimType}
+            AND GIM_CD = #{gimCd}
             AND MODIFIED_DT = #{modifiedDt}
     </update>
     <delete id="deleteGimDetailByKeys" parameterType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail">
         DELETE FROM TB_M_GIM_D
-        WHERE     GIM_TYPE = UPPER (#{gimType})
-                AND GIM_CD = UPPER (#{gimCd})
+        WHERE     GIM_TYPE = #{gimType}
+                AND GIM_CD = #{gimCd}
                 AND MODIFIED_DT = #{modifiedDt}
     </delete>
 </mapper>

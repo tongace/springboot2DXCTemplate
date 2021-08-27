@@ -1,6 +1,7 @@
 package com.dxc.application.feature.common.service;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,8 @@ import java.io.FileInputStream;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional(value = "mybastistx")
+//@Transactional(value = "mybastistx")
+@Slf4j
 class CommonServiceTest {
     @Autowired
     CommonService commonService;
@@ -31,6 +33,7 @@ class CommonServiceTest {
         MultipartFile multipartFile = new MockMultipartFile("file",
                 file.getName(), "image/jpeg", IOUtils.toByteArray(input));
         Integer fileID = commonService.insertAttachedFile(multipartFile, "unitTest");
+        log.debug("file ID is {}",fileID);
         assertNotNull(fileID, String.format("file ID is %s", fileID));
     }
 }

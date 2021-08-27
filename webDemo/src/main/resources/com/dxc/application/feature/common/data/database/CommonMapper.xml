@@ -22,7 +22,7 @@
 		FROM TB_R_ATTACHED_FILE
 		WHERE ID = #{id}
 	</select>
-	<insert id="insertAttachedFiled" useGeneratedKeys="true" keyProperty="id" parameterType="com.dxc.application.feature.common.data.database.model.AttachedFile">
+	<insert id="insertAttachedFiled" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" parameterType="com.dxc.application.feature.common.data.database.model.AttachedFile">
 		INSERT INTO TB_R_ATTACHED_FILE
 		(FILE_NAME,FILE_CONTENT_TYPE,FILE_DATA,CREATED_BY,CREATED_DT)
 		VALUES (
