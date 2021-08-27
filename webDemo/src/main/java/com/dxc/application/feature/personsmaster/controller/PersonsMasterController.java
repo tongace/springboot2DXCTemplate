@@ -19,16 +19,16 @@ import java.util.List;
 public class PersonsMasterController {
     @GetMapping()
     public String initialHTML(Model model) {
-        return "views/personsmastertest.html";
+        return "personmaster/personsmastertest.html";
     }
 
     @GetMapping("/js/persontest.js")
     public String initialJS(Model model) {
-        return "js/persontest.js";
+        return "personmaster/persontest.js";
     }
     @GetMapping("/js/persontest-call-api.js")
     public String initialJSApi(Model model) {
-        return "js/persontest-call-api.js";
+        return "personmaster/persontest-call-api.js";
     }
 
     @PostMapping(value = "/person", produces = MediaType.APPLICATION_JSON_VALUE)

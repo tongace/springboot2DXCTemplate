@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 public class GimHeader {
 	private String gimType;
 	private String gimDesc;
-	private BigDecimal cdLength;
+	private Integer cdLength;
 	private String field1Label;
 	private String field2Label;
 	private String field3Label;

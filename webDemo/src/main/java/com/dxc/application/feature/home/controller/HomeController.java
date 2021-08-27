@@ -19,12 +19,12 @@ public class HomeController {
 
     @GetMapping("")
     public String home(HttpServletRequest request) {
-        return "views/home.html";
+        return "home/home.html";
     }
 
     @GetMapping("/js/home.js")
     public String js() {
-        return "js/home.js";
+        return "home/home.js";
     }
 
     @GetMapping("/test")

@@ -40,17 +40,17 @@ public class GIMMasterController {
 
     @GetMapping()
     public String initialHTML(Model model) {
-        return "views/gimmaster.html";
+        return "gimmaster/gimmaster.html";
     }
 
     @GetMapping("/js/gimmaster.js")
     public String initialJS(Model model) {
-        return "js/gimmaster.js";
+        return "gimmaster/gimmaster.js";
     }
 
     @GetMapping("/js/gimmaster-call-api.js")
     public String initialJSApi(Model model) {
-        return "js/gimmaster-call-api.js";
+        return "gimmaster/gimmaster-call-api.js";
     }
 
 

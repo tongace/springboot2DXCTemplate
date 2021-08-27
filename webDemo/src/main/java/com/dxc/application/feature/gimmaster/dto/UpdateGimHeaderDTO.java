@@ -5,24 +5,18 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @JsonIgnoreProperties
 public class UpdateGimHeaderDTO {
-    @NotBlank
     private String gimType;
-    @NotBlank
     private String gimDesc;
-    @NotBlank
-    private BigDecimal cdLength;
-    @NotBlank
+    private Integer cdLength;
     private String field1Label;
-    @NotBlank
     private String field2Label;
-    @NotBlank
     private String field3Label;
-    @NotBlank
     private String activeFlag;
-    @NotBlank
     private String modifiedBy;
+    private Date modifiedDt;
 }
