@@ -458,12 +458,14 @@ $(document).ready(async () => {
                         type: 'maxLength[200]'
                     },
                     {
-                        type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
+                        type: 'space',
+                        prompt: '{name} should not be only white space or start or end with white space'
                     }
                 ]
             }
         },
         inline: true,
+        shouldTrim: false,
         on: 'blur'
     });
     // modal validation
@@ -475,7 +477,7 @@ $(document).ready(async () => {
                         type: 'empty'
                     },
                     {
-                        type: 'space[    gggggg    ]',
+                        type: 'space',
                         prompt: '{name} should not be only white space or start or end with white space'
                     },
                     {
@@ -489,7 +491,7 @@ $(document).ready(async () => {
                         type: 'empty',
                     },
                     {
-                        type: 'space[this.value]',
+                        type: 'space',
                         prompt: '{name} should not be only white space or start or end with white space'
                     },
                     {
@@ -558,6 +560,7 @@ $(document).ready(async () => {
             }
         },
         inline: true,
+        shouldTrim: false,
         on: 'blur'
     });
 
@@ -722,10 +725,8 @@ $(document).ready(async () => {
                         type: 'empty'
                     },
                     {
-                        type: 'regExp[/\s*$/]'
-                    },
-                    {
-                        type: 'regExp[/^\s*/]'
+                        type: 'space',
+                        prompt: '{name} should not be only white space or start or end with white space'
                     },
                     {
                         type: 'maxLength[50]'
@@ -738,7 +739,8 @@ $(document).ready(async () => {
                         type: 'empty'
                     },
                     {
-                        type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
+                        type: 'space',
+                        prompt: '{name} should not be only white space or start or end with white space'
                     },
                     {
                         type: 'validationGimCodeLenth',
@@ -752,7 +754,8 @@ $(document).ready(async () => {
                         type: 'empty'
                     },
                     {
-                        type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
+                        type: 'space',
+                        prompt: '{name} should not be only white space or start or end with white space'
                     },
                     {
                         type: 'maxLength[2000]'
@@ -765,7 +768,8 @@ $(document).ready(async () => {
                         type: 'validationField1'
                     },
                     {
-                        type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
+                        type: 'space',
+                        prompt: '{name} should not be only white space or start or end with white space'
                     },
                     {
                         type: 'maxLength[4000]'
@@ -779,7 +783,8 @@ $(document).ready(async () => {
                         prompt: '[[#{MBX01002AERR}]]'
                     },
                     {
-                        type: 'regExp[/^$|^[^\s]+(\s+[^\s]+)*$/]'
+                        type: 'space',
+                        prompt: '{name} should not be only white space or start or end with white space'
                     },
                     {
                         type: 'maxLength[4000]'
@@ -793,7 +798,7 @@ $(document).ready(async () => {
                         prompt: '[[#{MBX01002AERR}]]'
                     },
                     {
-                        type: 'space[this.value]',
+                        type: 'space',
                         prompt: '{name} should not be only white space or start or end with white space'
                     },
                     {
@@ -810,6 +815,7 @@ $(document).ready(async () => {
             }
         },
         inline: true,
+        shouldTrim: false,
         on: 'blur'
     });
 });
