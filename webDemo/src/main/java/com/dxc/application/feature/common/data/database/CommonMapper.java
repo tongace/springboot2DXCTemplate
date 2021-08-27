@@ -5,7 +5,6 @@ import com.dxc.application.feature.common.data.database.model.Combo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +16,9 @@ public interface CommonMapper {
 
     List<Combo> getActiveFlagCombo(@Param("activeFlag") String activeFlag);
 
-    AttachedFile getAttachedFileById(@Param("id") BigDecimal id);
+    AttachedFile getAttachedFileById(@Param("id") Integer id);
 
     Integer insertAttachedFiled(AttachedFile attachedFile);
+
+    Integer deleteAttachedFileById(@Param("id") Integer id);
 }

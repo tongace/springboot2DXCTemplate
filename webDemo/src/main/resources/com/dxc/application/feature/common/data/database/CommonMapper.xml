@@ -29,4 +29,8 @@
 			#{fileName},#{fileContentType},#{fileData},#{createdBy},NOW()
 		)
 	</insert>
+	<delete id="deleteAttachedFileById" parameterType="map">
+		DELETE FROM TB_R_ATTACHED_FILE
+		WHERE ID = #{id}
+	</delete>
 </mapper>

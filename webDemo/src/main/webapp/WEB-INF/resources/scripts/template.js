@@ -44,7 +44,6 @@ $(document).ready(function () {
     setInterval(displayDBServerTime, 300000);
 
     $.fn.form.settings.rules.space = function (value) {
-        console.log(value);
         let pattern = /^$|^[^\s]+(\s+[^\s]+)*$/;
         let result = pattern.test(value);
         return result;

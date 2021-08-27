@@ -38,7 +38,7 @@ public class CommonController {
 
     @GetMapping(value = "file/{id}")
     @SneakyThrows
-    public void downloadAttachedFile(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") BigDecimal id) {
+    public void downloadAttachedFile(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") Integer id) {
         AttachedFile attachedFile = commonService.getAttachedFile(id);
         String mimeType = URLConnection.guessContentTypeFromName(attachedFile.getFileName());
         if (mimeType == null) {

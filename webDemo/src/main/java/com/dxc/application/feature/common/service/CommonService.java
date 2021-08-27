@@ -39,7 +39,7 @@ public class CommonService {
     }
 
     @Transactional(value = "mybastistx", readOnly = true)
-    public AttachedFile getAttachedFile(BigDecimal id) {
+    public AttachedFile getAttachedFile(Integer id) {
         return commonMapper.getAttachedFileById(id);
     }
 
@@ -53,5 +53,10 @@ public class CommonService {
         attachedFile.setCreatedBy(uploadedBy);
         commonMapper.insertAttachedFiled(attachedFile);
         return attachedFile.getId();
+    }
+    @Transactional(value = "mybastistx", rollbackFor = Exception.class)
+    @SneakyThrows
+    public Integer deleteAttachedFileById(Integer fileId) {
+        return commonMapper.deleteAttachedFileById(fileId);
     }
 }

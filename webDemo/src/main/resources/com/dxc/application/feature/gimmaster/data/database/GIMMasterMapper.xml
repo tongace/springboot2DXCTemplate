@@ -90,7 +90,7 @@
         WHERE GIM_TYPE = #{gimType} 
             AND MODIFIED_DT = #{modifiedDt}
     </update>
-    <select id="findGimDetailByGimType" resultType="com.dxc.application.feature.gimmaster.data.database.model.GimDetail" parameterType="map">
+    <select id="findGimDetailByGimType" resultType="com.dxc.application.feature.gimmaster.dto.SearchGimDetailResultDTO" parameterType="map">
         SELECT GIM_TYPE,
             GIM_CD,
             GIM_VALUE,

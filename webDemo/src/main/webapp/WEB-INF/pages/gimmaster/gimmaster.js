@@ -15,23 +15,23 @@ let WDXC0001 = (function ($) {
                 });
                 // set save message
                 if (responseData.rowCount > 0) {
-                    let modal = DXCUtils.alertModal('[[#{MBX00005AINF}]]', null);
+                    const modal = DXCUtils.alertModal('[[#{MBX00005AINF}]]', null);
                     modal.modal('show');
                 } else {
-                    let modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
+                    const modal = DXCUtils.alertModal('[[#{MBX00009AERR}]]', null);
                     modal.modal('show');
                 }
-                let formData = $('#gimHeaderForm').form('get values');
+                const formData = $('#gimHeaderForm').form('get values');
                 WDXC0001.populateGIMHeaderDatatable(formData);
                 // reload gim type
-                let gimTypeDatas = await WDXC0001_API.getGimTypeCombo();
+                const gimTypeDatas = await WDXC0001_API.getGimTypeCombo();
                 DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), gimTypeDatas.data, null);
                 $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
                     forceSelection: false
                 });
                 $('#gimHeaderForm [name="searchGimTypes"]').dropdown('set exactly', formData.searchGimTypes);
             } else {
-                let modal = DXCUtils.alertModal(responseData.message, null);
+                const modal = DXCUtils.alertModal(responseData.message, null);
                 modal.modal('show');
             }
         },
@@ -51,7 +51,7 @@ let WDXC0001 = (function ($) {
                 $('#searchResultSection').show();
             }
             // datatable
-            let gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
+            const gimheaderTable = $("#tableGimTypeHeaderResult").DataTable({
                 "data": responseData.data,
                 "destroy": true,
                 "lengthChange": false,
@@ -319,7 +319,7 @@ let WDXC0001 = (function ($) {
                 modal.modal('show');
             }
         },
-        deleteGimDetail: async formData => {
+        deleteGimDetail: async deleteGimDetailArr => {
             let responseData = await WDXC0001_API.deleteGimDetail(deleteGimDetailArr);
             if (S(responseData.message).isEmpty()) {
                 // set delete message

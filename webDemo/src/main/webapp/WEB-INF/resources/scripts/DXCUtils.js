@@ -116,10 +116,10 @@ let DXCUtils = (function ($) {
         comfirmModal: function (confirmMessage, params, approveCallback) {
             confirmMessage = confirmMessage.replace(/['"]+/g, '')
             let messageCode = confirmMessage.substring(0, confirmMessage.indexOf(":"));
-            $('#confirmingModal').children(".header").empty();
+            $('#confirmingModal').children(".header").children("span").text('');
             $('#confirmingModal').children(".content").empty();
-            $('#confirmingModal').children(".header").removeClass("yellow red green");
-            $('#confirmingModal').children(".header").append(messageCode);
+            $('#confirmingModal').children(".header").children("span").removeClass("yellow red green");
+            $('#confirmingModal').children(".header").children("span").text(messageCode);
             if (params != null) {
                 for (let indexInArray = 0; indexInArray < params.length; indexInArray++) {
                     let valueOfElement = params[indexInArray];
@@ -130,10 +130,10 @@ let DXCUtils = (function ($) {
             let messageType = confirmMessage.substring(firstConlon - 3, firstConlon);
             switch (messageType) {
                 case 'WRN':
-                    $('#confirmingModal').children(".header").addClass("yellow");
+                    $('#confirmingModal').children(".header").children("span").addClass("yellow");
                     break;
                 case 'CFM':
-                    $('#confirmingModal').children(".header").addClass("green");
+                    $('#confirmingModal').children(".header").children("span").addClass("green");
                     break;
             }
             $('#confirmingModal').children(".content").append(confirmMessage);
@@ -149,10 +149,10 @@ let DXCUtils = (function ($) {
         alertModal: function (alertMessage, params) {
             alertMessage = alertMessage.replace(/['"]+/g, '')
             let messageCode = alertMessage.substring(0, alertMessage.indexOf(":"));
-            $('#alertModal').children(".header").empty();
+            $('#alertModal').children(".header").children("span").text('');
             $('#alertModal').children(".content").empty();
-            $('#alertModal').children(".header").removeClass("yellow red green");
-            $('#alertModal').children(".header").append(messageCode);
+            $('#alertModal').children(".header").children("span").removeClass("yellow red green");
+            $('#alertModal').children(".header").children("span").text(messageCode);
             if (params != null) {
                 for (let indexInArray = 0; indexInArray < params.length; indexInArray++) {
                     let valueOfElement = params[indexInArray];
@@ -163,13 +163,13 @@ let DXCUtils = (function ($) {
             let messageType = alertMessage.substring(firstConlon - 3, firstConlon);
             switch (messageType) {
                 case 'INF':
-                    $('#alertModal').children(".header").addClass("green");
+                    $('#alertModal').children(".header").children("span").addClass("green");
                     break;
                 case 'WRN':
-                    $('#alertModal').children(".header").addClass("yellow");
+                    $('#alertModal').children(".header").children("span").addClass("yellow");
                     break;
                 case 'ERR':
-                    $('#alertModal').children(".header").addClass("red");
+                    $('#alertModal').children(".header").children("span").addClass("red");
                     break;
             }
             $('#alertModal').children(".content").append(alertMessage);

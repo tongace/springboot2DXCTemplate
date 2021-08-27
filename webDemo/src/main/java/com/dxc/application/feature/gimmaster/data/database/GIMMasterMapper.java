@@ -4,6 +4,7 @@ import com.dxc.application.feature.gimmaster.data.database.model.GimDetail;
 import com.dxc.application.feature.gimmaster.data.database.model.GimHeader;
 import com.dxc.application.feature.gimmaster.data.database.model.GimHeaderSearchCriteria;
 import com.dxc.application.feature.gimmaster.dto.GimHeaderResultDTO;
+import com.dxc.application.feature.gimmaster.dto.SearchGimDetailResultDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,7 +18,7 @@ public interface GIMMasterMapper {
 
     public int updateGimHeader(GimHeader criteria);
 
-    public List<GimDetail> findGimDetailByGimType(@Param("gimType") String gimType);
+    public List<SearchGimDetailResultDTO> findGimDetailByGimType(@Param("gimType") String gimType);
 
     public int saveGimDetail(GimDetail criteria);
 

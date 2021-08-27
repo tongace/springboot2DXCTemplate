@@ -3,7 +3,6 @@ package com.dxc.application.feature.usermaster.controller;
 import com.dxc.application.constants.MessagesConstants;
 import com.dxc.application.exceptions.ApplicationException;
 import com.dxc.application.feature.common.dto.RestJsonData;
-import com.dxc.application.feature.common.service.CommonService;
 import com.dxc.application.feature.usermaster.data.database.model.User;
 import com.dxc.application.feature.usermaster.data.database.model.UserSearchCriteria;
 import com.dxc.application.feature.usermaster.dto.InsertUserDTO;
@@ -30,15 +29,13 @@ import java.util.List;
 @RequestMapping("/usermaster")
 public class UserMasterController {
 
-    private UserMasterService userMasterService;
-    private ModelMapper modelMapper;
-    private CommonService commonService;
+    private final UserMasterService userMasterService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public UserMasterController(UserMasterService userMasterService, ModelMapper modelMapper, CommonService commonService) {
+    public UserMasterController(UserMasterService userMasterService, ModelMapper modelMapper) {
         this.userMasterService = userMasterService;
         this.modelMapper = modelMapper;
-        this.commonService = commonService;
     }
 
     @GetMapping()
@@ -76,21 +73,10 @@ public class UserMasterController {
     public @ResponseBody
     RestJsonData<String> updateUser(@RequestPart("userPic") MultipartFile userPic, @RequestPart("userDTO") InsertUserDTO input) {
         RestJsonData<String> returnData = new RestJsonData<>();
-
         User criteria = modelMapper.map(input, User.class);
-
-        if (userPic != null && !userPic.isEmpty()) {
-            Integer fileID = commonService.insertAttachedFile(userPic, "csamphao");
-            log.info("fileID " + fileID.intValue());
-            criteria.setPictureId(fileID);
-        } else {
-            criteria.setPictureId(0);
-        }
-
         criteria.setCreatedBy("csamphao");
         criteria.setModifiedBy("csamphao");
-
-        int saveRowCount = userMasterService.insertUser(criteria);
+        int saveRowCount = userMasterService.insertUser(criteria, userPic);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }
@@ -98,22 +84,10 @@ public class UserMasterController {
     @PatchMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
     RestJsonData<String> updateUser(@RequestPart("userPic") MultipartFile userPic, @RequestPart("userDTO") UpdateUserDTO input) {
-
         RestJsonData<String> returnData = new RestJsonData<>();
-        log.info("userPic:" + userPic);
-        log.info("upic is empty : " + userPic.isEmpty());
-        log.info("upic is empty : " + userPic.getName());
-
         User criteria = modelMapper.map(input, User.class);
         criteria.setModifiedBy("csamphao");
-
-        if (userPic != null && !userPic.isEmpty()) {
-            Integer fileID = commonService.insertAttachedFile(userPic, "csamphao");
-            log.info("fileID " + fileID.intValue());
-            criteria.setPictureId(fileID);
-        }
-
-        int saveRowCount = userMasterService.updateUser(criteria);
+        int saveRowCount = userMasterService.updateUser(criteria, userPic);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }
@@ -123,7 +97,7 @@ public class UserMasterController {
     RestJsonData<String> deleteUser(@RequestBody UpdateUserDTO[] input, HttpServletRequest request) {
         RestJsonData<String> returnData = new RestJsonData<>();
 
-        User userArray[] = new User[input.length];
+        User[] userArray = new User[input.length];
         for (int i = 0; i < input.length; i++) {
             userArray[i] = modelMapper.map(input[i], User.class);
         }

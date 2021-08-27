@@ -1,11 +1,11 @@
-package com.dxc.application.feature.gimmaster.data.database.model;
+package com.dxc.application.feature.gimmaster.dto;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class GimDetail {
+public class SearchGimDetailResultDTO {
     private String gimType;
     private String gimCd;
     private String gimValue;
@@ -14,8 +14,6 @@ public class GimDetail {
     private String field3;
     private String activeFlag;
     private String displayActiveFlag;
-    private String createdBy;
-    private Date createdDt;
     private String modifiedBy;
     private Date modifiedDt;
 }

@@ -6,10 +6,7 @@ import com.dxc.application.feature.common.dto.RestJsonData;
 import com.dxc.application.feature.gimmaster.data.database.model.GimDetail;
 import com.dxc.application.feature.gimmaster.data.database.model.GimHeader;
 import com.dxc.application.feature.gimmaster.data.database.model.GimHeaderSearchCriteria;
-import com.dxc.application.feature.gimmaster.dto.GimHeaderResultDTO;
-import com.dxc.application.feature.gimmaster.dto.InsertGimHeaderDTO;
-import com.dxc.application.feature.gimmaster.dto.SearchGimHeaderDTO;
-import com.dxc.application.feature.gimmaster.dto.UpdateGimHeaderDTO;
+import com.dxc.application.feature.gimmaster.dto.*;
 import com.dxc.application.feature.gimmaster.service.GimMasterService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -95,9 +92,9 @@ public class GIMMasterController {
     public
     @ResponseBody
     @SneakyThrows
-    RestJsonData<List<GimDetail>> getGimDetail(@PathVariable("gimType") String gimType) {
-        RestJsonData<List<GimDetail>> returnData = new RestJsonData<>();
-        List<GimDetail> gimDetailList = gimService.getGimDetailByGimType(gimType);
+    RestJsonData<List<SearchGimDetailResultDTO>> getGimDetail(@PathVariable("gimType") String gimType) {
+        RestJsonData<List<SearchGimDetailResultDTO>> returnData = new RestJsonData<>();
+        List<SearchGimDetailResultDTO> gimDetailList = gimService.getGimDetailByGimType(gimType);
         if (gimDetailList.isEmpty()) {
             throw new ApplicationException(MessagesConstants.ERROR_MESSAGE_DATA_NOT_FOUND, null);
         }
@@ -108,29 +105,30 @@ public class GIMMasterController {
 
     @PutMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RestJsonData<String> saveGimDetail(@RequestBody GimDetail input, HttpServletRequest request) {
+    RestJsonData<String> saveGimDetail(@RequestBody InsertGimDetailDTO input, HttpServletRequest request) {
         RestJsonData<String> returnData = new RestJsonData<>();
         input.setCreatedBy("csamphao");
         input.setModifiedBy("csamphao");
-        int saveRowCount = gimService.insertGimDetail(input);
+        GimDetail model = modelMapper.map(input, GimDetail.class);
+        int saveRowCount = gimService.insertGimDetail(model);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }
 
     @PatchMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RestJsonData<String> updateGimDetail(@RequestBody GimDetail input, HttpServletRequest request) {
+    RestJsonData<String> updateGimDetail(@RequestBody UpdateGimDetailDTO input, HttpServletRequest request) {
         RestJsonData<String> returnData = new RestJsonData<>();
-        input.setCreatedBy("csamphao");
         input.setModifiedBy("csamphao");
-        int saveRowCount = gimService.updateGimDetail(input);
+        GimDetail model = modelMapper.map(input, GimDetail.class);
+        int saveRowCount = gimService.updateGimDetail(model);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }
 
     @DeleteMapping(value = "/gimdetail", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RestJsonData<String> deleteGimDetail(@RequestBody GimDetail[] input, HttpServletRequest request) {
+    RestJsonData<String> deleteGimDetail(@RequestBody DeleteGimDetailDTO[] input, HttpServletRequest request) {
         RestJsonData<String> returnData = new RestJsonData<>();
         int deleteRowCount = gimService.deleteGimDetail(input);
         returnData.setRowCount(new BigDecimal(deleteRowCount));
