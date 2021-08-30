@@ -63,5 +63,6 @@
     <delete id="deleteUser" parameterType="map">
         DELETE FROM TB_M_USER
         WHERE CITIZEN_ID = #{citizenId}
+        AND MODIFIED_DT = #{modifiedDt}
     </delete>
 </mapper>

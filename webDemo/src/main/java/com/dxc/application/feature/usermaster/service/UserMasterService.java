@@ -1,10 +1,12 @@
 package com.dxc.application.feature.usermaster.service;
 
+import com.dxc.application.exceptions.ApplicationException;
 import com.dxc.application.feature.common.service.CommonService;
 import com.dxc.application.feature.usermaster.data.database.UserMasterMapper;
 import com.dxc.application.feature.usermaster.data.database.model.User;
 import com.dxc.application.feature.usermaster.data.database.model.UserSearchCriteria;
 import com.dxc.application.feature.usermaster.dto.UserResultDTO;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,21 +43,33 @@ public class UserMasterService {
     }
 
     @Transactional(value = "mybastistx", rollbackFor = Exception.class)
-    public int updateUser(User user,MultipartFile userPic) {
+    @SneakyThrows
+    public int updateUser(User user, MultipartFile userPic) {
+        int updateUserCount = 0;
         if (userPic != null && !userPic.isEmpty()) {
             commonService.deleteAttachedFileById(user.getPictureId());
             Integer fileID = commonService.insertAttachedFile(userPic, user.getModifiedBy());
             user.setPictureId(fileID);
         }
-        return userMasterMapper.updateUser(user);
+        updateUserCount = userMasterMapper.updateUser(user);
+        if (updateUserCount == 0) {
+            throw new ApplicationException("MBX00009AERR", null);
+        }
+        return updateUserCount;
     }
 
     @Transactional(value = "mybastistx", rollbackFor = Exception.class)
-    public int deleteUser(User[] users) {
+    @SneakyThrows
+    public int deleteUser(List<User> users) {
         int deleteRowCount = 0;
+        int deleteUser = 0;
+
         for (User user : users) {
-            commonService.deleteAttachedFileById(user.getPictureId());
-            deleteRowCount += userMasterMapper.deleteUser(user);
+            deleteRowCount += commonService.deleteAttachedFileById(user.getPictureId());
+            deleteUser = userMasterMapper.deleteUser(user);
+            if (deleteUser == 0) {
+                throw new ApplicationException("MBX00009AERR", null);
+            }
         }
         return deleteRowCount;
     }

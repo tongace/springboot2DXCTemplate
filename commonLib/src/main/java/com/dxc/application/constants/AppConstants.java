@@ -1,7 +1,9 @@
 package com.dxc.application.constants;
 
 public class AppConstants {
-    private AppConstants(){}
+    private AppConstants() {
+    }
+
     public static final String PROJECT_CD = "projectCode";
     public static final String ACTIVE_FLAG_ACTIVE = "Y";
     public static final String ACTIVE_FLAG_INACTIVE = "N";

@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -97,12 +98,12 @@ public class UserMasterController {
     RestJsonData<String> deleteUser(@RequestBody UpdateUserDTO[] input, HttpServletRequest request) {
         RestJsonData<String> returnData = new RestJsonData<>();
 
-        User[] userArray = new User[input.length];
+        List<User> users = new ArrayList<>();
         for (int i = 0; i < input.length; i++) {
-            userArray[i] = modelMapper.map(input[i], User.class);
+            users.add(modelMapper.map(input[i], User.class));
         }
 
-        int saveRowCount = userMasterService.deleteUser(userArray);
+        int saveRowCount = userMasterService.deleteUser(users);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;
     }

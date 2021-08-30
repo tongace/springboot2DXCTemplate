@@ -1,7 +1,9 @@
 package com.dxc.application.constants;
 
 public class MessagesConstants {
-    private MessagesConstants(){}
+    private MessagesConstants() {
+    }
+
     public static final String SEARCH_EXCEED_MAX_ROW = "MAPP0001AERR";
     public static final String DATABASE_ERROR = "MAPP0002AERR";
     public static final String DATA_DUPLICATED = "MCOM0004AERR";
