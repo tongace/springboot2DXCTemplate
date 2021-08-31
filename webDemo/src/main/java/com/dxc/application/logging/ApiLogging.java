@@ -12,16 +12,19 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAd
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
 
 @ControllerAdvice
 public class ApiLogging extends RequestBodyAdviceAdapter implements ResponseBodyAdvice<Object> {
     private final HttpServletRequest request;
+    private final HttpServletResponse response;
     private final LogService logService;
 
     @Autowired
-    public ApiLogging(HttpServletRequest request, LogService logService) {
+    public ApiLogging(HttpServletRequest request, HttpServletResponse response, LogService logService) {
         this.request = request;
+        this.response = response;
         this.logService = logService;
     }
 
@@ -38,7 +41,7 @@ public class ApiLogging extends RequestBodyAdviceAdapter implements ResponseBody
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        logService.logResponse(request, body);
+        logService.logResponse(request,response, body);
         return body;
     }
 
