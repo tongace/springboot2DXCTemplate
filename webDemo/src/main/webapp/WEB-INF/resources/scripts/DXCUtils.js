@@ -114,7 +114,7 @@ let DXCUtils = (function ($) {
             }
         },
         comfirmModal: function (confirmMessage, params, approveCallback) {
-            confirmMessage = confirmMessage.replace(/['"]+/g, '')
+            confirmMessage = confirmMessage.replaceAll('"', '');
             let messageCode = confirmMessage.substring(0, confirmMessage.indexOf(":"));
             $('#confirmingModal').children(".header").children("span").text('');
             $('#confirmingModal').children(".content").empty();
@@ -147,7 +147,7 @@ let DXCUtils = (function ($) {
             });
         },
         alertModal: function (alertMessage, params) {
-            alertMessage = alertMessage.replace(/['"]+/g, '')
+            alertMessage = alertMessage.replaceAll('"', '');
             let messageCode = alertMessage.substring(0, alertMessage.indexOf(":"));
             $('#alertModal').children(".header").children("span").text('');
             $('#alertModal').children(".content").empty();

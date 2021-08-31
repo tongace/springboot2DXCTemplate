@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,7 +68,7 @@ class ComboControllerTest {
     @Sql(value = {"/testdata/ComboControllerTest/searchGimHeaderWithDefaultCriteria.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void searchGimHeaderWithDefaultCriteria() {
         SearchGimHeaderDTO requestObj = new SearchGimHeaderDTO();
-        requestObj.setSearchGimTypes(new String[]{"ACTIVE_FLAG", "TEST_GIM"});
+        requestObj.setSearchGimTypes(Arrays.asList("ACTIVE_FLAG","TEST_GIM"));
         requestObj.setSearchActiveFlag("ALL");
         ResponseEntity<RestJsonData> response = restTemplate.postForEntity("/gimmaster/gimheader", requestObj, RestJsonData.class);
         log.info("response raw data >>>>>>>>>>>>>>>> {}", JsonUtil.toJsonString(response));

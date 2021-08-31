@@ -22,12 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Slf4j
 @Controller
 @RequestMapping("/usermaster")
+@Slf4j
 public class UserMasterController {
 
     private final UserMasterService userMasterService;
@@ -72,7 +72,7 @@ public class UserMasterController {
 
     @PutMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
-    RestJsonData<String> updateUser(@RequestPart("userPic") MultipartFile userPic, @RequestPart("userDTO") InsertUserDTO input) {
+    RestJsonData<String> insert(@RequestPart("userPic") MultipartFile userPic, @RequestPart("userDTO") InsertUserDTO input) {
         RestJsonData<String> returnData = new RestJsonData<>();
         User criteria = modelMapper.map(input, User.class);
         criteria.setCreatedBy("csamphao");
@@ -95,14 +95,9 @@ public class UserMasterController {
 
     @DeleteMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RestJsonData<String> deleteUser(@RequestBody UpdateUserDTO[] input, HttpServletRequest request) {
+    RestJsonData<String> deleteUser(@RequestBody List<UpdateUserDTO> userDTOList, HttpServletRequest request) {
         RestJsonData<String> returnData = new RestJsonData<>();
-
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < input.length; i++) {
-            users.add(modelMapper.map(input[i], User.class));
-        }
-
+        List<User> users = userDTOList.stream().map(dto -> modelMapper.map(dto, User.class)).collect(Collectors.toList());
         int saveRowCount = userMasterService.deleteUser(users);
         returnData.setRowCount(new BigDecimal(saveRowCount));
         return returnData;

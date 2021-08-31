@@ -26,16 +26,11 @@ public final class MessageUtil {
 
     public static String getErrorMessage(MessageSource messageSource, Exception e, Object[] messageParam, HttpServletRequest request) {
         String error = getCauseErrorMessage(e);
-
         if (e instanceof ApplicationException) {
             ApplicationException ae = (ApplicationException) e;
             return messageSource.getMessage(ae.getMessageCode(), ae.getParam(), RequestContextUtils.getLocale(request));
-
-        } else if (e instanceof DuplicateKeyException) {
-            return messageSource.getMessage(MessagesConstants.DATA_DUPLICATED, new String[]{}, RequestContextUtils.getLocale(request));
         } else {
             return messageSource.getMessage(MessagesConstants.ERROR_UNDEFINED_ERROR, new String[]{error}, RequestContextUtils.getLocale(request));
         }
     }
-
 }
