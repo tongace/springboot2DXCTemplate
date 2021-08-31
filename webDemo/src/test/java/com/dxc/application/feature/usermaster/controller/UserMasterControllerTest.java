@@ -10,16 +10,25 @@ import com.dxc.application.feature.usermaster.dto.UpdateUserDTO;
 import com.dxc.application.feature.usermaster.dto.UserResultDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -217,30 +226,41 @@ class UserMasterControllerTest {
 
     @Test
     @DisplayName("Test add user ")
+    @SneakyThrows
     @Sql(value = {"/testdata/UserMasterControllerTest/clearUserData.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void insertUser() {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.setContentLength(88491);
 
+        MultiValueMap<String,Object> body = new LinkedMultiValueMap<>();
+
+        HttpHeaders jsonHeader = new HttpHeaders();
+        jsonHeader.setContentType(MediaType.APPLICATION_JSON);
         InsertUserDTO userMaster = new InsertUserDTO();
         userMaster.setCitizenId("4444444444444");
         userMaster.setFirstName("udom");
         userMaster.setLastName("no one");
         userMaster.setAddress("New york");
-        try {
-            userMaster.setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse("20/10/1992"));
-        } catch (ParseException e) {
-            log.debug("set birth date error : {} ",e.getMessage());
-        }
-
+        userMaster.setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse("20/10/1992"));
         userMaster.setPictureId(0);
         userMaster.setCreatedBy("csamphao");
         userMaster.setModifiedBy("csamphao");
+        HttpEntity<InsertUserDTO> jsonReqEntity = new HttpEntity<>(userMaster, jsonHeader);
+        body.set("userDTO",jsonReqEntity);
 
-        HttpEntity<InsertUserDTO> requestEntity = new HttpEntity<>(userMaster, headers);
 
-        ResponseEntity<RestJsonData> response = restTemplate.exchange("/usermaster/user", HttpMethod.PUT,requestEntity,RestJsonData.class);
+        HttpHeaders fileHeader = new HttpHeaders();
+        fileHeader.setContentType(MediaType.IMAGE_JPEG);
+        fileHeader.setContentLength(88006);
+        ClassPathResource resource = new ClassPathResource("img/image002.jpg");
+        HttpEntity<ClassPathResource> fileReqEntity = new HttpEntity<>(resource, fileHeader);
+        body.set("userPic",fileReqEntity);
+
+        HttpEntity<MultiValueMap<String,Object>> requestObj = new HttpEntity<>(body,headers);
+
+        ResponseEntity<RestJsonData> response = restTemplate.exchange("/usermaster/user", HttpMethod.PUT,requestObj,RestJsonData.class);
 
         ObjectMapper mapper = new ObjectMapper();
         BigDecimal rowInsert = mapper.convertValue(response.getBody().getRowCount(),new TypeReference<BigDecimal>(){});
