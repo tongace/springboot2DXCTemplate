@@ -190,6 +190,11 @@ $(document).ready(async function () {
     $("#WDXC0002Delete").hide();
     // end initial button and search criteria
 
+    $.fn.form.settings.rules.validateFileUpload = function (value) {
+        console.log('Upload File');
+        console.log(value);
+    };
+
     // button action
     let WDXC0002SearchClick;
     $('#WDXC0002Search').on('click', _.debounce(function (event) {
@@ -224,8 +229,12 @@ $(document).ready(async function () {
             WDXC0002.saveUserData(formData, mode);
             $('#uploadFile').val(null);
         };
-
+        console.log($('#uploadFile')[0].files[0]);
         if ($('#editUserForm').form('validate form')) {
+
+            if ($('#uploadFile').val()) {
+
+            }
             let modal = DXCUtils.comfirmModal('[[#{MSTD0006ACFM}]]', null, saveCallback);
             modal.modal('show');
         }
@@ -505,7 +514,14 @@ $(document).ready(async function () {
                         prompt: '{name} should not be only white space or start or end with white space'
                     }
                 ]
-            } 
+            },
+            uploadFile: {
+                identifier: 'uploadFile',
+                rules: [{
+                    type: 'validateFileUpload',
+                    prompt: '{name} should not be empty'
+                }]
+            }
         },
         inline: true,
         on: 'blur',

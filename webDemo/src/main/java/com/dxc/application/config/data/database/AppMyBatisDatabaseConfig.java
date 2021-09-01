@@ -1,7 +1,7 @@
 package com.dxc.application.config.data.database;
 
 import com.dxc.application.properties.AppDataSourceProperties;
-import org.apache.commons.dbcp2.BasicDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,10 @@ public class AppMyBatisDatabaseConfig {
     @Bean(name = "myBatisDataSource")
     @Primary
     public DataSource getMyBatisDataSource() {
-        BasicDataSource ds = new BasicDataSource();
+        HikariDataSource ds = new HikariDataSource();
+        ds.setMaximumPoolSize(appDataSourceProperties.getMaximumPoolSize());
         ds.setDriverClassName(appDataSourceProperties.getDriverClassName());
-        ds.setUrl(appDataSourceProperties.getUrl());
+        ds.setJdbcUrl(appDataSourceProperties.getUrl());
         ds.setUsername(appDataSourceProperties.getUsername());
         ds.setPassword(appDataSourceProperties.getPassword());
         return ds;

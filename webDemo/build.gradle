@@ -1,7 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-	id 'org.springframework.boot' version '2.5.3'
+	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
@@ -69,7 +69,7 @@ dependencies {
 	implementation 'org.apache.camel:camel-mail:3.11.0'
 	implementation 'net.logstash.logback:logstash-logback-encoder:6.6'
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
-	implementation 'org.apache.commons:commons-dbcp2:2.8.0'
+	implementation 'com.zaxxer:HikariCP:4.0.3'
 	implementation 'org.modelmapper:modelmapper:2.4.4'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.10'
 

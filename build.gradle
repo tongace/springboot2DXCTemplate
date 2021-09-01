@@ -10,7 +10,7 @@ allprojects {
     project.ext {
         camelVersion = '3.11.0'
         springFrameworkVersion = '5.3.9'
-        springbootVersion = '2.5.3'
+        springbootVersion = '2.5.4'
         thymeleafVersion = '3.0.12.RELEASE'
         thymeleafLayoutDialectVersion = '2.5.3'
         lombokVersion = '1.18.20'

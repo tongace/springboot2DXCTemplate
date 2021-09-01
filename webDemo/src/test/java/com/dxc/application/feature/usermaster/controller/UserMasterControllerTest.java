@@ -229,12 +229,7 @@ class UserMasterControllerTest {
     @SneakyThrows
     @Sql(value = {"/testdata/UserMasterControllerTest/clearUserData.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void insertUser() {
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        headers.setContentLength(88491);
-
-        MultiValueMap<String,Object> body = new LinkedMultiValueMap<>();
+        MultiValueMap<String,Object> formData = new LinkedMultiValueMap<>();
 
         HttpHeaders jsonHeader = new HttpHeaders();
         jsonHeader.setContentType(MediaType.APPLICATION_JSON);
@@ -248,17 +243,18 @@ class UserMasterControllerTest {
         userMaster.setCreatedBy("csamphao");
         userMaster.setModifiedBy("csamphao");
         HttpEntity<InsertUserDTO> jsonReqEntity = new HttpEntity<>(userMaster, jsonHeader);
-        body.set("userDTO",jsonReqEntity);
+        formData.set("userDTO",jsonReqEntity);
 
 
         HttpHeaders fileHeader = new HttpHeaders();
         fileHeader.setContentType(MediaType.IMAGE_JPEG);
-        fileHeader.setContentLength(88006);
         ClassPathResource resource = new ClassPathResource("img/image002.jpg");
-        HttpEntity<ClassPathResource> fileReqEntity = new HttpEntity<>(resource, fileHeader);
-        body.set("userPic",fileReqEntity);
+        HttpEntity<Resource> fileReqEntity = new HttpEntity<>(resource, fileHeader);
+        formData.set("userPic",fileReqEntity);
 
-        HttpEntity<MultiValueMap<String,Object>> requestObj = new HttpEntity<>(body,headers);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<MultiValueMap<String,Object>> requestObj = new HttpEntity<>(formData,headers);
 
         ResponseEntity<RestJsonData> response = restTemplate.exchange("/usermaster/user", HttpMethod.PUT,requestObj,RestJsonData.class);
 

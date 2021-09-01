@@ -2,7 +2,7 @@ package com.dxc.application.config.data.database;
 
 import com.dxc.application.properties.AppDataSourceProperties;
 import com.dxc.application.properties.JpaProperties;
-import org.apache.commons.dbcp2.BasicDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,9 +32,10 @@ public class AppJPADatabaseConfig {
 
     @Bean(name = "jpaDataSource")
     public DataSource getJPADataSource() {
-        BasicDataSource ds = new BasicDataSource();
+        HikariDataSource ds = new HikariDataSource();
+        ds.setMaximumPoolSize(appDataSourceProperties.getMaximumPoolSize());
         ds.setDriverClassName(appDataSourceProperties.getDriverClassName());
-        ds.setUrl(appDataSourceProperties.getUrl());
+        ds.setJdbcUrl(appDataSourceProperties.getUrl());
         ds.setUsername(appDataSourceProperties.getUsername());
         ds.setPassword(appDataSourceProperties.getPassword());
         return ds;
