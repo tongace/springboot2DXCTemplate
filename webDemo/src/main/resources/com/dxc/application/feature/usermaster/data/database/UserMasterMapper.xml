@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dxc.application.feature.usermaster.data.database.UserMasterMapper">
-	<select id="findUser" resultType="com.dxc.application.feature.usermaster.dto.UserResultDTO"
-            parameterType="com.dxc.application.feature.usermaster.data.database.model.UserSearchCriteria">
+	<select id="findUser" resultType="com.dxc.application.feature.usermaster.dto.UserResultDTO" parameterType="com.dxc.application.feature.usermaster.data.database.model.UserSearchCriteria">
         SELECT CITIZEN_ID,
         FIRST_NAME,
         LAST_NAME,
@@ -16,13 +15,13 @@
         MODIFIED_DT
         FROM TB_M_USER
 		<where>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchCitizenId)">
+            <if test="searchCitizenId!=null and searchCitizenId!=''">
                 AND CITIZEN_ID = #{searchCitizenId}
             </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchFirstName)">
+            <if test="searchFirstName!=null and searchFirstName!=''">
                 AND FIRST_NAME LIKE REPLACE(#{searchFirstName},'*','%')
             </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchLastName)">
+            <if test="searchLastName!=null and searchLastName!=''">
                 AND LAST_NAME LIKE REPLACE(#{searchLastName},'*','%')
             </if>
 		</where>

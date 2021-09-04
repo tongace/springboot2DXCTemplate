@@ -20,16 +20,16 @@
 			MODIFIED_DT
 		FROM TB_M_GIM_H GIMH
 		<where>
-			<if test="@org.apache.commons.lang3.ArrayUtils@isNotEmpty(gimTypes)">
+			<if test="gimTypes!=null and gimTypes.size()>0">
 				AND GIM_TYPE IN 
                 <foreach item="item" index="index" collection="gimTypes" open="(" separator="," close=")">
                     #{item}
                 </foreach>
 			</if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(gimDesc)">
+            <if test="gimDesc!=null and gimDesc !=''">
                 AND GIM_DESC LIKE REPLACE(#{gimDesc},'*','%')
             </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(activeFlag) and !@org.apache.commons.lang3.StringUtils@equalsIgnoreCase(activeFlag,'ALL')">
+            <if test="activeFlag!=null and activeFlag!='' and !activeFlag.equalsIgnoreCase('ALL')">
                 AND ACTIVE_FLAG =#{activeFlag}
             </if>
 		</where>
