@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="templates/template.html :: app_header(~{::script},~{},~{})">
+    <script th:src="@{/commonupload/js/commonupload.js}"></script>
+</head>
+
+<body th:replace="templates/template.html :: app_body(~{::div},#{DR0.WDR01121.Screen.Id} ,#{DR0.WDR01121.Screen.Desc})">
+    <div style="width:100%;" id="screenContent">
+        <div class="sixteen wide column row">
+            <h3 class="ui dividing header">Upload Data</h3>
+            <form class="ui form raised segment" id="uploadForm" style="width: 100%;">
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <label>Company Code</label>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121DownloadCompanyPattern" data-auth="no"><i class="download icon"></i>Download Pattern</div>
+                    </div>
+                    <div class="four wide field">
+                        <div class="ui mini basic input">
+                            <input type="file" id="uploadCompany">
+                        </div>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121UploadCompany" data-auth="no"><i class="upload icon"></i>Uplaod</div>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <label>Platform Model</label>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121DownloadPlatformModelPattern" data-auth="no"><i class="download icon"></i>Download Pattern</div>
+                    </div>
+                    <div class="four wide field">
+                        <div class="ui mini basic input">
+                            <input type="file" id="uploadPlatformModel">
+                        </div>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121UploadPlatformModel" data-auth="no"><i class="upload icon"></i>Uplaod</div>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <label>PPR Data</label>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121DownloadPPRDataPattern" data-auth="no"><i class="download icon"></i>Download Pattern</div>
+                    </div>
+                    <div class="four wide field">
+                        <div class="ui mini basic input">
+                            <input type="file" id="uploadPPRData">
+                        </div>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121UploadPPRData" data-auth="no"><i class="upload icon"></i>Uplaod</div>
+                    </div>
+                    <div class="two field">
+                        <label>PPR Period</label>
+                    </div>
+                    <div class="two field">
+                        <div class="ui mini basic input">
+                            <input type="text" id="prrPeriod">
+                        </div>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <label>V-pass Data</label>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121DownloadVpassPattern" data-auth="no"><i class="download icon"></i>Download Pattern</div>
+                    </div>
+                    <div class="four wide field">
+                        <div class="ui mini basic input">
+                            <input type="file" id="uploadVpass">
+                        </div>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121UploadVpass" data-auth="no"><i class="upload icon"></i>Uplaod</div>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <label>Logistics Gentan-i</label>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121DownloadGenteniPattern" data-auth="no"><i class="download icon"></i>Download Pattern</div>
+                    </div>
+                    <div class="four wide field">
+                        <div class="ui mini basic input">
+                            <input type="file" id="uploadGenteni">
+                        </div>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121UploadGenteni" data-auth="no"><i class="upload icon"></i>Uplaod</div>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <label>Calculation Logic</label>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121DownloadCalculationPattern" data-auth="no"><i class="download icon"></i>Download Pattern</div>
+                    </div>
+                    <div class="four wide field">
+                        <div class="ui mini basic input">
+                            <input type="file" id="uploadCalculation">
+                        </div>
+                    </div>
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01121UploadCalculation" data-auth="no"><i class="upload icon"></i>Uplaod</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="ui clearing hidden divider"></div>
+        <div class="sixteen wide column row">
+            <h3 class="ui dividing header">Verification Result</h3>
+            <div class="row" style="text-align: right;">
+                <div class="ui active mini button" id="WDR01121Refresh" data-auth="no"><i class="refresh icon"></i>Refresh</div>
+            </div>
+            <div class="ui clearing hidden divider"></div>
+            <table id="tableVerificationResult" class="ui celled striped unstackable table" style="width:100%;">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>Process Name</th>
+                        <th>Submitted by</th>
+                        <th>Start Date Time</th>
+                        <th>End Date Time</th>
+                        <th>Status</th>
+                        <th>Incomplete (Records)</th>
+                        <th>Verification Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Platform Model</td>
+                        <td>lceuser1</td>
+                        <td>25/03/2021 10:20</td>
+                        <td></td>
+                        <td>Processing</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="color: blue;">
+                        <td>Upload PPR Data</td>
+                        <td>lceuser2</td>
+                        <td>25/03/2021 09:20</td>
+                        <td>25/03/2021 09:26</td>
+                        <td>Success</td>
+                        <td style="text-align: right;">0</td>
+                        <td></td>
+                    </tr>
+                    <tr style="color: red;">
+                        <td>V-pass Data</td>
+                        <td>lceuser3</td>
+                        <td>25/03/2021 08:20</td>
+                        <td>25/03/2021 08:40</td>
+                        <td>Error</td>
+                        <td style="text-align: right;">10</td>
+                        <td><a href="#" style="color: red;">V-PASS_Verfication_result.xlsx</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

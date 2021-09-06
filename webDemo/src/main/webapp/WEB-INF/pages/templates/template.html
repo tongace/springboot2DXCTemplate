@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="icon" type="image/ico" th:href="@{/images/logo.ico}" />
-    <title>[[#{DXC.Title}]]</title>
+    <title>[[#{DR0.Title}]]</title>
 
     <script th:src="@{/scripts/jquery.min.js}"></script>
     <script th:src="@{/scripts/semantic.min.js}"></script>
@@ -39,7 +39,7 @@
 <body th:fragment="app_body(content,screenid,screenDesc)">
     <div class="ui inverted sidebar vertical menu" id="app_menu">
         <div class="item" data-tagtype="menugroup">
-            <h3>[[#{DXC.SystemName}]]</h3>
+            <h3>[[#{DR0.SystemName}]]</h3>
         </div>
         <div id="WDXC0000" class="menu" data-tagtype="menugroup">
             <a class="item" href="/demo/home" data-tagtype="menuitem">
@@ -50,20 +50,20 @@
         </div>
         <div id="DXC001" class="item" data-tagtype="menugroup" data-auth="no">
             <a href="#" onclick="return DXCUtils.toggleGroupMenu(this)">
-                <span class="text">[[#{DXC.Menu.Maintenance.Group.Name}]]</span>
+                <span class="text">[[#{DR0.Menu.Maintenance.Group.Name}]]</span>
             </a>
             <div class="menu">
-                <a id="WDXC0001" class="item" data-tagtype="menuitem" data-auth="no" href="/demo/gimmaster">[[#{DXC.Menu.GIM.Name}]]</a>
+                <a id="WDXC0001" class="item" data-tagtype="menuitem" data-auth="no" href="/demo/gimmaster">[[#{DR0.Menu.GIM.Name}]]</a>
             </div>
             <div class="menu">
-                <a id="WDXC0002" class="item" data-tagtype="menuitem" data-auth="no" href="/demo/usermaster">[[#{DXC.Menu.USER.Name}]]</a>
+                <a id="WDXC0002" class="item" data-tagtype="menuitem" data-auth="no" href="/demo/usermaster">[[#{DR0.Menu.USER.Name}]]</a>
             </div>
         </div>
     </div>
-    <div class="ui black mini top fixed inverted borderless menu">
+    <div class="ui red mini top fixed inverted borderless menu">
         <div class="left item">
-            <div class="ui black mini button" id="menucaller">
-                <i class="content icon"></i> [[#{DXC.Button.Menu}]]
+            <div class="ui red mini button" id="menucaller">
+                <i class="content icon"></i> [[#{DR0.Button.Menu}]]
             </div>
             <span class="screenid">[[${screenid}]]: [[${screenDesc}]]</span>
             <input type="hidden" id="currentScreenId" th:value="${screenid}">
@@ -75,12 +75,12 @@
             </div>
         </div>
     </div>
-    <div class="ui black mini bottom fixed inverted borderless menu">
+    <div class="ui red mini bottom fixed inverted borderless menu">
         <div class="left item">
             <span></span>
         </div>
         <div class="center item">
-            <SPAN class="footer">[[#{DXC.Footer}]]</SPAN>
+            <SPAN class="footer">[[#{DR0.Footer}]]</SPAN>
         </div>
         <div class="right item">
             <SPAN class="time"></SPAN>
@@ -97,10 +97,10 @@
                 </div>
                 <div class="actions">
                     <div class="ui center floated positive button">
-                        <i class="checkmark icon"></i> [[#{DXC.Button.Yes}]]
+                        <i class="checkmark icon"></i> [[#{DR0.Button.Yes}]]
                     </div>
                     <div class="ui center floated negative button">
-                        <i class="remove icon"></i> [[#{DXC.Button.No}]]
+                        <i class="remove icon"></i> [[#{DR0.Button.No}]]
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                 </div>
                 <div class="actions">
                     <div class="ui center floated button" id="modalButtonOK">
-                        <i class="checkmark icon"></i> [[#{DXC.Button.OK}]]
+                        <i class="checkmark icon"></i> [[#{DR0.Button.OK}]]
                     </div>
                 </div>
             </div>

@@ -12,25 +12,25 @@
     <link th:href="@{/css/buttons.semanticui.min.css}" rel='stylesheet' />
 </head>
 
-<body th:replace="templates/template.html :: app_body(~{::div},#{DXC.WDXC0001.Screen.Id} ,#{DXC.WDXC0001.Screen.Desc})">
+<body th:replace="templates/template.html :: app_body(~{::div},#{DR0.WDXC0001.Screen.Id} ,#{DR0.WDXC0001.Screen.Desc})">
     <div style="width:100%;" id="screenContent">
         <div id="gimHeaderSearchSection" style="width:100%;">
             <div class="sixteen wide column row">
                 <form class="ui form raised segment" id="gimHeaderForm" style="width: 100%;">
                     <div class="fields">
                         <div class="four wide field">
-                            <label>[[#{DXC.WDXC0001.Label.Type}]]</label>
+                            <label>[[#{DR0.WDXC0001.Label.Type}]]</label>
                             <select class="ui mini search selection dropdown" multiple="multiple" name="searchGimTypes" style="width: 80%">
                             </select>
                         </div>
                         <div class="six wide field">
-                            <label>[[#{DXC.WDXC0001.Label.Desc}]]</label>
+                            <label>[[#{DR0.WDXC0001.Label.Desc}]]</label>
                             <div class="ui basic input">
                                 <input type="text" name="searchGimDesc">
                             </div>
                         </div>
                         <div class="three wide field">
-                            <label>[[#{DXC.WDXC0001.Label.ActiveFlag}]]</label>
+                            <label>[[#{DR0.WDXC0001.Label.ActiveFlag}]]</label>
                             <select class="ui mini search selection dropdown" name="searchActiveFlag">
                             </select>
                         </div>
@@ -39,30 +39,30 @@
                         <div class="field"></div>
                         <div class="field"></div>
                         <div class="field" id="buttonPanel" style="text-align: right;">
-                            <div class="ui active mini button" id="WDXC0001Search" data-auth="no"><i class="search icon"></i>[[#{DXC.Button.Search}]]</div>
-                            <div class="ui active mini button" id="WDXC0001Clear" data-auth="no"><i class="paint brush icon"></i>[[#{DXC.Button.Clear}]]</div>
-                            <div class="ui active mini button" id="WDXC0001Add" data-auth="no"><i class="add icon"></i>[[#{DXC.Button.Add}]]</div>
-                            <div class="ui active mini button" id="WDXC0001Edit" data-auth="no"><i class="write brush icon"></i>[[#{DXC.Button.Edit}]]</div>
+                            <div class="ui active mini button" id="WDXC0001Search" data-auth="no"><i class="search icon"></i>[[#{DR0.Button.Search}]]</div>
+                            <div class="ui active mini button" id="WDXC0001Clear" data-auth="no"><i class="paint brush icon"></i>[[#{DR0.Button.Clear}]]</div>
+                            <div class="ui active mini button" id="WDXC0001Add" data-auth="no"><i class="add icon"></i>[[#{DR0.Button.Add}]]</div>
+                            <div class="ui active mini button" id="WDXC0001Edit" data-auth="no"><i class="write brush icon"></i>[[#{DR0.Button.Edit}]]</div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="ui clearing hidden divider"></div>
             <div class="sixteen wide column row" id="searchResultSection" style="display: none;">
-                <h4 class="ui dividing header">[[#{DXC.WDXC0001.Screen.Modal.Header}]]</h4>
+                <h4 class="ui dividing header">[[#{DR0.WDXC0001.Screen.Modal.Header}]]</h4>
                 <table id="tableGimTypeHeaderResult" class="ui celled striped unstackable table" style="width:100%;">
                     <thead>
                         <tr style="text-align: center;">
                             <th></th>
-                            <th>[[#{DXC.WDXC0001.Label.Type}]]</th>
-                            <th>[[#{DXC.WDXC0001.Label.Desc}]]</th>
-                            <th>[[#{DXC.WDXC0001.Label.CodeLength}]]</th>
-                            <th>[[#{DXC.WDXC0001.Label.Field1}]]</th>
-                            <th>[[#{DXC.WDXC0001.Label.Field2}]]</th>
-                            <th>[[#{DXC.WDXC0001.Label.Field3}]]</th>
-                            <th>[[#{DXC.WDXC0001.Label.ActiveFlag}]]</th>
-                            <th>[[#{DXC.Label.ModifiedBy}]]</th>
-                            <th>[[#{DXC.Label.ModifiedDt}]]</th>
+                            <th>[[#{DR0.WDXC0001.Label.Type}]]</th>
+                            <th>[[#{DR0.WDXC0001.Label.Desc}]]</th>
+                            <th>[[#{DR0.WDXC0001.Label.CodeLength}]]</th>
+                            <th>[[#{DR0.WDXC0001.Label.Field1}]]</th>
+                            <th>[[#{DR0.WDXC0001.Label.Field2}]]</th>
+                            <th>[[#{DR0.WDXC0001.Label.Field3}]]</th>
+                            <th>[[#{DR0.WDXC0001.Label.ActiveFlag}]]</th>
+                            <th>[[#{DR0.Label.ModifiedBy}]]</th>
+                            <th>[[#{DR0.Label.ModifiedDt}]]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,46 +75,46 @@
             <div class="content">
                 <div class="sixteen wide column row">
                     <form class="ui form segment" id="editGimHeaderForm" style="width: 100%;">
-                        <h4 class="ui dividing header">[[#{DXC.WDXC0001.Screen.Modal.Header}]]</h4>
+                        <h4 class="ui dividing header">[[#{DR0.WDXC0001.Screen.Modal.Header}]]</h4>
                         <input type="hidden" id="mode" name="mode">
                         <div class="field">
-                            <label for="gimType">[[#{DXC.WDXC0001.Label.Type}]]</label>
+                            <label for="gimType">[[#{DR0.WDXC0001.Label.Type}]]</label>
                             <div class="ui mini basic mandatory input">
                                 <input type="text" name="gimType">
                             </div>
                         </div>
                         <div class="field">
-                            <label for="gimDesc">[[#{DXC.WDXC0001.Label.Desc}]]</label>
+                            <label for="gimDesc">[[#{DR0.WDXC0001.Label.Desc}]]</label>
                             <div class="ui mini basic mandatory input">
                                 <textarea style="width: 100%; resize: none;" rows="10" name="gimDesc"></textarea>
                             </div>
                         </div>
                         <div class="field">
-                            <label for="cdLength">[[#{DXC.WDXC0001.Label.CodeLength}]]</label>
+                            <label for="cdLength">[[#{DR0.WDXC0001.Label.CodeLength}]]</label>
                             <div class="ui mini basic mandatory input">
                                 <input type="text" name="cdLength" id="editGimHeaderForm-cdLength">
                             </div>
                         </div>
                         <div class="field">
-                            <label for="field1Label">[[#{DXC.WDXC0001.Label.Field1}]]</label>
+                            <label for="field1Label">[[#{DR0.WDXC0001.Label.Field1}]]</label>
                             <div class="ui mini basic mandatory input">
                                 <input type="text" name="field1Label">
                             </div>
                         </div>
                         <div class="field">
-                            <label for="field2Label">[[#{DXC.WDXC0001.Label.Field2}]]</label>
+                            <label for="field2Label">[[#{DR0.WDXC0001.Label.Field2}]]</label>
                             <div class="ui mini basic mandatory input">
                                 <input type="text" name="field2Label">
                             </div>
                         </div>
                         <div class="field">
-                            <label for="field3Label">[[#{DXC.WDXC0001.Label.Field3}]]</label>
+                            <label for="field3Label">[[#{DR0.WDXC0001.Label.Field3}]]</label>
                             <div class="ui mini basic mandatory input">
                                 <input type="text" name="field3Label">
                             </div>
                         </div>
                         <div class="field">
-                            <label for="field3Label">[[#{DXC.WDXC0001.Label.ActiveFlag}]]</label>
+                            <label for="field3Label">[[#{DR0.WDXC0001.Label.ActiveFlag}]]</label>
                             <select class="ui mandatory mini search selection dropdown" name="activeFlag">
                             </select>
                             <input type="hidden" name="modifiedDt">
@@ -124,36 +124,36 @@
             </div>
             <div class="ui clearing hidden divider"></div>
             <div class="actions" style="text-align: right;">
-                <div class="ui active mini button" id="WDXC0001Save" data-auth="no"><i class="checkmark icon"></i>[[#{DXC.Button.Save}]]</div>
-                <div class="ui active mini button" id="WDXC0001Cancel" data-auth="no"><i class="remove icon"></i>[[#{DXC.Button.Cancel}]]</div>
+                <div class="ui active mini button" id="WDXC0001Save" data-auth="no"><i class="checkmark icon"></i>[[#{DR0.Button.Save}]]</div>
+                <div class="ui active mini button" id="WDXC0001Cancel" data-auth="no"><i class="remove icon"></i>[[#{DR0.Button.Cancel}]]</div>
             </div>
         </div>
         <!--end gim header edit section-->
         <!--GIM Detail Section-->
         <div id="gimDetailSection" style="width:100%;display:none;">
             <div class="sixteen wide column row" style="text-align: right;">
-                <div class="ui active mini button" id="WDXC0001AddDetail" data-auth="no"><i class="add icon"></i>[[#{DXC.Button.Add}]]</div>
-                <div class="ui active mini button" id="WDXC0001EditDetail" data-auth="no"><i class="write brush icon"></i>[[#{DXC.Button.Edit}]]</div>
-                <div class="ui active mini button" id="WDXC0001DeleteDetail" data-auth="no"><i class="remove icon"></i>[[#{DXC.Button.Delete}]]</div>
+                <div class="ui active mini button" id="WDXC0001AddDetail" data-auth="no"><i class="add icon"></i>[[#{DR0.Button.Add}]]</div>
+                <div class="ui active mini button" id="WDXC0001EditDetail" data-auth="no"><i class="write brush icon"></i>[[#{DR0.Button.Edit}]]</div>
+                <div class="ui active mini button" id="WDXC0001DeleteDetail" data-auth="no"><i class="remove icon"></i>[[#{DR0.Button.Delete}]]</div>
                 <div style="display: none;" id="selectedGimHeaderDiv"></div>
             </div>
             <div class="ui clearing hidden divider"></div>
             <div class="sixteen wide column row">
                 <div class="ui raised segment" style="width:100%;">
-                    <h4 class="ui dividing header">[[#{DXC.WDXC0001.Screen.Modal.Detail}]]</h4>
+                    <h4 class="ui dividing header">[[#{DR0.WDXC0001.Screen.Modal.Detail}]]</h4>
                     <table id="tableGimDetailResult" class="ui celled striped unstackable table responsive" style="width:100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th></th>
-                                <th>[[#{DXC.WDXC0001.Label.Type}]]</th>
-                                <th>[[#{DXC.WDXC0001.Label.Code}]]</th>
-                                <th>[[#{DXC.WDXC0001.Label.Value}]]</th>
-                                <th>[[#{DXC.WDXC0001.Label.Field1}]]</th>
-                                <th>[[#{DXC.WDXC0001.Label.Field2}]]</th>
-                                <th>[[#{DXC.WDXC0001.Label.Field3}]]</th>
-                                <th>[[#{DXC.WDXC0001.Label.ActiveFlag}]]</th>
-                                <th>[[#{DXC.Label.ModifiedBy}]]</th>
-                                <th>[[#{DXC.Label.ModifiedDt}]]</th>
+                                <th>[[#{DR0.WDXC0001.Label.Type}]]</th>
+                                <th>[[#{DR0.WDXC0001.Label.Code}]]</th>
+                                <th>[[#{DR0.WDXC0001.Label.Value}]]</th>
+                                <th>[[#{DR0.WDXC0001.Label.Field1}]]</th>
+                                <th>[[#{DR0.WDXC0001.Label.Field2}]]</th>
+                                <th>[[#{DR0.WDXC0001.Label.Field3}]]</th>
+                                <th>[[#{DR0.WDXC0001.Label.ActiveFlag}]]</th>
+                                <th>[[#{DR0.Label.ModifiedBy}]]</th>
+                                <th>[[#{DR0.Label.ModifiedDt}]]</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -163,7 +163,7 @@
             </div>
             <div class="ui clearing hidden divider"></div>
             <div class="sixteen wide column row" style="text-align: right;">
-                <div class="ui active mini button" id="WDXC0001Back" data-auth="no"><i class="step backward icon"></i>[[#{DXC.Button.Back}]]</div>
+                <div class="ui active mini button" id="WDXC0001Back" data-auth="no"><i class="step backward icon"></i>[[#{DR0.Button.Back}]]</div>
             </div>
         </div>
         <!--gim Detail edit -->
@@ -171,22 +171,22 @@
             <div class="content">
                 <div class="sixteen wide column row">
                     <form class="ui form segment" id="editGimDetailForm" style="width: 100%;">
-                        <h4 class="ui dividing header">[[#{DXC.WDXC0001.Screen.Modal.Detail}]]</h4>
+                        <h4 class="ui dividing header">[[#{DR0.WDXC0001.Screen.Modal.Detail}]]</h4>
                         <input type="hidden" name="mode">
                         <div class="field">
-                            <label for="gimType">[[#{DXC.WDXC0001.Label.Type}]]</label>
+                            <label for="gimType">[[#{DR0.WDXC0001.Label.Type}]]</label>
                             <div class="ui mini basic mandatory readonly input">
                                 <input type="text" name="gimType">
                             </div>
                         </div>
                         <div class="field">
-                            <label for="gimCode" id="detailGimCodeLabel">[[#{DXC.WDXC0001.Label.Code}]]</label>
+                            <label for="gimCode" id="detailGimCodeLabel">[[#{DR0.WDXC0001.Label.Code}]]</label>
                             <div class="ui mini basic mandatory input">
                                 <input type="text" name="gimCd">
                             </div>
                         </div>
                         <div class="field">
-                            <label for="gimValue">[[#{DXC.WDXC0001.Label.Value}]]</label>
+                            <label for="gimValue">[[#{DR0.WDXC0001.Label.Value}]]</label>
                             <div class="ui mini basic mandatory input">
                                 <input type="text" name="gimValue">
                             </div>
