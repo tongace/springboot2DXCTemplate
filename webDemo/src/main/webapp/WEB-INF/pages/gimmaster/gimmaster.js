@@ -3,7 +3,7 @@
 let WDXC0001 = (function ($) {
     return {
         saveGimHeaderData: async formData => {
-            let responseData = null;
+            let responseData;
             if (formData.mode == DXCUtils.MODE_ADD) {
                 responseData = await WDXC0001_API.saveGimHeader(formData);
             } else {
@@ -22,14 +22,15 @@ let WDXC0001 = (function ($) {
                     modal.modal('show');
                 }
                 const formData = $('#gimHeaderForm').form('get values');
-                WDXC0001.populateGIMHeaderDatatable(formData);
+                await WDXC0001.populateGIMHeaderDatatable(formData);
                 // reload gim type
                 const gimTypeDatas = await WDXC0001_API.getGimTypeCombo();
-                DXCUtils.createSelectOption($('#gimHeaderForm [name="searchGimTypes"]'), gimTypeDatas.data, null);
-                $('#gimHeaderForm [name="searchGimTypes"]').dropdown({
+                const jqSearchGimTypes = $('#gimHeaderForm [name="searchGimTypes"]');
+                DXCUtils.createSelectOption(jqSearchGimTypes, gimTypeDatas.data, null);
+                jqSearchGimTypes.dropdown({
                     forceSelection: false
                 });
-                $('#gimHeaderForm [name="searchGimTypes"]').dropdown('set exactly', formData.searchGimTypes);
+                jqSearchGimTypes.dropdown('set exactly', formData.searchGimTypes);
             } else {
                 const modal = DXCUtils.alertModal(responseData.message, null);
                 modal.modal('show');
@@ -38,12 +39,12 @@ let WDXC0001 = (function ($) {
         populateGIMHeaderDatatable: async formData => {
             $.LoadingOverlay('show');
             const responseData = await WDXC0001_API.searchGimHeader(formData);
-            if ($.isEmptyObject(responseData.data) == false) {
+            if (!$.isEmptyObject(responseData.data)) {
                 $("#WDXC0001Edit").show();
             } else {
                 $("#WDXC0001Edit").hide();
             }
-            if (S(responseData.message).isEmpty() == false) {
+            if (!S(responseData.message).isEmpty()) {
                 let modal = DXCUtils.alertModal(responseData.message, null);
                 modal.modal('show');
                 $('#searchResultSection').hide();
@@ -72,8 +73,8 @@ let WDXC0001 = (function ($) {
                         "searchable": false,
                         "orderable": false,
                         "className": "dt-body-center",
-                        "render": function (data, type, row) {
-                            return ('<input type="checkbox" name="chkGimHeader" value="' + data + '"/>');
+                        "render": function (data) {
+                            return (`<input type="checkbox" name="chkGimHeader" value="${data}"/>`);
                         },
                         "title": '<a href="#" onclick="return WDXC0001.clearHeaderCheckBox()"><i class="large square outline icon"/></a>'
                     },
@@ -83,7 +84,7 @@ let WDXC0001 = (function ($) {
                         "searchable": true,
                         "className": "dt-body-left",
                         "render": function (data, type, row, meta) {
-                            return '<a href="#" onclick="return WDXC0001.gimTypeSelect(' + meta.row + ');">' + data + '</a>';
+                            return `<a href="#" onclick="return WDXC0001.gimTypeSelect(${meta.row});">${data}</a>`;
                         }
                     },
                     {
@@ -123,7 +124,7 @@ let WDXC0001 = (function ($) {
                     {
                         "data": "modifiedDt",
                         "orderable": true,
-                        "render": function (data, type, row) {
+                        "render": function (data) {
                             return DXCUtils.formatDate(data, "DD/MM/YYYY HH:mm:ss");
                         }
                     }
@@ -152,39 +153,40 @@ let WDXC0001 = (function ($) {
         setGimDetailFormLabel: () => {
             let selectedGimHeader = JSON.parse($('#selectedGimHeaderDiv').text());
             // assign Gim Code,Field1,2,3 label
-            $('#detailGimCodeLabel').text('[[#{DXC.WDXC0001.Label.Code}]]'.replace(/['"]+/g, '') + ' (' + selectedGimHeader.cdLength + ')');
+            $('#detailGimCodeLabel').text('[[#{DXC.WDXC0001.Label.Code}]]'.replace(/['"]+/g, '') + ` (${selectedGimHeader.cdLength})`);
             $('#detailField1Label').text(selectedGimHeader.field1Label);
             $('#detailField2Label').text(selectedGimHeader.field2Label);
             $('#detailField3Label').text(selectedGimHeader.field3Label);
+            const jqEditGimDetailForm = $('#editGimDetailForm');
             if (selectedGimHeader.field1Label == 'Not Used') {
-                $('#editGimDetailForm').find('input[name="field1"]').parent().addClass("readonly");
-                $('#editGimDetailForm').find('input[name="field1"]').prop("readonly", true);
-                $('#editGimDetailForm').find('input[name="field1"]').parent().removeClass("mandatory");
+                jqEditGimDetailForm.find('input[name="field1"]').parent().addClass("readonly");
+                jqEditGimDetailForm.find('input[name="field1"]').prop("readonly", true);
+                jqEditGimDetailForm.find('input[name="field1"]').parent().removeClass("mandatory");
             } else {
-                $('#editGimDetailForm').find('input[name="field1"]').parent().removeClass("readonly");
-                $('#editGimDetailForm').find('input[name="field1"]').prop("readonly", false);
-                $('#editGimDetailForm').find('input[name="field1"]').parent().addClass("mandatory");
+                jqEditGimDetailForm.find('input[name="field1"]').parent().removeClass("readonly");
+                jqEditGimDetailForm.find('input[name="field1"]').prop("readonly", false);
+                jqEditGimDetailForm.find('input[name="field1"]').parent().addClass("mandatory");
             }
             if (selectedGimHeader.field2Label == 'Not Used') {
-                $('#editGimDetailForm').find('input[name="field2"]').parent().addClass("readonly");
-                $('#editGimDetailForm').find('input[name="field2"]').prop("readonly", true);
-                $('#editGimDetailForm').find('input[name="field2"]').parent().removeClass("mandatory");
+                jqEditGimDetailForm.find('input[name="field2"]').parent().addClass("readonly");
+                jqEditGimDetailForm.find('input[name="field2"]').prop("readonly", true);
+                jqEditGimDetailForm.find('input[name="field2"]').parent().removeClass("mandatory");
             } else {
-                $('#editGimDetailForm').find('input[name="field2"]').parent().removeClass("readonly");
-                $('#editGimDetailForm').find('input[name="field2"]').prop("readonly", false);
-                $('#editGimDetailForm').find('input[name="field2"]').parent().addClass("mandatory");
+                jqEditGimDetailForm.find('input[name="field2"]').parent().removeClass("readonly");
+                jqEditGimDetailForm.find('input[name="field2"]').prop("readonly", false);
+                jqEditGimDetailForm.find('input[name="field2"]').parent().addClass("mandatory");
             }
             if (selectedGimHeader.field3Label == 'Not Used') {
-                $('#editGimDetailForm').find('input[name="field3"]').parent().addClass("readonly");
-                $('#editGimDetailForm').find('input[name="field3"]').prop("readonly", true);
-                $('#editGimDetailForm').find('input[name="field3"]').parent().removeClass("mandatory");
+                jqEditGimDetailForm.find('input[name="field3"]').parent().addClass("readonly");
+                jqEditGimDetailForm.find('input[name="field3"]').prop("readonly", true);
+                jqEditGimDetailForm.find('input[name="field3"]').parent().removeClass("mandatory");
             } else {
-                $('#editGimDetailForm').find('input[name="field3"]').parent().removeClass("readonly");
-                $('#editGimDetailForm').find('input[name="field3"]').prop("readonly", false);
-                $('#editGimDetailForm').find('input[name="field3"]').parent().addClass("mandatory");
+                jqEditGimDetailForm.find('input[name="field3"]').parent().removeClass("readonly");
+                jqEditGimDetailForm.find('input[name="field3"]').prop("readonly", false);
+                jqEditGimDetailForm.find('input[name="field3"]').parent().addClass("mandatory");
             }
-            $('#editGimDetailForm').find('input[name="gimType"]').parent().addClass("readonly");
-            $('#editGimDetailForm').find('input[name="gimType"]').prop("readonly", true);
+            jqEditGimDetailForm.find('input[name="gimType"]').parent().addClass("readonly");
+            jqEditGimDetailForm.find('input[name="gimType"]').prop("readonly", true);
         },
         searchGimDetail: () => {
             WDXC0001.populateGIMDetailDatatable();
@@ -220,7 +222,7 @@ let WDXC0001 = (function ($) {
                         "orderable": false,
                         "className": "dt-body-center collapsing",
                         "render": function (data) {
-                            return ('<input type="checkbox" name="chkGimDetail" value="' + data + '"/>');
+                            return (`<input type="checkbox" name="chkGimDetail" value="${data}"/>`);
                         },
                         "title": '<a href="#" onclick="return WDXC0001.clearDetailCheckBox()"><i class="large square outline icon"/></a>'
                     },
@@ -234,14 +236,14 @@ let WDXC0001 = (function ($) {
                         "orderable": true,
                         "searchable": true,
                         "render": function (data, type, full, meta) {
-                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                            return `<div style="max-width: 200px; word-wrap: break-word;">${data??''}</div>`;
                         }
                     },
                     {
                         "data": "gimValue",
                         "orderable": true,
                         "render": function (data, type, full, meta) {
-                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                            return `<div style="max-width: 200px; word-wrap: break-word;">${data??''}</div>`;
                         }
                     },
                     {
@@ -250,7 +252,7 @@ let WDXC0001 = (function ($) {
                         "searchable": true,
                         "title": gimHeaderObj.field1Label,
                         "render": function (data, type, full, meta) {
-                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                            return `<div style="max-width: 200px; word-wrap: break-word;">${data??''}</div>`;
                         }
                     },
                     {
@@ -259,7 +261,7 @@ let WDXC0001 = (function ($) {
                         "searchable": true,
                         "title": gimHeaderObj.field2Label,
                         "render": function (data, type, full, meta) {
-                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                            return `<div style="max-width: 200px; word-wrap: break-word;">${data??''}</div>`;
                         }
                     },
                     {
@@ -268,7 +270,7 @@ let WDXC0001 = (function ($) {
                         "searchable": true,
                         "title": gimHeaderObj.field3Label,
                         "render": function (data, type, full, meta) {
-                            return '<div style="max-width: 200px; word-wrap: break-word;">' + ((data == null) ? '' : data) + '</div>';
+                            return `<div style="max-width: 200px; word-wrap: break-word;">${data??''}</div>`;
                         }
                     },
                     {
@@ -608,15 +610,16 @@ $(document).ready(async () => {
         event.preventDefault();
         let selectedGimHeader = JSON.parse($('#selectedGimHeaderDiv').text());
         WDXC0001.setGimDetailFormLabel();
+        const jqEditGimDetailForm = $('#editGimDetailForm');
         // reset
-        $('#editGimDetailForm').form('reset');
+        jqEditGimDetailForm.form('reset');
         // set value
-        $('#editGimDetailForm').form('set values', {
+        jqEditGimDetailForm.form('set values', {
             gimType: selectedGimHeader.gimType,
             mode: DXCUtils.MODE_ADD
         });
-        $('#editGimDetailForm').find('input[name="gimCd"]').parent().removeClass("readonly");
-        $('#editGimDetailForm').find('input[name="gimCd"]').prop("readonly", false);
+        jqEditGimDetailForm.find('input[name="gimCd"]').parent().removeClass("readonly");
+        jqEditGimDetailForm.find('input[name="gimCd"]').prop("readonly", false);
         $('#gimDetailSection').fadeOut(600, () => {
             $('#gimDetailEditSection').fadeIn(600);
         });
@@ -640,12 +643,13 @@ $(document).ready(async () => {
                 }
             });
             editGimDetailObj.mode = DXCUtils.MODE_EDIT;
+            const jqEditGimDetailForm = $('#editGimDetailForm');
             // clear
-            $('#editGimDetailForm').form('reset');
+            jqEditGimDetailForm.form('reset');
             // set value
-            $('#editGimDetailForm').form('set values', editGimDetailObj);
-            $('#editGimDetailForm').find('input[name="gimCd"]').parent().addClass("readonly");
-            $('#editGimDetailForm').find('input[name="gimCd"]').prop("readonly", true);
+            jqEditGimDetailForm.form('set values', editGimDetailObj);
+            jqEditGimDetailForm.find('input[name="gimCd"]').parent().addClass("readonly");
+            jqEditGimDetailForm.find('input[name="gimCd"]').prop("readonly", true);
             $('#gimDetailSection').fadeOut(600, () => {
                 $('#gimDetailEditSection').fadeIn(600);
             });

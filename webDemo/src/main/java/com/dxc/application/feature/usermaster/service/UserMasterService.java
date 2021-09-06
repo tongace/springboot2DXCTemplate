@@ -45,7 +45,7 @@ public class UserMasterService {
     @Transactional(value = "mybastistx", rollbackFor = Exception.class)
     @SneakyThrows
     public int updateUser(User user, MultipartFile userPic) {
-        int updateUserCount = 0;
+        int updateUserCount;
         if (userPic != null && !userPic.isEmpty()) {
             commonService.deleteAttachedFileById(user.getPictureId());
             Integer fileID = commonService.insertAttachedFile(userPic, user.getModifiedBy());
@@ -62,7 +62,7 @@ public class UserMasterService {
     @SneakyThrows
     public int deleteUser(List<User> users) {
         int deleteRowCount = 0;
-        int deleteUser = 0;
+        int deleteUser;
 
         for (User user : users) {
             deleteRowCount += commonService.deleteAttachedFileById(user.getPictureId());

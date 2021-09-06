@@ -88,7 +88,7 @@ let WDXC0002 = (function ($) {
                         "orderable": false,
                         "className": "dt-body-center",
                         "render": function (data, type, row) {
-                            return ('<input type="checkbox" name="chkCitizenId" value="' + data + '"/>');
+                            return (`<input type="checkbox" name="chkCitizenId" value="${data}"/>`);
                         },
                         "title": '<a href="#" onclick="return WDXC0002.clearHeaderCheckBox()"><i class="large square outline icon"/></a>'
                     },
@@ -124,7 +124,7 @@ let WDXC0002 = (function ($) {
                         "orderable": true,
                         "searchable": true,
                         "render": function (data, type, row, meta) {
-                            return '<a href="#" onclick="return WDXC0002.displayUserPicture(\'' + data + '\',\'' + row.firstName + '\');">' + row.firstName + '</a>';
+                            return `<a href="#" onclick="return WDXC0002.displayUserPicture('${data}','${row.firstName}');">${row.firstName}</a>`;
                         }
                     },
                     {

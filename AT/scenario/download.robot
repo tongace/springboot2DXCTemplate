@@ -1,5 +1,3 @@
-# Reference for download file: https://stackoverflow.com/questions/35297958/robot-framework-download-file
-# Reference for ExcelLibrary: https://pypi.org/project/robotframework-excellib/#description
 *** Settings ***
 Library    SeleniumLibrary
 Library    OperatingSystem
