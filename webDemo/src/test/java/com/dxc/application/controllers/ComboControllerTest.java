@@ -4,6 +4,7 @@ import com.dxc.application.feature.common.data.database.model.Combo;
 import com.dxc.application.feature.common.dto.RestJsonData;
 import com.dxc.application.feature.gimmaster.data.database.model.GimHeader;
 import com.dxc.application.feature.gimmaster.dto.SearchGimHeaderDTO;
+import com.dxc.application.feature.usermaster.dto.InsertUserDTO;
 import com.dxc.application.utils.JsonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @SqlConfig(dataSource = "myBatisDataSource", transactionManager = "mybastistx")

@@ -5,14 +5,14 @@
 	<script th:src="@{/home/js/home.js}"></script>
 </head>
 
-<body th:replace="templates/template.html :: app_body(~{::div},#{DXC.WDXC0000.Screen.Id} ,#{DXC.WDXC0000.Screen.Desc})">
+<body th:replace="templates/template.html :: app_body(~{::div},0000 ,Home)">
 	<div style="width:100%;" id="screenContent">
 		<div style="width: 100%;">
 			<div class="sixteen wide column row">
 				<form class="ui form raised segment" id="mainForm" style="width: 100%;">
 					<div class="fields">
 						<div class="four wide field">
-							<label>[[#{DXC.WDXC0001.Label.Type}]]</label>
+							<label>File</label>
 							<input type="file" id="uploadFile">
 						</div>
 						<div class="three wide field">
@@ -28,6 +28,13 @@
 					<div class="fields">
 						<div class="four wide field">
 							<div class="ui active mini button" id="upload"><i class="upload icon"></i>Upload</div>
+						</div>
+					</div>
+					<div class="fields">
+						<div class="four wide field">
+							<label>Message</label>
+							<select class="ui mini search selection dropdown" multiple="multiple" name="searchMessage" id="searchMessage" style="width: 80%">
+							</select>
 						</div>
 					</div>
 				</form>

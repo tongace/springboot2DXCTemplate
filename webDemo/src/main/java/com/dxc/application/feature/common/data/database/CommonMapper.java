@@ -21,4 +21,6 @@ public interface CommonMapper {
     Integer insertAttachedFiled(AttachedFile attachedFile);
 
     Integer deleteAttachedFileById(@Param("id") Integer id);
+
+    List<Combo> getAutoCompleteCombo(@Param("messageCode") String messageCode);
 }

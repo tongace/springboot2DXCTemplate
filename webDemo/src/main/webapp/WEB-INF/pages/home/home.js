@@ -9,7 +9,24 @@ let HOME = (function ($) {
 $(document).ready(function () {
 	'use strict'
 	let a = '[[#{welcome.message}]]';
-
+	$('#searchMessage').dropdown({
+		preserveHTML: false,
+		apiSettings: {
+			cache: false,
+			url: '/demo/combo/dropdown?messageCode={query}',
+			onResponse: function (response) {
+				let comboResult = {};
+				comboResult.success = true;
+				comboResult.results = response.data;
+				return comboResult;
+			}
+		},
+		clearable: true,
+		minCharacters: 2,
+		ignoreCase: true,
+		saveRemoteData: false,
+		forceSelection: false
+	});
 	$('#birthDateCal').calendar({
 		type: 'date',
 		formatter: {

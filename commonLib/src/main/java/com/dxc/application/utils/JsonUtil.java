@@ -12,6 +12,7 @@ public class JsonUtil {
 	public static String toJsonString(final Object object) {
 		try {
             OBJECT_MAPPER_SINGLETON.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+			OBJECT_MAPPER_SINGLETON.configure(JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER,true);
 			return OBJECT_MAPPER_SINGLETON.writeValueAsString(object);
 		} catch (final JsonProcessingException e) {
 			return String.valueOf(object);

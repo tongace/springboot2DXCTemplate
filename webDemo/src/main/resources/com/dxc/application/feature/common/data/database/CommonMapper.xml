@@ -17,6 +17,12 @@
 			AND ACTIVE_FLAG = #{activeFlag}
 		ORDER BY CONVERT(FIELD1,UNSIGNED INTEGER)
 	</select>
+	<select id="getAutoCompleteCombo" resultType="com.dxc.application.feature.common.data.database.model.Combo" parameterType="map">
+		SELECT MESSAGE_CD AS VALUE, CONCAT(MESSAGE_CD,': ',DISPLAY_MESSAGE) AS NAME
+		FROM TB_T_DR0_MESSAGE
+		WHERE MESSAGE_CD LIKE CONCAT(#{messageCode},'%')
+		ORDER BY MESSAGE_CD
+	</select>
 	<select id="getAttachedFileById" resultType="com.dxc.application.feature.common.data.database.model.AttachedFile" parameterType="map">
 		SELECT *
 		FROM TB_R_ATTACHED_FILE

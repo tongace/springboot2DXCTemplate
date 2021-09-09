@@ -37,6 +37,10 @@ public class CommonService {
     public List<Combo> getActiveFlagCombo() {
         return commonMapper.getActiveFlagCombo(AppConstants.ACTIVE_FLAG_ACTIVE);
     }
+    @Transactional(value = "mybastistx", readOnly = true)
+    public List<Combo> getAutoCompleteCombo(String messageCode) {
+        return commonMapper.getAutoCompleteCombo(messageCode);
+    }
 
     @Transactional(value = "mybastistx", readOnly = true)
     public AttachedFile getAttachedFile(Integer id) {

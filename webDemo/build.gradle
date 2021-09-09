@@ -74,8 +74,9 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.10'
 
 	implementation 'tdem-standard:st3-api:1.1.12-RELEASE'
+    implementation 'junit:junit:4.13.1'
 
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:'+project.ext.springbootVersion
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:'+project.ext.springbootVersion
 	compileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 	annotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
 
