@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="templates/template.html :: app_header(~{::script},~{},~{})">
+    <script th:src="@{/commondownload/js/commondownload.js}"></script>
+</head>
+
+<body th:replace="templates/template.html :: app_body(~{::div},#{DR0.WDR01111.Screen.Id} ,#{DR0.WDR01111.Screen.Desc})">
+    <div style="width:100%;" id="screenContent">
+        <div class="sixteen wide column row">
+            <div class="ui form raised segment" id="downloadSection" style="width: 100%;">
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>Report Name</label>
+                        <select class="ui mini fluid search selection dropdown" id="reportName">
+                            <option value="Select">Select</option>
+                            <option value="DR0311">PPR data</option>
+                            <option value="DR0312">V-pass data</option>
+                            <option value="DR0313">Logistics Gentan-i</option>
+                            <option value="DR0314">Platform Model</option>
+                            <option value="DR0315">Calculation Logic</option>
+                            <option value="DR0316">Company Code</option>
+                            <option value="DR0317">Historical Result</option>
+                        </select>
+                    </div>
+                </div>
+                <h3 class="ui dividing header"></h3>
+                <form style="width:100%;" id="pprForm">
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>Part Number</label>
+                            <div class="ui mini basic input">
+                                <input type="text" id="prrPartNumber" placeholder="Wild Card * any Position">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Part Name</label>
+                            <div class="ui mini basic input">
+                                <input type="text" id="prrPartName" placeholder="Wild Card * any Position">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>Exporter</label>
+                            <select class="ui mini fluid search selection dropdown" multiple="multiple" id="pprExporter">
+                                <option value="TMT">TMT</option>
+                                <option value="TMIN">TMIN</option>
+                                <option value="TKM">TKM</option>
+                            </select>
+                        </div>
+                        <div class="four wide field">
+                            <label>Importer</label>
+                            <select class="ui mini fluid search selection dropdown" multiple="multiple" id="pprImporter">
+                                <option value="TMT">TMT</option>
+                                <option value="TMIN">TMIN</option>
+                                <option value="TKM">TKM</option>
+                            </select>
+                        </div>
+                        <div class="four wide field">
+                            <label>Model</label>
+                            <select class="ui mini fluid search selection dropdown" multiple="multiple" id="pprModel">
+                                <option value="EFC">EFC</option>
+                                <option value="CH-R">CH-R</option>
+                                <option value="Corolla">Corolla</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>Project ID</label>
+                            <select class="ui mini search selection dropdown" multiple="multiple" id="historyProjectId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>Effective Date From</label>
+                            <div class="ui mini calendar" id="prrEffiveDateFromCal">
+                                <div class="ui active mini input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input id="prrEffiveDateFrom" type="text" placeholder="DD/MM/YYYY">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Effective Date To</label>
+                            <div class="ui mini calendar" id="prrEffiveDateToCal">
+                                <div class="ui active mini input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input id="prrEffiveDateTo" type="text" placeholder="DD/MM/YYYY">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="fields">
+                    <div class="two field">
+                        <div class="ui active mini button" id="WDR01111Download" data-auth="no"><i class="download icon"></i>Download</div>
+                        <div class="ui active mini button" id="WDR01111Clear" data-auth="no"><i class="brush icon"></i>Clear</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui clearing hidden divider"></div>
+        <div class="sixteen wide column row">
+            <h3 class="ui dividing header">Download Result</h3>
+            <div class="row" style="text-align: right;">
+                <div class="ui active mini button" id="WDR01111Refresh" data-auth="no"><i class="refresh icon"></i>Refresh</div>
+            </div>
+            <div class="ui clearing hidden divider"></div>
+            <table id="tableDownloadResult" class="ui celled striped unstackable table" style="width:100%;">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>Doc Id</th>
+                        <th>Process Name</th>
+                        <th>Submitted by</th>
+                        <th>Start Date Time</th>
+                        <th>End Date Time</th>
+                        <th>Status</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>D210700002</td>
+                        <td>V-pass data</td>
+                        <td>lceuser1</td>
+                        <td>25/03/2021 10:20</td>
+                        <td></td>
+                        <td>Processing</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>D210700001</td>
+                        <td>V-pass data</td>
+                        <td>lceuser1</td>
+                        <td>25/03/2021 10:20</td>
+                        <td>25/03/2021 10:30</td>
+                        <td>Error</td>
+                        <td>No Data Found</td>
+                    </tr>
+                    <tr>
+                        <td>D210700000</td>
+                        <td>PPR Data</td>
+                        <td>lceuser1</td>
+                        <td>25/03/2021 09:20</td>
+                        <td>25/03/2021 09:26</td>
+                        <td>Success</td>
+                        <td><a href="#">DR0311_20210325092631_R_1.zip</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

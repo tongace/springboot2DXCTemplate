@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommonService {
@@ -39,7 +41,13 @@ public class CommonService {
     }
     @Transactional(value = "mybastistx", readOnly = true)
     public List<Combo> getAutoCompleteCombo(String messageCode) {
-        return commonMapper.getAutoCompleteCombo(messageCode);
+        List<Combo> results = new ArrayList<Combo>(){{
+            add(new Combo("BANK01","BANK01"));
+            add(new Combo("BANK02","BANK02"));
+            add(new Combo("EAK01","EAK01"));
+            add(new Combo("EAK02","EAK02"));
+        }};
+        return results.stream().filter(combo -> combo.getValue().startsWith(messageCode)).collect(Collectors.toList());
     }
 
     @Transactional(value = "mybastistx", readOnly = true)
