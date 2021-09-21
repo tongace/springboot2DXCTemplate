@@ -12,17 +12,17 @@ import java.util.List;
 
 @Mapper
 public interface GIMMasterMapper {
-    public List<GimHeaderResultDTO> findGimHeader(GimHeaderSearchCriteria gimHeader);
+    List<GimHeaderResultDTO> findGimHeader(GimHeaderSearchCriteria gimHeader);
 
-    public int insertGimHeader(GimHeader criteria);
+    int insertGimHeader(GimHeader criteria);
 
-    public int updateGimHeader(GimHeader criteria);
+    int updateGimHeader(GimHeader criteria);
 
-    public List<SearchGimDetailResultDTO> findGimDetailByGimType(@Param("gimType") String gimType);
+    List<SearchGimDetailResultDTO> findGimDetailByGimType(@Param("gimType") String gimType);
 
-    public int saveGimDetail(GimDetail criteria);
+    int saveGimDetail(GimDetail criteria);
 
-    public int updateGimDetail(GimDetail criteria);
+    int updateGimDetail(GimDetail criteria);
 
-    public int deleteGimDetailByKeys(GimDetail criteria);
+    int deleteGimDetailByKeys(GimDetail criteria);
 }

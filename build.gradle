@@ -9,10 +9,9 @@ allprojects {
     //THIS IS WHAT YOU ARE ADDING
     project.ext {
         camelVersion = '3.11.0'
-        springFrameworkVersion = '5.3.9'
+        springFrameworkVersion = '5.3.10'
         springbootVersion = '2.5.4'
         thymeleafVersion = '3.0.12.RELEASE'
-        thymeleafLayoutDialectVersion = '2.5.3'
         lombokVersion = '1.18.20'
         junitJupiterVersion = '5.7.2'
         mybatisSpringbootVersion = '2.2.0'

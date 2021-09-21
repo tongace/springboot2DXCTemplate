@@ -4,6 +4,7 @@ import com.dxc.application.properties.AppDataSourceProperties;
 import com.dxc.application.properties.BfwJpaDataSourceProperties;
 import com.dxc.application.properties.JpaProperties;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,17 +20,11 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@RequiredArgsConstructor
 public class BFWJPADatabaseConfig {
-    private AppDataSourceProperties appDataSourceProperties;
-    private BfwJpaDataSourceProperties bfwDataSourceProperties;
-    private JpaProperties jpaProperties;
-
-    @Autowired
-    public BFWJPADatabaseConfig(AppDataSourceProperties appDataSourceProperties, BfwJpaDataSourceProperties bfwDataSourceProperties, JpaProperties jpaProperties) {
-        this.appDataSourceProperties = appDataSourceProperties;
-        this.bfwDataSourceProperties = bfwDataSourceProperties;
-        this.jpaProperties = jpaProperties;
-    }
+    private final AppDataSourceProperties appDataSourceProperties;
+    private final BfwJpaDataSourceProperties bfwDataSourceProperties;
+    private final JpaProperties jpaProperties;
 
     @Bean(name = "dataSource_bfw")
     public DataSource getBFWJPADataSource() {

@@ -3,6 +3,7 @@ package com.dxc.application.config.data.database;
 import com.dxc.application.properties.AppDataSourceProperties;
 import com.dxc.application.properties.JpaProperties;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,15 +21,11 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@RequiredArgsConstructor
 public class AppJPADatabaseConfig {
-    private AppDataSourceProperties appDataSourceProperties;
-    private JpaProperties jpaProperties;
+    private final AppDataSourceProperties appDataSourceProperties;
+    private final JpaProperties jpaProperties;
 
-    @Autowired
-    public AppJPADatabaseConfig(AppDataSourceProperties appDataSourceProperties, JpaProperties jpaProperties) {
-        this.appDataSourceProperties = appDataSourceProperties;
-        this.jpaProperties = jpaProperties;
-    }
 
     @Bean(name = "jpaDataSource")
     public DataSource getJPADataSource() {

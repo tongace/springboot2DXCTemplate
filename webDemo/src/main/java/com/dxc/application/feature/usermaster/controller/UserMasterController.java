@@ -10,6 +10,7 @@ import com.dxc.application.feature.usermaster.dto.SearchUserDTO;
 import com.dxc.application.feature.usermaster.dto.UpdateUserDTO;
 import com.dxc.application.feature.usermaster.dto.UserResultDTO;
 import com.dxc.application.feature.usermaster.service.UserMasterService;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -28,16 +29,12 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/usermaster")
 @Slf4j
+@RequiredArgsConstructor
 public class UserMasterController {
 
     private final UserMasterService userMasterService;
     private final ModelMapper modelMapper;
 
-    @Autowired
-    public UserMasterController(UserMasterService userMasterService, ModelMapper modelMapper) {
-        this.userMasterService = userMasterService;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping()
     public String initialHTML(Model model) {

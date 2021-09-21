@@ -2,6 +2,7 @@ package com.dxc.application.feature.common.controller;
 
 import com.dxc.application.feature.common.data.database.model.AttachedFile;
 import com.dxc.application.feature.common.service.CommonService;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,9 @@ import java.util.Date;
 @Slf4j
 @RestController
 @RequestMapping("/common")
+@RequiredArgsConstructor
 public class CommonController {
-    private CommonService commonService;
-
-    @Autowired
-    public CommonController(CommonService commonService) {
-        this.commonService = commonService;
-    }
+    private final CommonService commonService;
 
     @GetMapping("/dbservertime")
     @ResponseBody

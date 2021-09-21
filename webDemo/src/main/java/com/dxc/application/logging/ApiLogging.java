@@ -1,5 +1,6 @@
 package com.dxc.application.logging;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
@@ -16,17 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
 
 @ControllerAdvice
+@RequiredArgsConstructor
 public class ApiLogging extends RequestBodyAdviceAdapter implements ResponseBodyAdvice<Object> {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
     private final LogService logService;
-
-    @Autowired
-    public ApiLogging(HttpServletRequest request, HttpServletResponse response, LogService logService) {
-        this.request = request;
-        this.response = response;
-        this.logService = logService;
-    }
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) {

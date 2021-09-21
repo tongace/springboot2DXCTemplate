@@ -4,6 +4,7 @@ import com.dxc.application.constants.MessagesConstants;
 import com.dxc.application.exceptions.ApplicationException;
 import com.dxc.application.feature.common.dto.RestJsonData;
 import com.dxc.application.utils.MessageUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -17,13 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 @Slf4j
+@RequiredArgsConstructor
 public final class GlobalExceptionHandler {
-    private MessageSource messageSource;
-
-    @Autowired
-    public GlobalExceptionHandler(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
+    private final MessageSource messageSource;
 
     @ExceptionHandler({ApplicationException.class})
     @ResponseBody

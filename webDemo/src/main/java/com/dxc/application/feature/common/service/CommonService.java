@@ -4,6 +4,7 @@ import com.dxc.application.constants.AppConstants;
 import com.dxc.application.feature.common.data.database.CommonMapper;
 import com.dxc.application.feature.common.data.database.model.AttachedFile;
 import com.dxc.application.feature.common.data.database.model.Combo;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CommonService {
-    private CommonMapper commonMapper;
-
-    @Autowired
-    public CommonService(CommonMapper commonMapper) {
-        this.commonMapper = commonMapper;
-    }
+    private final CommonMapper commonMapper;
 
     @Transactional(value = "mybastistx", readOnly = true)
     public Date getDBServerTime() {

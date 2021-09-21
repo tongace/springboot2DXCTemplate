@@ -6,6 +6,7 @@ import com.dxc.application.feature.usermaster.data.database.UserMasterMapper;
 import com.dxc.application.feature.usermaster.data.database.model.User;
 import com.dxc.application.feature.usermaster.data.database.model.UserSearchCriteria;
 import com.dxc.application.feature.usermaster.dto.UserResultDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserMasterService {
 
     private final UserMasterMapper userMasterMapper;
     private final CommonService commonService;
-
-    @Autowired
-    UserMasterService(UserMasterMapper userMasterMapper, CommonService commonService) {
-        this.userMasterMapper = userMasterMapper;
-        this.commonService = commonService;
-    }
 
     @Transactional(value = "mybastistx", readOnly = true)
     public List<UserResultDTO> searchUser(UserSearchCriteria criteria) {

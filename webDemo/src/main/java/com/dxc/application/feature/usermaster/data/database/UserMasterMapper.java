@@ -12,14 +12,14 @@ import java.util.List;
 @Mapper
 public interface UserMasterMapper {
 
-    public UserResultDTO findUserPrimaryKey(@Param("citizenId") String citizenId);
+    UserResultDTO findUserPrimaryKey(@Param("citizenId") String citizenId);
 
-    public List<UserResultDTO> findUser(UserSearchCriteria user);
+    List<UserResultDTO> findUser(UserSearchCriteria user);
 
-    public int insertUser(User user);
+    int insertUser(User user);
 
-    public int updateUser(User user);
+    int updateUser(User user);
 
-    public int deleteUser(User user);
+    int deleteUser(User user);
 
 }

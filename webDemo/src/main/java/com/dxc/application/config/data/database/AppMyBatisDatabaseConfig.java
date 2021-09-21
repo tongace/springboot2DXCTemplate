@@ -2,6 +2,7 @@ package com.dxc.application.config.data.database;
 
 import com.dxc.application.properties.AppDataSourceProperties;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
+@RequiredArgsConstructor
 public class AppMyBatisDatabaseConfig {
-    private AppDataSourceProperties appDataSourceProperties;
-
-    @Autowired
-    public AppMyBatisDatabaseConfig(AppDataSourceProperties appDataSourceProperties) {
-        this.appDataSourceProperties = appDataSourceProperties;
-    }
+    private final AppDataSourceProperties appDataSourceProperties;
 
     @Bean(name = "myBatisDataSource")
     @Primary

@@ -24,11 +24,8 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
     private ThymeleafProperties properties;
     @Autowired
     private SpringTemplateEngine templateEngine;
-    @Autowired
-    private GlobalExceptionHandler globalExceptionHandler;
 
     private ApplicationContext applicationContext;
-
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {

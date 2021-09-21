@@ -1,5 +1,6 @@
 package com.dxc.application.config;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,10 @@ import th.co.toyota.st3.api.util.CST32010DocNoGenerator;
 
 @Configuration
 @PropertySource({"classpath:demo-application.properties"})
+@RequiredArgsConstructor
 public class ToyotaStandardConfig {
 
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
     @Value("${jr.template.folder}")
     private String jrTemplateFolder;
     @Value("${jr.destination.folder}")
@@ -35,10 +37,6 @@ public class ToyotaStandardConfig {
     @Value("${report.dateformat}")
     private String reportDateformat;
 
-    @Autowired
-    public ToyotaStandardConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
 
     @Bean
     public CamelContext camelContext() {

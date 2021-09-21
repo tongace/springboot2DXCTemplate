@@ -7,6 +7,7 @@ import com.dxc.application.feature.gimmaster.data.database.model.GimHeaderSearch
 import com.dxc.application.feature.gimmaster.dto.DeleteGimDetailDTO;
 import com.dxc.application.feature.gimmaster.dto.GimHeaderResultDTO;
 import com.dxc.application.feature.gimmaster.dto.SearchGimDetailResultDTO;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class GimMasterService {
 
     private final GIMMasterMapper gimHeaderMapper;
     private final ModelMapper modelMapper;
 
-    @Autowired
-    GimMasterService(GIMMasterMapper gimHeaderMapper,ModelMapper modelMapper) {
-        this.gimHeaderMapper = gimHeaderMapper;
-        this.modelMapper = modelMapper;
-    }
 
     @Transactional(value = "mybastistx", readOnly = true)
     public List<GimHeaderResultDTO> searchGimHeader(GimHeaderSearchCriteria criteria) {

@@ -8,6 +8,7 @@ import com.dxc.application.feature.gimmaster.data.database.model.GimHeader;
 import com.dxc.application.feature.gimmaster.data.database.model.GimHeaderSearchCriteria;
 import com.dxc.application.feature.gimmaster.dto.*;
 import com.dxc.application.feature.gimmaster.service.GimMasterService;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -24,16 +25,11 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/gimmaster")
+@RequiredArgsConstructor
 public class GIMMasterController {
 
     private final GimMasterService gimService;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public GIMMasterController(GimMasterService gimService, ModelMapper modelMapper) {
-        this.gimService = gimService;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping()
     public String initialHTML(Model model) {

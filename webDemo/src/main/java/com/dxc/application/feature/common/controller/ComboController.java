@@ -3,6 +3,7 @@ package com.dxc.application.feature.common.controller;
 import com.dxc.application.feature.common.data.database.model.Combo;
 import com.dxc.application.feature.common.dto.RestJsonData;
 import com.dxc.application.feature.common.service.CommonService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,13 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/combo")
+@RequiredArgsConstructor
 public class ComboController {
-    private CommonService commonService;
-
-    @Autowired
-    public ComboController(CommonService commonService) {
-        this.commonService = commonService;
-    }
+    private final CommonService commonService;
 
     @GetMapping(value = "/gimtypecombo", produces = MediaType.APPLICATION_JSON_VALUE)
     public RestJsonData<List<Combo>> getGimTypeCombo() {
