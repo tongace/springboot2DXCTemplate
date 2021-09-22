@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="templates/template.html :: app_header(~{::script},~{},~{})">
+    <script th:src="@{/calculation/js/calculation.js}"></script>
+</head>
+
+<body th:replace="templates/template.html :: app_body(~{::div},#{DR0.WDR01131.Screen.Id} ,#{DR0.WDR01131.Screen.Desc})">
+    <div id="screenContent" style="width:100%;">
+        <div id="initialSection" style="width:100%;display: none;">
+            <div class="sixteen wide column row" style="text-align: right;width: 50%;">
+                <div class="ui active mini button" id="WDR01131Continue" data-auth="no"><i class="play circle icon"></i>Continue</div>
+                <div class="ui active mini button" id="WDR01131AddNewProject" data-auth="no"><i class="add icon"></i>Add new project</div>
+            </div>
+            <div class="ui clearing hidden divider"></div>
+            <div class="sixteen wide column row" style="width: 50%;">
+                <table id="pendingProjectTable" class="ui celled striped unstackable table" style="width:100%;">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th></th>
+                            <th>Project ID</th>
+                            <th>Updated Date</th>
+                            <th>Pending Step</th>
+                            <th>Records in-process</th>
+                            <th>Locked by</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="text-align: center;">
+                            <td><input type="checkbox" name="checkItem"></td>
+                            <td>Aek01</td>
+                            <td>03/05/2021 12:00:00</td>
+                            <td>20</td>
+                            <td>10</td>
+                            <td></td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td><input type="checkbox" name="checkItem"></td>
+                            <td>LAD01</td>
+                            <td>03/05/2021 12:00:00</td>
+                            <td>31</td>
+                            <td>10</td>
+                            <td></td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td></td>
+                            <td>Chair01</td>
+                            <td>01/05/2021 14:00:00</td>
+                            <td>20</td>
+                            <td>5</td>
+                            <td>ntakaeng</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td><input type="checkbox" name="checkItem"></td>
+                            <td>Kor01</td>
+                            <td>29/03/2021 17:00:00</td>
+                            <td>40</td>
+                            <td>0</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="width:100%;" id="calculationSection">
+            <div class="sixteen wide column row" style="text-align: right;width: 50%;">
+                <div class="ui active mini button" id="WDR01131Continue" data-auth="no"><i class="step backward icon"></i>Save & Close</div>
+            </div>
+            <div class="ui clearing hidden divider"></div>
+            <div class="sixteen wide column row" style="width: 50%;">
+                <h3 class="ui dividing header">Selected Project ID</h3>
+                <table id="calPendingProjectTable" class="ui celled striped unstackable table" style="width:100%;">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>Project ID</th>
+                            <th>Updated Date</th>
+                            <th>Pending Step</th>
+                            <th>Records in-process</th>
+                            <th>Locked by</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="text-align: center;">
+                            <td>Aek01</td>
+                            <td>25/03/2021 10:30:01</td>
+                            <td>32</td>
+                            <td>4</td>
+                            <td>lceuser3</td>
+                        </tr>
+                        <!-- <tr style="text-align: center;">
+                            <td>LAD01</td>
+                            <td>25/03/2021 09:00:06</td>
+                            <td>40</td>
+                            <td>0</td>
+                            <td>lceuser3</td>
+                        </tr> -->
+                        <!-- <tr style="text-align: center;">
+                            <td>Chair01</td>
+                            <td>25/03/2021 09:00:06</td>
+                            <td>20</td>
+                            <td>5</td>
+                            <td>lceuser3</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td>Kor01</td>
+                            <td>25/03/2021 09:00:06</td>
+                            <td>20</td>
+                            <td>7</td>
+                            <td>lceuser3</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui clearing hidden divider"></div>
+            <form class="ui form raised segment" id="calculateForm" style="width: 100%;">
+                <h3 class="ui dividing header">Step 1: Upload Request Data</h3>
+                <div class="fields" id="requestFormSection">
+                    <div class="ten inline field">
+                        <label>Attach File: </label>
+                        <div class="ui basic input">
+                            <input type="file" id="uploadRequestForm">
+                        </div>
+                        <div class="ui active mini button" id="WDR01131UploadRequestForm" data-auth="no"><i class="upload icon"></i>Upload</div>
+                        <div class="ui active mini button" id="WDR01131DownloadRequestFormPattern" data-auth="no"><i class="download icon"></i>Download Pattern</div>
+                    </div>
+                </div>
+                <h3 class="ui dividing header">Step 2: Simulation</h3>
+                <div class="fields" id="step20Section">
+                    <div class="ten inline field">
+                        <div class="ui active mini button" id="WDR01131Proceed" data-auth="no"><i class="microchip  icon"></i>Proceed</div>
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="referHistory">
+                            <label>Refer to historical result as 1st priority</label>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="ui dividing header">Step3: Maintain error records</h3>
+                <div id="step30Section">
+                    <div class="fields" id="step31Section">
+                        <div class="ten inline field">
+                            <label>Upload Drawing (optional): </label>
+                            <div class="ui basic input">
+                                <input type="file" id="uploadDrawing">
+                            </div>
+                            <div class="ui active mini button" id="WDR01131UploadDrawing" data-auth="no"><i class="upload icon"></i>Upload & Proceed</div>
+                        </div>
+                    </div>
+                    <div class="fields" id="step32Section">
+                        <div class="ten inline field">
+                            <label>Reflect Packing Cost Average (optional): </label>
+                            <div class="ui basic input">
+                                <input type="file" id="uploadReflectPackingCost">
+                            </div>
+                            <div class="ui active mini button" id="WDR01131UploadReflectPackingCost" data-auth="no"><i class="upload icon"></i>Upload & Proceed</div>
+                        </div>
+                    </div>
+                    <div class="fields" id="step33Section">
+                        <div class="ten inline field">
+                            <label>Reflect Logistics Gentan-i (optional): </label>
+                            <div class="ui active mini button" id="WDR01131ReflectTransportCost" data-auth="no"><i class="refresh icon"></i>Reflect</div>
+                        </div>
+                    </div>
+                    <div class="fields" id="step34Section">
+                        <div class="ten inline field">
+                            <label>Upload Analysis (optional): </label>
+                            <div class="ui basic input">
+                                <input type="file" id="uploadAnalysis">
+                            </div>
+                            <div class="ui active mini button" id="WDR01131UploadAnalysis" data-auth="no"><i class="upload icon"></i>Upload</div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="ui dividing header">Step4 : Apply result</h3>
+                <div class="fields" id="step40Section">
+                    <div class="ten inline field">
+                        <div class="ui active mini button" id="WDR01131Apply" data-auth="no"><i class="memory icon"></i>Apply</div>
+                        <div class="ui active mini button" id="WDR01131IgnoreSimulation" data-auth="no"><i class="cut icon"></i>Ignore Simulation</div>
+                    </div>
+                </div>
+            </form>
+            <div class="ui clearing hidden divider"></div>
+            <div class="sixteen wide column row">
+                <h3 class="ui dividing header">Download Verification, Result and Analysis File</h3>
+                <div class="row" style="text-align: right;">
+                    <div class="ui active mini button" id="WDR01131Refresh" data-auth="no"><i class="refresh icon"></i>Refresh</div>
+                </div>
+                <div class="ui clearing hidden divider"></div>
+                <table id="tableVerificationAndResult" class="ui celled striped unstackable table" style="width:100%;">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>Batch Id</th>
+                            <th>Project Id</th>
+                            <th>Process Name</th>
+                            <th>Submitted by</th>
+                            <th>Start Date Time</th>
+                            <th>End Date Time</th>
+                            <th>Status</th>
+                            <th>Incomplete (Records)</th>
+                            <th>Download Verification / Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="color: red;">
+                            <td style="text-align: right;">5</td>
+                            <td>Aek01</td>
+                            <td>Process Calculation</td>
+                            <td>lceuser3</td>
+                            <td>25/03/2021 10:14:14</td>
+                            <td>25/03/2021 10:30:01</td>
+                            <td>Error</td>
+                            <td style="text-align: right;">4</td>
+                            <td><a href="#" style="color: red;">Simulation_result_25032021_103001.xlsx</a></td>
+                        </tr>
+                        <tr style="color: blue;">
+                            <td style="text-align: right;">5</td>
+                            <td></td>
+                            <td>Upload Drawing</td>
+                            <td>lceuser3</td>
+                            <td>25/03/2021 10:13:01</td>
+                            <td>25/03/2021 10:14:01</td>
+                            <td>Success</td>
+                            <td style="text-align: right;"></td>
+                            <td><a href="#" style="color: blue;"></a></td>
+                        </tr>
+                        <tr style="color: red;">
+                            <td style="text-align: right;">4</td>
+                            <td></td>
+                            <td>Upload Drawing</td>
+                            <td>lceuser3</td>
+                            <td>25/03/2021 10:10:01</td>
+                            <td>25/03/2021 10:12:01</td>
+                            <td>Error</td>
+                            <td style="text-align: right;">2</td>
+                            <td><a href="#" style="color: red;">Upload Drawing_result_25032021_101201.xlsx</a></td>
+                        </tr>
+                        <tr style="color: red;">
+                            <td style="text-align: right;">3</td>
+                            <td>Aek01</td>
+                            <td>Process Calculation</td>
+                            <td>lceuser3</td>
+                            <td>25/03/2021 09:10:01</td>
+                            <td>25/03/2021 09:30:01</td>
+                            <td>Error</td>
+                            <td style="text-align: right;">5</td>
+                            <td><a href="#" style="color: red;">Simulation_result_25032021_093001.xlsx</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
