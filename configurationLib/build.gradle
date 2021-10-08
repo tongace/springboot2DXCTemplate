@@ -14,14 +14,14 @@ version = '1.0.0'
 sourceCompatibility = '1.8'
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot:'+project.ext.springbootVersion
+	implementation 'org.springframework.boot:spring-boot:2.5.5'
 
-	compileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	annotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-	testCompileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	testAnnotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	testImplementation 'org.junit.jupiter:junit-jupiter:'+project.ext.junitJupiterVersion
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 }
 
 processResources {

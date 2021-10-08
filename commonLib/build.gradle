@@ -11,11 +11,11 @@ sourceCompatibility = '1.8'
 
 
 dependencies {
-	implementation 'org.springframework:spring-core:'+project.ext.springFrameworkVersion
-	implementation 'org.springframework:spring-context:'+project.ext.springFrameworkVersion
-	implementation 'org.springframework:spring-beans:'+project.ext.springFrameworkVersion
-	implementation 'org.springframework:spring-test:'+project.ext.springFrameworkVersion
-	implementation 'org.springframework:spring-tx:'+project.ext.springFrameworkVersion
+	implementation 'org.springframework:spring-core:5.3.10'
+	implementation 'org.springframework:spring-context:5.3.10'
+	implementation 'org.springframework:spring-beans:5.3.10'
+	implementation 'org.springframework:spring-test:5.3.10'
+	implementation 'org.springframework:spring-tx:5.3.10'
 
 	implementation 'commons-fileupload:commons-fileupload:1.4'
 	implementation 'com.zaxxer:HikariCP:4.0.3'
@@ -23,7 +23,6 @@ dependencies {
 	implementation 'net.sf.jasperreports:jasperreports:6.0.3'
 	implementation 'org.apache.poi:poi:5.0.0'
 	implementation 'org.apache.poi:poi-ooxml:5.0.0'
-	implementation 'org.apache.poi:poi-ooxml-schemas:4.1.2'
 	implementation 'org.mybatis:mybatis:3.5.7'
 	implementation 'org.mybatis:mybatis-spring:2.0.6'
 
@@ -32,12 +31,12 @@ dependencies {
 
 	runtimeOnly 'mysql:mysql-connector-java:8.0.26'
 
-	compileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	annotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-	testCompileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	testAnnotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	testImplementation 'org.junit.jupiter:junit-jupiter:'+project.ext.junitJupiterVersion
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 }
 
 test {

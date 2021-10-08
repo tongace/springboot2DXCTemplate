@@ -5,7 +5,12 @@ $(document).ready(async function () {
     $('#reportName').dropdown({
         forceSelection: false
     });
-    $("#tableDownloadResult").DataTable({});
+    $("#tableDownloadResult").DataTable({
+        "order": [
+            [3, "desc"],
+            [4, "desc"]
+        ]
+    });
     $('#pprExporter').dropdown({
         forceSelection: false
     });
@@ -29,7 +34,9 @@ $(document).ready(async function () {
         },
         maxDate: moment().startOf('day').toDate(),
         today: true,
-        monthFirst: false
+        monthFirst: false,
+        endCalendar: $('#prrEffiveDateToCal'),
+        closable: false
     });
     $('#prrEffiveDateToCal').calendar({
         type: 'date',
@@ -45,8 +52,13 @@ $(document).ready(async function () {
         },
         maxDate: moment().startOf('day').toDate(),
         today: true,
-        monthFirst: false
+        monthFirst: false,
+        startCalendar: $('#prrEffiveDateFromCal'),
+        closable: false
     });
+    $('#prrEffiveDateToCal').calendar('set date', moment().startOf('day').toDate(), true, true);
+    $('#prrEffiveDateFromCal').calendar('set date', moment().subtract(1, 'years').toDate(), true, true);
+
     $('#historyProjectId').dropdown({
         preserveHTML: false,
         apiSettings: {

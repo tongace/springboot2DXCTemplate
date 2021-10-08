@@ -7,13 +7,11 @@ allprojects {
         }
     }
     //THIS IS WHAT YOU ARE ADDING
-    project.ext {
-        camelVersion = '3.11.0'
-        springFrameworkVersion = '5.3.10'
-        springbootVersion = '2.5.4'
-        thymeleafVersion = '3.0.12.RELEASE'
-        lombokVersion = '1.18.20'
-        junitJupiterVersion = '5.7.2'
-        mybatisSpringbootVersion = '2.2.0'
-    }
+//    project.ext.set("camelVersion", '3.11.0')
+//    project.ext.set("springFrameworkVersion", '5.3.10')
+//    project.ext.set("springbootVersion", '2.5.5')
+//    project.ext.set("thymeleafVersion", '3.0.12.RELEASE')
+//    project.ext.set("lombokVersion", '1.18.20')
+//    project.ext.set("junitJupiterVersion", '5.7.2')
+//    project.ext.set("mybatisSpringbootVersion", '2.2.0')
 }

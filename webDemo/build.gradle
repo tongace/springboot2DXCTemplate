@@ -1,7 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-	id 'org.springframework.boot' version '2.5.4'
+	id 'org.springframework.boot' version '2.5.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
@@ -48,14 +48,14 @@ processResources {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator:'+project.ext.springbootVersion
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:'+project.ext.springbootVersion
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:'+project.ext.springbootVersion
-	implementation 'org.springframework.boot:spring-boot-starter-web:'+project.ext.springbootVersion
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:'+project.ext.mybatisSpringbootVersion
+	implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 
-	implementation 'org.springframework:spring-oxm:'+project.ext.springFrameworkVersion
-	implementation 'org.springframework:spring-orm:'+project.ext.springFrameworkVersion
+	implementation 'org.springframework:spring-oxm:5.3.10'
+	implementation 'org.springframework:spring-orm:5.3.10'
 
 	implementation 'org.hibernate:hibernate-core:5.5.5.Final'
 	implementation 'org.hibernate:hibernate-entitymanager:5.5.5.Final'
@@ -74,17 +74,17 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.10'
 
 	implementation 'tdem-standard:st3-api:1.1.12-RELEASE'
-    implementation 'junit:junit:4.13.1'
+    implementation 'junit:junit:4.13.2'
 
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:'+project.ext.springbootVersion
-	compileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	annotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.5.5'
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:'+project.ext.springbootVersion
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.5.5'
 
-	testCompileOnly 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	testAnnotationProcessor 'org.projectlombok:lombok:'+ project.ext.lombokVersion
-	testImplementation 'org.springframework.boot:spring-boot-starter-test:'+project.ext.springbootVersion
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
 	testImplementation 'org.apache.httpcomponents:httpclient:4.5.13'
 	testImplementation 'commons-io:commons-io:2.11.0'
 	implementation project(':configurationLib')

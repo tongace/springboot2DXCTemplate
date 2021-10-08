@@ -24,9 +24,9 @@
                         </select>
                     </div>
                 </div>
-                <h3 class="ui dividing header"></h3>
+                <h3 class="ui dividing header">Search Criteria : Mandatory (*) must be filled by user</h3>
                 <form style="width:100%;" id="pprForm">
-                    <!-- <div class="fields">
+                    <div class="fields">
                         <div class="four wide field">
                             <label>Part Number</label>
                             <div class="ui mini basic input">
@@ -39,24 +39,24 @@
                                 <input type="text" id="prrPartName" placeholder="Wild Card * any Position">
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="fields">
-                        <!-- <div class="four wide field">
+                        <div class="four wide field">
                             <label>Exporter</label>
                             <select class="ui mini fluid search selection dropdown" multiple="multiple" id="pprExporter">
                                 <option value="TMT">TMT</option>
                                 <option value="TMIN">TMIN</option>
                                 <option value="TKM">TKM</option>
                             </select>
-                        </div> -->
-                        <!-- <div class="four wide field">
+                        </div>
+                        <div class="four wide field">
                             <label>Importer</label>
                             <select class="ui mini fluid search selection dropdown" multiple="multiple" id="pprImporter">
                                 <option value="TMT">TMT</option>
                                 <option value="TMIN">TMIN</option>
                                 <option value="TKM">TKM</option>
                             </select>
-                        </div> -->
+                        </div>
                         <div class="four wide field">
                             <label>Model</label>
                             <select class="ui mini fluid search selection dropdown" multiple="multiple" id="pprModel">
@@ -66,29 +66,39 @@
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="fields">
+                    <div class="fields">
                         <div class="four wide field">
                             <label>Project ID</label>
                             <select class="ui mini search selection dropdown" multiple="multiple" id="historyProjectId">
                             </select>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="fields">
                         <div class="four wide field">
                             <label>Effective Date From</label>
                             <div class="ui mini calendar" id="prrEffiveDateFromCal">
-                                <div class="ui active mini input left icon">
-                                    <i class="calendar icon"></i>
+                                <div class="ui active mini labeled input">
+                                    <div class="ui left label">
+                                        <i class="calendar icon"></i>
+                                    </div>
                                     <input id="prrEffiveDateFrom" type="text" placeholder="DD/MM/YYYY">
+                                    <div class="ui right corner red label">
+                                        <i class="asterisk icon"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="four wide field">
                             <label>Effective Date To</label>
                             <div class="ui mini calendar" id="prrEffiveDateToCal">
-                                <div class="ui active mini input left icon">
-                                    <i class="calendar icon"></i>
+                                <div class="ui active mini labeled input">
+                                    <div class="ui left label">
+                                        <i class="calendar icon"></i>
+                                    </div>
                                     <input id="prrEffiveDateTo" type="text" placeholder="DD/MM/YYYY">
+                                    <div class="ui right corner red label">
+                                        <i class="asterisk icon"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -139,6 +149,15 @@
                         <td>25/03/2021 10:30</td>
                         <td>Error</td>
                         <td>No Data Found</td>
+                    </tr>
+                    <tr style="color: red;">
+                        <td>D210700003</td>
+                        <td>V-pass data</td>
+                        <td>lceuser1</td>
+                        <td>25/03/2021 10:10</td>
+                        <td>25/03/2021 10:05</td>
+                        <td>Error</td>
+                        <td><a href="#" style="color: red;">System Error, please see Excel Download Monitoring screen.</a></td>
                     </tr>
                     <tr style="color: blue;">
                         <td>D210700000</td>
